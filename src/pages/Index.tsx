@@ -14,7 +14,7 @@ const Index = () => {
   const courses = [
     {
       id: 1,
-      title: "Sales Fundamentals",
+      title: "Sales Onboarding",
       description: "Learn the core principles of our sales methodology",
       department: "sales",
       progress: 0,
