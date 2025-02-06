@@ -28,31 +28,33 @@ const CourseCard = ({
 }: CourseCardProps) => {
   return (
     <Card className="hover:shadow-lg transition-shadow">
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+      <CardHeader className="space-y-3">
+        <CardTitle className="text-2xl">{title}</CardTitle>
+        <CardDescription className="text-base leading-relaxed">
+          {description}
+        </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="space-y-2">
+        <div className="space-y-6">
           {modules.length > 0 && (
-            <div className="text-sm text-muted-foreground mb-4">
-              <p className="font-medium mb-2">Key Modules:</p>
-              <ul className="list-disc pl-4">
+            <div className="text-sm text-muted-foreground">
+              <p className="font-medium text-base mb-4">Key Modules:</p>
+              <ul className="list-disc pl-6 space-y-3">
                 {modules.map((module, index) => (
                   <li
                     key={index}
                     onClick={() => onModuleClick(module)}
-                    className={`flex items-center gap-2 ${
+                    className={`flex items-center gap-3 leading-relaxed ${
                       typeof module !== "string" ? "cursor-pointer hover:text-primary" : ""
                     }`}
                   >
                     {typeof module === "string" ? (
-                      module
+                      <span className="text-base">{module}</span>
                     ) : (
                       <>
-                        {module.title}
+                        <span className="text-base">{module.title}</span>
                         {isModuleCompleted(module.title) && (
-                          <CheckCircle className="h-4 w-4 text-green-500" />
+                          <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
                         )}
                       </>
                     )}
@@ -61,11 +63,13 @@ const CourseCard = ({
               </ul>
             </div>
           )}
-          <div className="flex justify-between text-sm">
-            <span>Progress</span>
-            <span>{progress}%</span>
+          <div className="pt-4 border-t">
+            <div className="flex justify-between text-sm mb-2">
+              <span className="font-medium">Progress</span>
+              <span>{progress}%</span>
+            </div>
+            <Progress value={progress} className="bg-gray-200" />
           </div>
-          <Progress value={progress} className="bg-gray-200" />
         </div>
       </CardContent>
     </Card>
