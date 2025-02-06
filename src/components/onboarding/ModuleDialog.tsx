@@ -22,20 +22,42 @@ const ModuleDialog = ({
   onComplete,
   isCompleted,
 }: ModuleDialogProps) => {
+  const formatContent = (content: string) => {
+    return content.split('\n\n').map((paragraph, index) => (
+      <div key={index} className="mb-6 last:mb-0">
+        {paragraph.split('\n').map((line, lineIndex) => {
+          // Check if the line is a bullet point
+          if (line.startsWith('•')) {
+            return (
+              <li key={lineIndex} className="ml-6 mb-2 list-disc">
+                {line.substring(1).trim()}
+              </li>
+            );
+          }
+          return (
+            <p key={lineIndex} className={lineIndex === 0 ? "font-medium mb-3" : "mb-2"}>
+              {line}
+            </p>
+          );
+        })}
+      </div>
+    ));
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-semibold leading-relaxed">
             {selectedModule?.title}
           </DialogTitle>
         </DialogHeader>
-        <div className="mt-6 space-y-4">
-          <p className="text-base text-muted-foreground leading-relaxed">
-            {selectedModule?.content}
-          </p>
+        <div className="mt-8 space-y-6">
+          <div className="text-base text-muted-foreground leading-relaxed">
+            {selectedModule?.content && formatContent(selectedModule.content)}
+          </div>
         </div>
-        <div className="mt-8 flex justify-end">
+        <div className="mt-8 flex justify-end pt-6 border-t">
           <Button 
             onClick={onComplete} 
             disabled={isCompleted}
