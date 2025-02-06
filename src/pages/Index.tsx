@@ -2,10 +2,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { CheckCircle } from "lucide-react";
 import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 const Index = () => {
   const [selectedModule, setSelectedModule] = useState<{title: string; content: string} | null>(null);
+  const [completedModules, setCompletedModules] = useState<{[key: string]: boolean}>({});
+  const { toast } = useToast();
 
   const departments = [
     { id: "sales", name: "Sales" },
@@ -146,6 +151,32 @@ const Index = () => {
     setSelectedModule(module);
   };
 
+  const handleCompleteModule = (moduleTitle: string, courseId: number) => {
+    setCompletedModules(prev => ({ ...prev, [moduleTitle]: true }));
+    
+    // Calculate new progress
+    const course = courses.find(c => c.id === courseId);
+    if (course && course.modules) {
+      const totalModules = course.modules.length;
+      const completedCount = course.modules.filter(module => 
+        completedModules[typeof module === 'string' ? module : module.title]
+      ).length + 1; // +1 for the current completion
+      
+      course.progress = Math.round((completedCount / totalModules) * 100);
+    }
+
+    toast({
+      title: "Module Completed!",
+      description: `You've completed the ${moduleTitle} module.`,
+    });
+    
+    setSelectedModule(null);
+  };
+
+  const isModuleCompleted = (moduleTitle: string) => {
+    return completedModules[moduleTitle] || false;
+  };
+
   return (
     <div className="container mx-auto py-8">
       <div className="mb-8">
@@ -162,6 +193,14 @@ const Index = () => {
           </DialogHeader>
           <div className="mt-4">
             <p className="text-muted-foreground">{selectedModule?.content}</p>
+          </div>
+          <div className="mt-6 flex justify-end">
+            <Button 
+              onClick={() => selectedModule && handleCompleteModule(selectedModule.title, 1)}
+              disabled={selectedModule ? isModuleCompleted(selectedModule.title) : false}
+            >
+              {selectedModule && isModuleCompleted(selectedModule.title) ? 'Completed' : 'Mark as Complete'}
+            </Button>
           </div>
         </DialogContent>
       </Dialog>
@@ -194,9 +233,16 @@ const Index = () => {
                             <li 
                               key={index}
                               onClick={() => handleModuleClick(module)}
-                              className={typeof module !== 'string' ? "cursor-pointer hover:text-primary" : ""}
+                              className={`flex items-center gap-2 ${typeof module !== 'string' ? "cursor-pointer hover:text-primary" : ""}`}
                             >
-                              {typeof module === 'string' ? module : module.title}
+                              {typeof module === 'string' ? module : (
+                                <>
+                                  {module.title}
+                                  {isModuleCompleted(module.title) && (
+                                    <CheckCircle className="h-4 w-4 text-green-500" />
+                                  )}
+                                </>
+                              )}
                             </li>
                           ))}
                         </ul>
@@ -206,7 +252,7 @@ const Index = () => {
                       <span>Progress</span>
                       <span>{course.progress}%</span>
                     </div>
-                    <Progress value={course.progress} />
+                    <Progress value={course.progress} className="bg-gray-200" />
                   </div>
                 </CardContent>
               </Card>
@@ -235,9 +281,16 @@ const Index = () => {
                                 <li 
                                   key={index}
                                   onClick={() => handleModuleClick(module)}
-                                  className={typeof module !== 'string' ? "cursor-pointer hover:text-primary" : ""}
+                                  className={`flex items-center gap-2 ${typeof module !== 'string' ? "cursor-pointer hover:text-primary" : ""}`}
                                 >
-                                  {typeof module === 'string' ? module : module.title}
+                                  {typeof module === 'string' ? module : (
+                                    <>
+                                      {module.title}
+                                      {isModuleCompleted(module.title) && (
+                                        <CheckCircle className="h-4 w-4 text-green-500" />
+                                      )}
+                                    </>
+                                  )}
                                 </li>
                               ))}
                             </ul>
@@ -247,7 +300,7 @@ const Index = () => {
                           <span>Progress</span>
                           <span>{course.progress}%</span>
                         </div>
-                        <Progress value={course.progress} />
+                        <Progress value={course.progress} className="bg-gray-200" />
                       </div>
                     </CardContent>
                   </Card>
