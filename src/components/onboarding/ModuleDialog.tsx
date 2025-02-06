@@ -26,13 +26,22 @@ const ModuleDialog = ({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>{selectedModule?.title}</DialogTitle>
+          <DialogTitle className="text-2xl font-semibold leading-relaxed">
+            {selectedModule?.title}
+          </DialogTitle>
         </DialogHeader>
-        <div className="mt-4">
-          <p className="text-muted-foreground">{selectedModule?.content}</p>
+        <div className="mt-6 space-y-4">
+          <p className="text-base text-muted-foreground leading-relaxed">
+            {selectedModule?.content}
+          </p>
         </div>
-        <div className="mt-6 flex justify-end">
-          <Button onClick={onComplete} disabled={isCompleted}>
+        <div className="mt-8 flex justify-end">
+          <Button 
+            onClick={onComplete} 
+            disabled={isCompleted}
+            size="lg"
+            className="px-6"
+          >
             {isCompleted ? "Completed" : "Mark as Complete"}
           </Button>
         </div>
