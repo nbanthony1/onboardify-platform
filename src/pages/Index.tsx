@@ -1,8 +1,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useState } from "react";
 
 const Index = () => {
+  const [selectedModule, setSelectedModule] = useState<{title: string; content: string} | null>(null);
+
   const departments = [
     { id: "sales", name: "Sales" },
     { id: "operations", name: "Operations" },
@@ -137,6 +141,11 @@ const Index = () => {
     },
   ];
 
+  const handleModuleClick = (module: string | { title: string; content: string }) => {
+    if (typeof module === 'string') return;
+    setSelectedModule(module);
+  };
+
   return (
     <div className="container mx-auto py-8">
       <div className="mb-8">
@@ -145,6 +154,17 @@ const Index = () => {
           Welcome! Start your learning journey with our curated courses.
         </p>
       </div>
+
+      <Dialog open={!!selectedModule} onOpenChange={() => setSelectedModule(null)}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>{selectedModule?.title}</DialogTitle>
+          </DialogHeader>
+          <div className="mt-4">
+            <p className="text-muted-foreground">{selectedModule?.content}</p>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <Tabs defaultValue="all" className="space-y-6">
         <TabsList>
@@ -171,7 +191,13 @@ const Index = () => {
                         <p className="font-medium mb-2">Key Modules:</p>
                         <ul className="list-disc pl-4">
                           {course.modules.map((module, index) => (
-                            <li key={index}>{typeof module === 'string' ? module : module.title}</li>
+                            <li 
+                              key={index}
+                              onClick={() => handleModuleClick(module)}
+                              className={typeof module !== 'string' ? "cursor-pointer hover:text-primary" : ""}
+                            >
+                              {typeof module === 'string' ? module : module.title}
+                            </li>
                           ))}
                         </ul>
                       </div>
@@ -206,7 +232,13 @@ const Index = () => {
                             <p className="font-medium mb-2">Key Modules:</p>
                             <ul className="list-disc pl-4">
                               {course.modules.map((module, index) => (
-                                <li key={index}>{typeof module === 'string' ? module : module.title}</li>
+                                <li 
+                                  key={index}
+                                  onClick={() => handleModuleClick(module)}
+                                  className={typeof module !== 'string' ? "cursor-pointer hover:text-primary" : ""}
+                                >
+                                  {typeof module === 'string' ? module : module.title}
+                                </li>
                               ))}
                             </ul>
                           </div>
