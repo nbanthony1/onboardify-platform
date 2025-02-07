@@ -1,11 +1,6 @@
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UserRound } from "lucide-react";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
 
 interface EmployeeAvatarProps {
   name?: string;
@@ -27,33 +22,26 @@ const EmployeeAvatar = ({
     .toUpperCase();
 
   return (
-    <HoverCard>
-      <HoverCardTrigger asChild>
-        <div className="cursor-pointer">
-          <Avatar className="h-10 w-10">
-            <AvatarFallback className="bg-primary text-primary-foreground">
-              {initials}
-            </AvatarFallback>
-          </Avatar>
+    <div className="flex items-start gap-4">
+      <div className="text-right">
+        <h4 className="text-sm font-semibold">{name}</h4>
+        <div className="flex items-center gap-2 justify-end">
+          <p className="text-sm text-muted-foreground">
+            {role} - {department}
+          </p>
+          <UserRound className="h-4 w-4 opacity-70" />
         </div>
-      </HoverCardTrigger>
-      <HoverCardContent className="w-64">
-        <div className="flex justify-between space-x-4">
-          <div className="space-y-1">
-            <h4 className="text-sm font-semibold">{name}</h4>
-            <div className="flex items-center gap-2">
-              <UserRound className="h-4 w-4 opacity-70" />
-              <p className="text-sm text-muted-foreground">
-                {role} - {department}
-              </p>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              {yearsOfExperience} {yearsOfExperience === 1 ? "year" : "years"} of experience
-            </p>
-          </div>
-        </div>
-      </HoverCardContent>
-    </HoverCard>
+        <p className="text-sm text-muted-foreground">
+          {yearsOfExperience} {yearsOfExperience === 1 ? "year" : "years"} of experience
+        </p>
+      </div>
+      <Avatar className="h-12 w-12">
+        <AvatarImage src="https://github.com/shadcn.png" />
+        <AvatarFallback className="bg-primary text-primary-foreground">
+          {initials}
+        </AvatarFallback>
+      </Avatar>
+    </div>
   );
 };
 
