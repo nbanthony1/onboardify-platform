@@ -63,7 +63,7 @@ const Index = () => {
   return (
     <div className="container mx-auto py-8">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2">Employee Onboarding Platform</h1>
+        <h1 className="text-4xl font-bold mb-2">Symterra Employee Onboarding Platform</h1>
         <p className="text-muted-foreground">
           Welcome! Start your learning journey with our curated courses.
         </p>
