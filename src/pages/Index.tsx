@@ -1,9 +1,11 @@
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import CourseCard from "@/components/onboarding/CourseCard";
 import ModuleDialog from "@/components/onboarding/ModuleDialog";
 import AnalyticsDashboard from "@/components/onboarding/AnalyticsDashboard";
+import EmployeeAvatar from "@/components/onboarding/EmployeeAvatar";
 import { courses, departments } from "@/data/courses";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
@@ -62,12 +64,20 @@ const Index = () => {
 
   return (
     <div className="container mx-auto py-8">
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2">Symterra Employee Onboarding Platform</h1>
-        <p className="text-muted-foreground mb-6">
-          Welcome! Start your learning journey with our curated courses.
-        </p>
-        <AnalyticsDashboard completedModules={completedModules} />
+      <div className="flex justify-between items-start mb-8">
+        <div>
+          <h1 className="text-4xl font-bold mb-2">Symterra Employee Onboarding Platform</h1>
+          <p className="text-muted-foreground mb-6">
+            Welcome! Start your learning journey with our curated courses.
+          </p>
+          <AnalyticsDashboard completedModules={completedModules} />
+        </div>
+        <EmployeeAvatar
+          name="Sarah Johnson"
+          role="Product Manager"
+          department="Product"
+          yearsOfExperience={3}
+        />
       </div>
 
       <ModuleDialog
