@@ -1,9 +1,9 @@
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import CourseCard from "@/components/onboarding/CourseCard";
 import ModuleDialog from "@/components/onboarding/ModuleDialog";
+import AnalyticsDashboard from "@/components/onboarding/AnalyticsDashboard";
 import { courses, departments } from "@/data/courses";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
@@ -64,9 +64,10 @@ const Index = () => {
     <div className="container mx-auto py-8">
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2">Symterra Employee Onboarding Platform</h1>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground mb-6">
           Welcome! Start your learning journey with our curated courses.
         </p>
+        <AnalyticsDashboard completedModules={completedModules} />
       </div>
 
       <ModuleDialog
@@ -79,7 +80,7 @@ const Index = () => {
         isCompleted={selectedModule ? isModuleCompleted(selectedModule.title) : false}
       />
 
-      <Tabs defaultValue="all" className="space-y-6">
+      <Tabs defaultValue="all" className="space-y-6 mt-8">
         <TabsList>
           <TabsTrigger value="all">All Departments</TabsTrigger>
           {departments.map((dept) => (
