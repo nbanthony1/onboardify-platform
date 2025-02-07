@@ -32,14 +32,6 @@ const AnalyticsDashboard = ({ completedModules: actualCompletedModules }: Analyt
   // Use placeholder or actual data based on the toggle
   const completedModules = USE_PLACEHOLDER_DATA ? getPlaceholderData().completedModules : actualCompletedModules;
   
-  // Calculate overall completion rate
-  const allModules = courses.reduce((acc, course) => {
-    return acc + (course.modules?.length || 0);
-  }, 0);
-  
-  const completedCount = Object.values(completedModules).filter(Boolean).length;
-  const overallProgress = Math.round((completedCount / allModules) * 100) || 0;
-
   // Calculate department-specific completion rates
   const departmentStats = departments.map(dept => {
     const deptCourses = courses.filter(course => course.department === dept.id);
@@ -140,4 +132,3 @@ const getColorForDepartment = (deptId: string): string => {
 };
 
 export default AnalyticsDashboard;
-

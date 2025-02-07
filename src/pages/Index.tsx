@@ -89,6 +89,12 @@ const Index = () => {
     return acc + (course.modules?.length || 0);
   }, 0);
 
+  // Calculate completed modules count
+  const completedCount = Object.values(completedModules).filter(Boolean).length;
+  
+  // Calculate progress percentage
+  const progress = Math.round((completedCount / totalModules) * 100) || 0;
+
   return (
     <div className="container mx-auto py-8">
       <div className="space-y-6">
@@ -107,6 +113,9 @@ const Index = () => {
             role="Product Manager"
             department="Product"
             yearsOfExperience={3}
+            progress={progress}
+            completedCount={completedCount}
+            totalModules={totalModules}
           />
         </div>
 
