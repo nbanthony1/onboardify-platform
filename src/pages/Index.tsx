@@ -5,6 +5,8 @@ import { useToast } from "@/components/ui/use-toast";
 import CourseCard from "@/components/onboarding/CourseCard";
 import ModuleDialog from "@/components/onboarding/ModuleDialog";
 import { courses, departments } from "@/data/courses";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { ChevronDown } from "lucide-react";
 
 const Index = () => {
   const [selectedModule, setSelectedModule] = useState<{
@@ -15,6 +17,7 @@ const Index = () => {
     [key: string]: boolean;
   }>({});
   const { toast } = useToast();
+  const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>({});
 
   const handleModuleClick = (
     module: string | { title: string; content: string }
@@ -33,7 +36,7 @@ const Index = () => {
       const completedCount =
         course.modules.filter((module) =>
           completedModules[typeof module === "string" ? module : module.title]
-        ).length + 1; // +1 for the current completion
+        ).length + 1;
 
       course.progress = Math.round((completedCount / totalModules) * 100);
     }
@@ -48,6 +51,13 @@ const Index = () => {
 
   const isModuleCompleted = (moduleTitle: string) => {
     return completedModules[moduleTitle] || false;
+  };
+
+  const toggleSection = (deptId: string) => {
+    setOpenSections((prev) => ({
+      ...prev,
+      [deptId]: !prev[deptId],
+    }));
   };
 
   return (
@@ -80,16 +90,37 @@ const Index = () => {
         </TabsList>
 
         <TabsContent value="all" className="space-y-6">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {courses.map((course) => (
-              <CourseCard
-                key={course.id}
-                {...course}
-                onModuleClick={handleModuleClick}
-                isModuleCompleted={isModuleCompleted}
-              />
-            ))}
-          </div>
+          {departments.map((dept) => (
+            <Collapsible
+              key={dept.id}
+              open={openSections[dept.id]}
+              onOpenChange={() => toggleSection(dept.id)}
+              className="space-y-2"
+            >
+              <CollapsibleTrigger className="flex items-center justify-between w-full py-2 px-4 hover:bg-accent rounded-lg">
+                <h2 className="text-xl font-semibold">{dept.name}</h2>
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform duration-200 ${
+                    openSections[dept.id] ? "transform rotate-180" : ""
+                  }`}
+                />
+              </CollapsibleTrigger>
+              <CollapsibleContent className="space-y-2">
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 pl-4">
+                  {courses
+                    .filter((course) => course.department === dept.id)
+                    .map((course) => (
+                      <CourseCard
+                        key={course.id}
+                        {...course}
+                        onModuleClick={handleModuleClick}
+                        isModuleCompleted={isModuleCompleted}
+                      />
+                    ))}
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
+          ))}
         </TabsContent>
 
         {departments.map((dept) => (
