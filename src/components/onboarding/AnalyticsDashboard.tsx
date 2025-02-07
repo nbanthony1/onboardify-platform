@@ -9,7 +9,29 @@ interface AnalyticsDashboardProps {
   completedModules: { [key: string]: boolean };
 }
 
-const AnalyticsDashboard = ({ completedModules }: AnalyticsDashboardProps) => {
+// Toggle this constant to false when going live
+const USE_PLACEHOLDER_DATA = true;
+
+const getPlaceholderData = () => ({
+  completedModules: {
+    "Company Overview": true,
+    "History and Evolution": true,
+    "Mission and Vision": true,
+    "Technology Overview": true,
+    "Benefits of Electromagnetic Deterrence": true,
+    "Industry Applications": true,
+    "Customer Avatars": true,
+    "Lead Generation and Qualification": true,
+    "Sales Presentation and Demonstration": true,
+    "Collaboration with Marketing": true,
+    "CRM Training": true,
+  }
+});
+
+const AnalyticsDashboard = ({ completedModules: actualCompletedModules }: AnalyticsDashboardProps) => {
+  // Use placeholder or actual data based on the toggle
+  const completedModules = USE_PLACEHOLDER_DATA ? getPlaceholderData().completedModules : actualCompletedModules;
+  
   // Calculate overall completion rate
   const allModules = courses.reduce((acc, course) => {
     return acc + (course.modules?.length || 0);
@@ -109,3 +131,4 @@ const getColorForDepartment = (deptId: string): string => {
 };
 
 export default AnalyticsDashboard;
+
