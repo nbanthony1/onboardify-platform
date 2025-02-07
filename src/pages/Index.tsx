@@ -89,24 +89,24 @@ const Index = () => {
           ))}
         </TabsList>
 
-        <TabsContent value="all" className="space-y-6">
+        <TabsContent value="all" className="space-y-4">
           {departments.map((dept) => (
             <Collapsible
               key={dept.id}
               open={openSections[dept.id]}
               onOpenChange={() => toggleSection(dept.id)}
-              className="space-y-2"
+              className="border rounded-lg"
             >
-              <CollapsibleTrigger className="flex items-center justify-between w-full py-2 px-4 hover:bg-accent rounded-lg">
+              <CollapsibleTrigger className="flex items-center justify-between w-full py-3 px-4 hover:bg-accent rounded-lg">
                 <h2 className="text-xl font-semibold">{dept.name}</h2>
                 <ChevronDown
-                  className={`h-4 w-4 transition-transform duration-200 ${
+                  className={`h-5 w-5 transition-transform duration-200 ${
                     openSections[dept.id] ? "transform rotate-180" : ""
                   }`}
                 />
               </CollapsibleTrigger>
-              <CollapsibleContent className="space-y-2">
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 pl-4">
+              <CollapsibleContent>
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 p-4">
                   {courses
                     .filter((course) => course.department === dept.id)
                     .map((course) => (
