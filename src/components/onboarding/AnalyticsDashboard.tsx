@@ -69,7 +69,7 @@ const AnalyticsDashboard = ({ completedModules: actualCompletedModules }: Analyt
     <div className="grid gap-4 md:grid-cols-2">
       <Card>
         <CardHeader>
-          <CardTitle>Overall Progress</CardTitle>
+          <CardTitle>Organizational Progress</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
