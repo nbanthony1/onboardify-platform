@@ -6,6 +6,8 @@ import CourseCard from "@/components/onboarding/CourseCard";
 import ModuleDialog from "@/components/onboarding/ModuleDialog";
 import AnalyticsDashboard from "@/components/onboarding/AnalyticsDashboard";
 import EmployeeAvatar from "@/components/onboarding/EmployeeAvatar";
+import SearchBar from "@/components/onboarding/SearchBar";
+import TopProgressBar from "@/components/onboarding/TopProgressBar";
 import { courses, departments } from "@/data/courses";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
@@ -18,6 +20,7 @@ const Index = () => {
   const [completedModules, setCompletedModules] = useState<{
     [key: string]: boolean;
   }>({});
+  const [searchQuery, setSearchQuery] = useState("");
   const { toast } = useToast();
   const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>({});
 
@@ -62,95 +65,123 @@ const Index = () => {
     }));
   };
 
+  const handleSearch = (query: string) => {
+    setSearchQuery(query.toLowerCase());
+  };
+
+  const filterCourses = (coursesToFilter: typeof courses) => {
+    if (!searchQuery) return coursesToFilter;
+
+    return coursesToFilter.filter(
+      (course) =>
+        course.title.toLowerCase().includes(searchQuery) ||
+        course.description.toLowerCase().includes(searchQuery) ||
+        course.modules?.some((module) =>
+          typeof module === "string"
+            ? module.toLowerCase().includes(searchQuery)
+            : module.title.toLowerCase().includes(searchQuery)
+        )
+    );
+  };
+
+  // Calculate total modules across all courses
+  const totalModules = courses.reduce((acc, course) => {
+    return acc + (course.modules?.length || 0);
+  }, 0);
+
   return (
     <div className="container mx-auto py-8">
-      <div className="flex justify-between items-start mb-8">
-        <div>
-          <h1 className="text-4xl font-bold mb-2">Symterra Employee Onboarding Platform</h1>
-          <p className="text-muted-foreground mb-6">
-            Welcome! Start your learning journey with our curated courses.
-          </p>
-          <AnalyticsDashboard completedModules={completedModules} />
+      <div className="space-y-6">
+        <TopProgressBar completedModules={completedModules} totalModules={totalModules} />
+        
+        <div className="flex justify-between items-start">
+          <div>
+            <h1 className="text-4xl font-bold mb-2">Symterra Employee Onboarding Platform</h1>
+            <p className="text-muted-foreground mb-6">
+              Welcome! Start your learning journey with our curated courses.
+            </p>
+            <AnalyticsDashboard completedModules={completedModules} />
+          </div>
+          <EmployeeAvatar
+            name="Sarah Johnson"
+            role="Product Manager"
+            department="Product"
+            yearsOfExperience={3}
+          />
         </div>
-        <EmployeeAvatar
-          name="Sarah Johnson"
-          role="Product Manager"
-          department="Product"
-          yearsOfExperience={3}
+
+        <SearchBar onSearch={handleSearch} />
+
+        <ModuleDialog
+          selectedModule={selectedModule}
+          isOpen={!!selectedModule}
+          onClose={() => setSelectedModule(null)}
+          onComplete={() =>
+            selectedModule && handleCompleteModule(selectedModule.title, 1)
+          }
+          isCompleted={selectedModule ? isModuleCompleted(selectedModule.title) : false}
         />
-      </div>
 
-      <ModuleDialog
-        selectedModule={selectedModule}
-        isOpen={!!selectedModule}
-        onClose={() => setSelectedModule(null)}
-        onComplete={() =>
-          selectedModule && handleCompleteModule(selectedModule.title, 1)
-        }
-        isCompleted={selectedModule ? isModuleCompleted(selectedModule.title) : false}
-      />
+        <Tabs defaultValue="all" className="space-y-6">
+          <TabsList>
+            <TabsTrigger value="all">All Departments</TabsTrigger>
+            {departments.map((dept) => (
+              <TabsTrigger key={dept.id} value={dept.id}>
+                {dept.name}
+              </TabsTrigger>
+            ))}
+          </TabsList>
 
-      <Tabs defaultValue="all" className="space-y-6 mt-8">
-        <TabsList>
-          <TabsTrigger value="all">All Departments</TabsTrigger>
-          {departments.map((dept) => (
-            <TabsTrigger key={dept.id} value={dept.id}>
-              {dept.name}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-
-        <TabsContent value="all" className="space-y-4">
-          {departments.map((dept) => (
-            <Collapsible
-              key={dept.id}
-              open={openSections[dept.id]}
-              onOpenChange={() => toggleSection(dept.id)}
-              className="border rounded-lg"
-            >
-              <CollapsibleTrigger className="flex items-center justify-between w-full py-3 px-4 hover:bg-accent rounded-lg">
-                <h2 className="text-xl font-semibold">{dept.name}</h2>
-                <ChevronDown
-                  className={`h-5 w-5 transition-transform duration-200 ${
-                    openSections[dept.id] ? "transform rotate-180" : ""
-                  }`}
-                />
-              </CollapsibleTrigger>
-              <CollapsibleContent>
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 p-4">
-                  {courses
-                    .filter((course) => course.department === dept.id)
-                    .map((course) => (
-                      <CourseCard
-                        key={course.id}
-                        {...course}
-                        onModuleClick={handleModuleClick}
-                        isModuleCompleted={isModuleCompleted}
-                      />
-                    ))}
-                </div>
-              </CollapsibleContent>
-            </Collapsible>
-          ))}
-        </TabsContent>
-
-        {departments.map((dept) => (
-          <TabsContent key={dept.id} value={dept.id} className="space-y-6">
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {courses
-                .filter((course) => course.department === dept.id)
-                .map((course) => (
-                  <CourseCard
-                    key={course.id}
-                    {...course}
-                    onModuleClick={handleModuleClick}
-                    isModuleCompleted={isModuleCompleted}
+          <TabsContent value="all" className="space-y-4">
+            {departments.map((dept) => (
+              <Collapsible
+                key={dept.id}
+                open={openSections[dept.id]}
+                onOpenChange={() => toggleSection(dept.id)}
+                className="border rounded-lg"
+              >
+                <CollapsibleTrigger className="flex items-center justify-between w-full py-3 px-4 hover:bg-accent rounded-lg">
+                  <h2 className="text-xl font-semibold">{dept.name}</h2>
+                  <ChevronDown
+                    className={`h-5 w-5 transition-transform duration-200 ${
+                      openSections[dept.id] ? "transform rotate-180" : ""
+                    }`}
                   />
-                ))}
-            </div>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 p-4">
+                    {filterCourses(courses.filter((course) => course.department === dept.id))
+                      .map((course) => (
+                        <CourseCard
+                          key={course.id}
+                          {...course}
+                          onModuleClick={handleModuleClick}
+                          isModuleCompleted={isModuleCompleted}
+                        />
+                      ))}
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
+            ))}
           </TabsContent>
-        ))}
-      </Tabs>
+
+          {departments.map((dept) => (
+            <TabsContent key={dept.id} value={dept.id} className="space-y-6">
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {filterCourses(courses.filter((course) => course.department === dept.id))
+                  .map((course) => (
+                    <CourseCard
+                      key={course.id}
+                      {...course}
+                      onModuleClick={handleModuleClick}
+                      isModuleCompleted={isModuleCompleted}
+                    />
+                  ))}
+              </div>
+            </TabsContent>
+          ))}
+        </Tabs>
+      </div>
     </div>
   );
 };
