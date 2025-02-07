@@ -89,17 +89,17 @@ const AnalyticsDashboard = ({ completedModules: actualCompletedModules }: Analyt
         <CardHeader>
           <CardTitle>Department Progress</CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="h-[200px]">
+        <CardContent className="pt-2">
+          <div className="h-[180px]">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={departmentStats}
                   cx="50%"
                   cy="50%"
-                  innerRadius={60}
-                  outerRadius={80}
-                  paddingAngle={2}
+                  innerRadius={35}
+                  outerRadius={45}
+                  paddingAngle={4}
                   dataKey="value"
                 >
                   {departmentStats.map((entry, index) => (
@@ -110,7 +110,13 @@ const AnalyticsDashboard = ({ completedModules: actualCompletedModules }: Analyt
                   formatter={(value: number) => `${value}%`}
                   labelFormatter={(index) => departmentStats[index as number].name}
                 />
-                <Legend />
+                <Legend 
+                  verticalAlign="bottom" 
+                  align="center"
+                  layout="horizontal"
+                  iconSize={8}
+                  iconType="circle"
+                />
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -123,11 +129,14 @@ const AnalyticsDashboard = ({ completedModules: actualCompletedModules }: Analyt
 // Helper function to get a consistent color for each department
 const getColorForDepartment = (deptId: string): string => {
   const colors: { [key: string]: string } = {
-    sales: '#22c55e',
-    operations: '#3b82f6',
-    hr: '#f43f5e',
+    sales: '#22c55e',      // Green
+    operations: '#3b82f6',  // Blue
+    hr: '#f43f5e',         // Red
+    engineering: '#8b5cf6', // Purple
+    marketing: '#f97316',   // Orange
+    product: '#0ea5e9',    // Sky Blue
   };
-  return colors[deptId] || '#64748b';
+  return colors[deptId] || '#64748b'; // Default gray
 };
 
 export default AnalyticsDashboard;
