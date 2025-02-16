@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 
 interface Role {
@@ -67,12 +66,7 @@ const OrgChart = () => {
     },
     {
       name: "Sales",
-      responsibilities: [
-        "LMA",
-        "Sales Strategy",
-        "Sales Targets",
-        "Account Management"
-      ],
+      responsibilities: [],
       roles: [
         {
           title: "Leadership, Management, and Accountability",
@@ -192,18 +186,19 @@ const OrgChart = () => {
             <h3 className="text-xl font-semibold mb-2">{selectedDept.name}</h3>
           </div>
 
-          <div>
-            <h4 className="font-medium mb-3">Department Responsibilities:</h4>
-            <ul className="list-disc pl-5 space-y-1">
-              {selectedDept.responsibilities.map((resp, index) => (
-                <li key={index}>{resp}</li>
-              ))}
-            </ul>
-          </div>
+          {selectedDept.responsibilities.length > 0 && (
+            <div>
+              <h4 className="font-medium mb-3">Department Responsibilities:</h4>
+              <ul className="list-disc pl-5 space-y-1">
+                {selectedDept.responsibilities.map((resp, index) => (
+                  <li key={index}>{resp}</li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {selectedDept.roles.length > 0 && (
             <div>
-              <h4 className="font-medium mb-3">Key Roles:</h4>
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {selectedDept.roles.map((role, index) => (
                   <div key={index} className="p-4 rounded-lg bg-gray-50">
