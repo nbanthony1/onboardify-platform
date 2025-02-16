@@ -199,8 +199,8 @@ const OrgChart = () => {
         {/* Connecting Line */}
         <div className="h-8 w-px bg-gray-300"></div>
 
-        {/* Main Departments Row */}
-        <div className="flex flex-wrap justify-center gap-4">
+        {/* Main Departments Row - All in one line */}
+        <div className="flex justify-center gap-4">
           {["Marketing", "Sales", "Operations", "R&D", "Finance"].map((deptName) => (
             <div key={deptName} className="flex flex-col items-center">
               <button
