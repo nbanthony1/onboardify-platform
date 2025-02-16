@@ -8,9 +8,8 @@ interface Role {
 
 interface Department {
   name: string;
-  leader: string;
-  roles: Role[];
   responsibilities: string[];
+  roles: Role[];
 }
 
 const OrgChart = () => {
@@ -19,10 +18,9 @@ const OrgChart = () => {
   const departments: Department[] = [
     {
       name: "Visionary",
-      leader: "John",
       responsibilities: [
         "Big Ideas",
-        "Big Learning",
+        "Big Relationships",
         "R&D",
         "Culture"
       ],
@@ -30,19 +28,16 @@ const OrgChart = () => {
     },
     {
       name: "Integrator",
-      leader: "Nick",
       responsibilities: [
         "LMA",
         "P&L",
         "Remove Obstacles",
-        "Process",
-        "Projects"
+        "Special Projects"
       ],
       roles: []
     },
     {
       name: "Marketing",
-      leader: "John",
       responsibilities: [
         "LMA",
         "Marketing Strategy",
@@ -72,24 +67,13 @@ const OrgChart = () => {
     },
     {
       name: "Sales",
-      leader: "Sara",
       responsibilities: [
         "LMA",
         "Sales Strategy",
-        "Sales Tools",
+        "Sales Targets",
         "Account Management"
       ],
       roles: [
-        {
-          title: "Sales Support",
-          responsibilities: [
-            "Net Culture",
-            "Resources",
-            "LDI",
-            "CRM",
-            "Comm/Newsletter"
-          ]
-        },
         {
           title: "Account Acquisition",
           responsibilities: [
@@ -110,7 +94,6 @@ const OrgChart = () => {
     },
     {
       name: "Operations",
-      leader: "Daryl",
       responsibilities: [
         "LMA",
         "Manufacturing Process",
@@ -150,7 +133,6 @@ const OrgChart = () => {
     },
     {
       name: "R&D",
-      leader: "John",
       responsibilities: [
         "LMA",
         "Product Development",
@@ -161,7 +143,6 @@ const OrgChart = () => {
     },
     {
       name: "Finance",
-      leader: "Daryl",
       responsibilities: [
         "LMA",
         "Budget/Forecast",
@@ -191,8 +172,7 @@ const OrgChart = () => {
                 : "bg-white hover:bg-gray-100 border"
             }`}
           >
-            <h4 className="font-medium mb-1">{dept.name}</h4>
-            <p className="text-sm opacity-80">Lead: {dept.leader}</p>
+            <h4 className="font-medium">{dept.name}</h4>
           </button>
         ))}
       </div>
@@ -201,8 +181,7 @@ const OrgChart = () => {
       {selectedDept && (
         <div className="bg-white p-6 rounded-lg border space-y-6">
           <div>
-            <h3 className="text-xl font-semibold mb-2">{selectedDept.name} Department</h3>
-            <p className="text-muted-foreground">Led by {selectedDept.leader}</p>
+            <h3 className="text-xl font-semibold mb-2">{selectedDept.name}</h3>
           </div>
 
           <div>
