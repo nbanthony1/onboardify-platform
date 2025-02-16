@@ -3,30 +3,57 @@ import { Course } from "../types";
 
 export const introductionCourse: Course = {
   id: 1,
-  title: "1. Introduction to Symterra",
-  description: "Company overview, history, mission, and organizational structure",
+  title: "1. Who We Are",
+  description: "Company overview, mission, vision, and organizational structure",
   department: "sales",
   progress: 0,
   modules: [
     {
-      title: "Company Overview",
-      content: "Symterra is a leader in electromagnetic bird deterrent technology, dedicated to fostering coexistence between humans and wildlife. The company's innovative solutions provide humane approaches to bird deterrence, ensuring businesses can address issues like hygiene, safety, and property damage without resorting to harmful measures."
+      title: "Welcome from Leadership",
+      content: "[Video Placeholder: Leadership Welcome Message]\n\n" +
+        "Mission Statement\n" +
+        "At Symterra, our mission is to provide innovative, humane, and sustainable bird deterrent solutions that empower businesses to protect their environments efficiently and ethically. We strive to lead the industry by integrating cutting-edge technology with eco-conscious practices to ensure long-term success for our customers.\n\n" +
+        "Vision\n" +
+        "To become the solution in pest control in 5 years."
     },
     {
-      title: "History and Evolution",
-      content: "Originally known as FlockOff, the company rebranded to Symterra in June 2024 to better reflect its mission and values. The name \"Symterra\" is derived from \"Symbiotic\" and \"Terra\" (Earth), signifying the company's commitment to fostering harmony between human activities and the natural world."
+      title: "Core Values and Guarantee",
+      content: "[Video Placeholder: Core Values Presentation]\n\n" +
+        "Guarantee\n" +
+        "We guarantee significant reductions in bird activity, costs associated with pest control, and reputational risk from inhumane pest control practices. Our solutions provide permanent, effective, and ethical that align with environmental responsibility and operational efficiency."
     },
     {
-      title: "Mission and Vision",
-      content: "Symterra's mission is to foster coexistence between humans and wildlife through innovative and ethical bird deterrent solutions. The company envisions a future where human advancements harmonize with nature, ensuring businesses can operate effectively while safeguarding avian populations."
+      title: "Market Positioning",
+      content: "Who We Serve\n" +
+        "Symterra serves a diverse range of industries that require innovative bird control solutions:\n\n" +
+        "• Pest Control Operators (PCOs) – Companies seeking humane, effective bird deterrent solutions to enhance their service offerings.\n" +
+        "• Commercial Enterprises – Hotels, airports, warehouses, retail centers, and manufacturing facilities needing operational efficiency.\n" +
+        "• Municipalities & Public Institutions – City planners, public works directors, and environmental officers ensuring public safety and compliance.\n" +
+        "• Large End-User Organizations – Fortune 500 companies, universities, stadiums, and corporate campuses managing bird-related challenges.\n" +
+        "• Pest Control Distributors – Distributors seeking exclusive, high-margin, innovative bird deterrent products."
     },
     {
-      title: "Organizational Structure",
-      content: "Symterra operates with a streamlined organizational structure designed to promote efficiency and innovation. The company is led by a Chief Executive Officer, supported by key departments including R&D, Sales and Marketing, Operations, and Customer Support.",
+      title: "Sales Roles and Responsibilities",
+      content: "Leadership, Management, and Accountability\n" +
+        "• Providing strategic direction, setting clear goals, and ensuring alignment with company objectives.\n" +
+        "• Developing and executing a structured approach to identifying, engaging, and converting prospects.\n" +
+        "• Meeting and exceeding revenue, conversion, and performance goals through effective execution.\n\n" +
+        "Account Acquisition\n" +
+        "• Identifying Opportunities – Researching market trends and targeting potential clients that align with Symterra's value proposition.\n" +
+        "• Acquiring Accounts – Implementing effective outreach strategies to convert leads into customers.\n" +
+        "• Closing Deals – Negotiating contracts and finalizing agreements to secure long-term client relationships.\n\n" +
+        "Account Management\n" +
+        "• Grow Revenue – Expanding business with existing clients through upselling and cross-selling opportunities.\n" +
+        "• Client Adoption – Ensuring customers integrate and utilize Symterra's solutions effectively.\n" +
+        "• Relationship Management – Building and maintaining strong partnerships with PCOs, commercial enterprises, and municipalities to ensure long-term adoption and success."
     },
     {
-      title: "Leadership Team",
-      content: "Led by CEO John Smalley, who emphasizes the importance of humane approaches to bird deterrence and is committed to sustainable progress through innovative technologies."
+      title: "Sales Contribution to Mission",
+      content: "How Sales Contributes to Our Mission\n\n" +
+        "• Consultative Selling – Acting as trusted advisors by educating clients on the benefits of humane and sustainable bird deterrent solutions.\n" +
+        "• Market & Competitive Intelligence – Analyzing industry trends and customer needs to refine our approach and stay ahead of competitors.\n" +
+        "• Collaborative Execution – Working closely with Marketing and Operations teams to ensure seamless product delivery and customer satisfaction.\n" +
+        "• Driving Business Growth – Contributing directly to the company's goal of becoming THE solution in pest control through high-quality sales execution and value-driven engagement."
     }
   ]
 };
