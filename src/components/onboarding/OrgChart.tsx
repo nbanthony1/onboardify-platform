@@ -75,19 +75,27 @@ const OrgChart = () => {
       ],
       roles: [
         {
+          title: "Leadership, Management, and Accountability",
+          responsibilities: [
+            "Providing strategic direction, setting clear goals, and ensuring alignment with company objectives",
+            "Developing and executing a structured approach to identifying, engaging, and converting prospects",
+            "Meeting and exceeding revenue, conversion, and performance goals through effective execution"
+          ]
+        },
+        {
           title: "Account Acquisition",
           responsibilities: [
-            "Identifying",
-            "Acquiring",
-            "Closing"
+            "Identifying Opportunities – Researching market trends and targeting potential clients that align with Symterra's value proposition",
+            "Acquiring Accounts – Implementing effective outreach strategies to convert leads into customers",
+            "Closing Deals – Negotiating contracts and finalizing agreements to secure long-term client relationships"
           ]
         },
         {
           title: "Account Management",
           responsibilities: [
-            "Grow Revenue",
-            "Client Adoption",
-            "Relationship Management"
+            "Grow Revenue – Expanding business with existing clients through upselling and cross-selling opportunities",
+            "Client Adoption – Ensuring customers integrate and utilize Symterra's solutions effectively",
+            "Relationship Management – Building and maintaining strong partnerships with PCOs, commercial enterprises, and municipalities to ensure long-term adoption and success"
           ]
         }
       ]
