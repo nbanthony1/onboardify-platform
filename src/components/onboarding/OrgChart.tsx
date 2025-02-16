@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 
 interface Role {
@@ -162,26 +163,93 @@ const OrgChart = () => {
     <div className="p-6 bg-gray-50 rounded-lg">
       <h3 className="text-xl font-semibold mb-6">Organization Structure</h3>
       
-      {/* Top Level Departments in a single row */}
-      <div className="flex flex-wrap gap-4 mb-8">
-        {departments.map((dept) => (
+      {/* Hierarchical Organization Structure */}
+      <div className="flex flex-col items-center space-y-8">
+        {/* Visionary - Top Level */}
+        <div className="w-48">
           <button
-            key={dept.name}
-            onClick={() => setSelectedDept(dept)}
-            className={`flex-1 min-w-[200px] p-4 rounded-lg transition-colors ${
-              selectedDept?.name === dept.name
+            onClick={() => setSelectedDept(departments[0])}
+            className={`w-full p-4 rounded-lg transition-colors ${
+              selectedDept?.name === "Visionary"
                 ? "bg-primary text-white"
                 : "bg-white hover:bg-gray-100 border"
             }`}
           >
-            <h4 className="font-medium">{dept.name}</h4>
+            <h4 className="font-medium">Visionary</h4>
           </button>
-        ))}
+        </div>
+
+        {/* Connecting Line */}
+        <div className="h-8 w-px bg-gray-300"></div>
+
+        {/* Integrator - Second Level */}
+        <div className="w-48">
+          <button
+            onClick={() => setSelectedDept(departments[1])}
+            className={`w-full p-4 rounded-lg transition-colors ${
+              selectedDept?.name === "Integrator"
+                ? "bg-primary text-white"
+                : "bg-white hover:bg-gray-100 border"
+            }`}
+          >
+            <h4 className="font-medium">Integrator</h4>
+          </button>
+        </div>
+
+        {/* Connecting Line */}
+        <div className="h-8 w-px bg-gray-300"></div>
+
+        {/* Main Departments Row */}
+        <div className="flex flex-wrap justify-center gap-4">
+          {["Marketing", "Sales", "Operations", "R&D", "Finance"].map((deptName) => (
+            <div key={deptName} className="flex flex-col items-center">
+              <button
+                onClick={() => setSelectedDept(departments.find(d => d.name === deptName) || null)}
+                className={`w-48 p-4 rounded-lg transition-colors ${
+                  selectedDept?.name === deptName
+                    ? "bg-primary text-white"
+                    : "bg-white hover:bg-gray-100 border"
+                }`}
+              >
+                <h4 className="font-medium">{deptName}</h4>
+              </button>
+
+              {/* Sub-roles for specific departments */}
+              {(deptName === "Marketing" || deptName === "Sales" || deptName === "Operations") && (
+                <>
+                  <div className="h-8 w-px bg-gray-300"></div>
+                  <div className="flex gap-4">
+                    {deptName === "Marketing" && (
+                      <>
+                        <div className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">Lead Generation</div>
+                        <div className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">Brand Awareness</div>
+                        <div className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">Sales Support</div>
+                      </>
+                    )}
+                    {deptName === "Sales" && (
+                      <>
+                        <div className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">Account Acquisition</div>
+                        <div className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">Account Management</div>
+                      </>
+                    )}
+                    {deptName === "Operations" && (
+                      <>
+                        <div className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">Logistics</div>
+                        <div className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">Manufacturing</div>
+                        <div className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">Customer Service</div>
+                      </>
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Department Details */}
+      {/* Department Details Panel */}
       {selectedDept && (
-        <div className="bg-white p-6 rounded-lg border space-y-6">
+        <div className="mt-8 bg-white p-6 rounded-lg border space-y-6">
           <div>
             <h3 className="text-xl font-semibold mb-2">{selectedDept.name}</h3>
           </div>
