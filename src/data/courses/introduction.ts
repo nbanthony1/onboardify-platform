@@ -1,4 +1,3 @@
-
 import { Course } from "../types";
 
 export const introductionCourse: Course = {
@@ -34,19 +33,7 @@ export const introductionCourse: Course = {
     },
     {
       title: "Sales Roles and Responsibilities",
-      content: "[INTERACTIVE_ORG_CHART]\n\n" +
-        "Leadership, Management, and Accountability\n" +
-        "• Providing strategic direction, setting clear goals, and ensuring alignment with company objectives.\n" +
-        "• Developing and executing a structured approach to identifying, engaging, and converting prospects.\n" +
-        "• Meeting and exceeding revenue, conversion, and performance goals through effective execution.\n\n" +
-        "Account Acquisition\n" +
-        "• Identifying Opportunities – Researching market trends and targeting potential clients that align with Symterra's value proposition.\n" +
-        "• Acquiring Accounts – Implementing effective outreach strategies to convert leads into customers.\n" +
-        "• Closing Deals – Negotiating contracts and finalizing agreements to secure long-term client relationships.\n\n" +
-        "Account Management\n" +
-        "• Grow Revenue – Expanding business with existing clients through upselling and cross-selling opportunities.\n" +
-        "• Client Adoption – Ensuring customers integrate and utilize Symterra's solutions effectively.\n" +
-        "• Relationship Management – Building and maintaining strong partnerships with PCOs, commercial enterprises, and municipalities to ensure long-term adoption and success."
+      content: "[INTERACTIVE_ORG_CHART]"
     },
     {
       title: "Sales Contribution to Mission",
