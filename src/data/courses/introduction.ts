@@ -1,3 +1,4 @@
+
 import { Course } from "../types";
 
 export const introductionCourse: Course = {
@@ -32,7 +33,7 @@ export const introductionCourse: Course = {
         "• Pest Control Distributors – Distributors seeking exclusive, high-margin, innovative bird deterrent products."
     },
     {
-      title: "Sales Roles and Responsibilities",
+      title: "Roles and Responsibilities",
       content: "[INTERACTIVE_ORG_CHART]"
     },
     {
