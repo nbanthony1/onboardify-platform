@@ -55,18 +55,20 @@ const ModuleDialog = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+      <DialogContent className="max-w-[90vw] w-[1200px] h-[90vh] max-h-[90vh]">
         <DialogHeader>
           <DialogTitle className="text-2xl font-semibold leading-relaxed">
             {selectedModule?.title}
           </DialogTitle>
         </DialogHeader>
-        <div className="mt-8 space-y-6">
-          <div className="text-base text-muted-foreground leading-relaxed">
-            {selectedModule?.content && formatContent(selectedModule.content)}
+        <div className="flex-1 overflow-y-auto pr-6">
+          <div className="space-y-6">
+            <div className="text-base text-muted-foreground leading-relaxed">
+              {selectedModule?.content && formatContent(selectedModule.content)}
+            </div>
           </div>
         </div>
-        <div className="mt-8 flex justify-end pt-6 border-t">
+        <div className="flex justify-end pt-6 border-t">
           <Button 
             onClick={onComplete} 
             disabled={isCompleted}
