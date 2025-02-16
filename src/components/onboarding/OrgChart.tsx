@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 interface Role {
   title: string;
@@ -15,6 +16,7 @@ interface Department {
 
 const OrgChart = () => {
   const [selectedDept, setSelectedDept] = useState<Department | null>(null);
+  const [showDetails, setShowDetails] = useState(false);
 
   const departments: Department[] = [
     {
@@ -165,8 +167,11 @@ const OrgChart = () => {
       <Tooltip>
         <TooltipTrigger asChild>
           <button
-            onClick={onClick}
-            className={`w-48 p-4 rounded-lg transition-colors ${
+            onClick={() => {
+              onClick();
+              setShowDetails(true);
+            }}
+            className={`w-40 p-3 rounded-lg transition-colors ${
               isSelected
                 ? "bg-primary text-white"
                 : "bg-white hover:bg-gray-100 border"
@@ -183,12 +188,12 @@ const OrgChart = () => {
   );
 
   return (
-    <div className="p-6 bg-gray-50 rounded-lg">
+    <div className="bg-gray-50 min-h-full p-4">
       <h3 className="text-xl font-semibold mb-6">Organization Structure</h3>
       
-      <div className="flex flex-col items-center space-y-8">
+      <div className="flex flex-col items-center space-y-6">
         {/* Visionary - Top Level */}
-        <div className="w-48">
+        <div className="w-40">
           {renderTooltipButton(
             "Visionary",
             () => setSelectedDept(departments[0]),
@@ -196,10 +201,10 @@ const OrgChart = () => {
           )}
         </div>
 
-        <div className="h-8 w-px bg-gray-300"></div>
+        <div className="h-6 w-px bg-gray-300"></div>
 
         {/* Integrator - Second Level */}
-        <div className="w-48">
+        <div className="w-40">
           {renderTooltipButton(
             "Integrator",
             () => setSelectedDept(departments[1]),
@@ -207,7 +212,7 @@ const OrgChart = () => {
           )}
         </div>
 
-        <div className="h-8 w-px bg-gray-300"></div>
+        <div className="h-6 w-px bg-gray-300"></div>
 
         {/* Main Departments Row - All in one line */}
         <div className="flex justify-center gap-4">
@@ -222,100 +227,104 @@ const OrgChart = () => {
               {/* Sub-roles for specific departments */}
               {(deptName === "Marketing" || deptName === "Sales" || deptName === "Operations") && (
                 <>
-                  <div className="h-8 w-px bg-gray-300"></div>
-                  <div className="flex gap-4">
-                    {deptName === "Marketing" && (
-                      <>
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">
-                              Lead Generation
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Marketing's Lead Generation role and responsibilities</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">
-                              Brand Awareness
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Marketing's Brand Awareness role and responsibilities</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">
-                              Sales Support
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Marketing's Sales Support role and responsibilities</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                      </>
-                    )}
-                    {deptName === "Sales" && (
-                      <>
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">
-                              Account Acquisition
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Sales' Account Acquisition role and responsibilities</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">
-                              Account Management
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Sales' Account Management role and responsibilities</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                      </>
-                    )}
-                    {deptName === "Operations" && (
-                      <>
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">
-                              Logistics
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Operations' Logistics role and responsibilities</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">
-                              Manufacturing
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Operations' Manufacturing role and responsibilities</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">
-                              Customer Service
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Operations' Customer Service role and responsibilities</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                      </>
-                    )}
+                  <div className="h-6 w-px bg-gray-300"></div>
+                  <div className="relative">
+                    <div className="absolute top-0 left-1/2 w-px h-full bg-gray-300 -translate-x-1/2" />
+                    <div className="absolute top-0 left-0 right-0 h-px bg-gray-300" />
+                    <div className="flex gap-4 pt-4">
+                      {deptName === "Marketing" && (
+                        <>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger className="w-32 p-2 rounded-lg bg-gray-50 border text-sm">
+                                Lead Generation
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Marketing's Lead Generation role and responsibilities</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger className="w-32 p-2 rounded-lg bg-gray-50 border text-sm">
+                                Brand Awareness
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Marketing's Brand Awareness role and responsibilities</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger className="w-32 p-2 rounded-lg bg-gray-50 border text-sm">
+                                Sales Support
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Marketing's Sales Support role and responsibilities</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </>
+                      )}
+                      {deptName === "Sales" && (
+                        <>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger className="w-32 p-2 rounded-lg bg-gray-50 border text-sm">
+                                Account Acquisition
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Sales' Account Acquisition role and responsibilities</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger className="w-32 p-2 rounded-lg bg-gray-50 border text-sm">
+                                Account Management
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Sales' Account Management role and responsibilities</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </>
+                      )}
+                      {deptName === "Operations" && (
+                        <>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger className="w-32 p-2 rounded-lg bg-gray-50 border text-sm">
+                                Logistics
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Operations' Logistics role and responsibilities</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger className="w-32 p-2 rounded-lg bg-gray-50 border text-sm">
+                                Manufacturing
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Operations' Manufacturing role and responsibilities</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger className="w-32 p-2 rounded-lg bg-gray-50 border text-sm">
+                                Customer Service
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Operations' Customer Service role and responsibilities</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </>
+                      )}
+                    </div>
                   </div>
                 </>
               )}
@@ -324,42 +333,47 @@ const OrgChart = () => {
         </div>
       </div>
 
-      {/* Department Details Panel */}
-      {selectedDept && (
-        <div className="mt-8 bg-white p-6 rounded-lg border space-y-6">
-          <div>
-            <h3 className="text-xl font-semibold mb-2">{selectedDept.name}</h3>
-          </div>
-
-          {selectedDept.responsibilities.length > 0 && (
-            <div>
-              <h4 className="font-medium mb-3">Department Responsibilities:</h4>
-              <ul className="list-disc pl-5 space-y-1">
-                {selectedDept.responsibilities.map((resp, index) => (
-                  <li key={index}>{resp}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {selectedDept.roles.length > 0 && (
-            <div>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {selectedDept.roles.map((role, index) => (
-                  <div key={index} className="p-4 rounded-lg bg-gray-50">
-                    <h5 className="font-medium mb-2">{role.title}</h5>
-                    <ul className="list-disc pl-5 space-y-1 text-sm">
-                      {role.responsibilities.map((resp, respIndex) => (
-                        <li key={respIndex}>{resp}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+      {/* Department Details Dialog */}
+      <Dialog open={showDetails} onOpenChange={setShowDetails}>
+        <DialogContent className="max-w-[600px]">
+          {selectedDept && (
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-xl font-semibold mb-2">{selectedDept.name}</h3>
               </div>
+
+              {selectedDept.responsibilities.length > 0 && (
+                <div>
+                  <h4 className="font-medium mb-3">Department Responsibilities:</h4>
+                  <ul className="list-disc pl-5 space-y-1">
+                    {selectedDept.responsibilities.map((resp, index) => (
+                      <li key={index}>{resp}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {selectedDept.roles.length > 0 && (
+                <div>
+                  <h4 className="font-medium mb-3">Roles:</h4>
+                  <div className="grid gap-4 grid-cols-1">
+                    {selectedDept.roles.map((role, index) => (
+                      <div key={index} className="p-4 rounded-lg bg-gray-50">
+                        <h5 className="font-medium mb-2">{role.title}</h5>
+                        <ul className="list-disc pl-5 space-y-1 text-sm">
+                          {role.responsibilities.map((resp, respIndex) => (
+                            <li key={respIndex}>{resp}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
-        </div>
-      )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
