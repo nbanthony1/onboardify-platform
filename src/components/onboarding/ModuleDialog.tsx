@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import OrgChart from "./OrgChart";
 
 interface ModuleDialogProps {
   selectedModule: { title: string; content: string } | null;
@@ -23,25 +24,33 @@ const ModuleDialog = ({
   isCompleted,
 }: ModuleDialogProps) => {
   const formatContent = (content: string) => {
-    return content.split('\n\n').map((paragraph, index) => (
-      <div key={index} className="mb-6 last:mb-0">
-        {paragraph.split('\n').map((line, lineIndex) => {
-          // Check if the line is a bullet point
-          if (line.startsWith('•')) {
+    const parts = content.split('\n\n');
+    return parts.map((part, index) => {
+      // Check for interactive org chart placeholder
+      if (part === '[INTERACTIVE_ORG_CHART]') {
+        return <OrgChart key={index} />;
+      }
+      
+      return (
+        <div key={index} className="mb-6 last:mb-0">
+          {part.split('\n').map((line, lineIndex) => {
+            // Check if the line is a bullet point
+            if (line.startsWith('•')) {
+              return (
+                <li key={lineIndex} className="ml-6 mb-2 list-disc">
+                  {line.substring(1).trim()}
+                </li>
+              );
+            }
             return (
-              <li key={lineIndex} className="ml-6 mb-2 list-disc">
-                {line.substring(1).trim()}
-              </li>
+              <p key={lineIndex} className={lineIndex === 0 ? "font-medium mb-3" : "mb-2"}>
+                {line}
+              </p>
             );
-          }
-          return (
-            <p key={lineIndex} className={lineIndex === 0 ? "font-medium mb-3" : "mb-2"}>
-              {line}
-            </p>
-          );
-        })}
-      </div>
-    ));
+          })}
+        </div>
+      );
+    });
   };
 
   return (

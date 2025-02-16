@@ -34,7 +34,8 @@ export const introductionCourse: Course = {
     },
     {
       title: "Sales Roles and Responsibilities",
-      content: "Leadership, Management, and Accountability\n" +
+      content: "[INTERACTIVE_ORG_CHART]\n\n" +
+        "Leadership, Management, and Accountability\n" +
         "• Providing strategic direction, setting clear goals, and ensuring alignment with company objectives.\n" +
         "• Developing and executing a structured approach to identifying, engaging, and converting prospects.\n" +
         "• Meeting and exceeding revenue, conversion, and performance goals through effective execution.\n\n" +
