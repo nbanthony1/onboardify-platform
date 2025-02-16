@@ -162,13 +162,13 @@ const OrgChart = () => {
     <div className="p-6 bg-gray-50 rounded-lg">
       <h3 className="text-xl font-semibold mb-6">Organization Structure</h3>
       
-      {/* Top Level Departments */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      {/* Top Level Departments in a single row */}
+      <div className="flex flex-wrap gap-4 mb-8">
         {departments.map((dept) => (
           <button
             key={dept.name}
             onClick={() => setSelectedDept(dept)}
-            className={`p-4 rounded-lg transition-colors ${
+            className={`flex-1 min-w-[200px] p-4 rounded-lg transition-colors ${
               selectedDept?.name === dept.name
                 ? "bg-primary text-white"
                 : "bg-white hover:bg-gray-100 border"
