@@ -3,8 +3,8 @@ import { Course } from "../types";
 
 export const otherCourses: Course[] = [
   {
-    id: 8,
-    title: "8. Performance Metrics",
+    id: 7,
+    title: "7. Performance Metrics",
     description: "Sales targets, KPIs, and professional development",
     department: "sales",
     progress: 0,
