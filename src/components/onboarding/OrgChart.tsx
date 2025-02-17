@@ -59,7 +59,7 @@ const OrgChart = () => {
                 : "bg-white hover:bg-gray-100 border"
             } ${
               deptName === "Sales" 
-                ? "animate-pulse-border relative before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-primary/50"
+                ? "animate-pulse-border relative before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-[#9b87f5]/50"
                 : ""
             }`}
           >
