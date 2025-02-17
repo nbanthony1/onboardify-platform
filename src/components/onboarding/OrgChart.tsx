@@ -57,7 +57,7 @@ const OrgChart = () => {
               isSelected
                 ? "bg-primary text-white"
                 : deptName === "Sales"
-                ? "bg-[#9b87f5] text-white hover:bg-[#9b87f5]/90 border animate-pulse-border relative before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-[#9b87f5]/50"
+                ? "bg-[#9b87f5]/90 text-white hover:bg-[#9b87f5] border animate-[pulse_1.5s_cubic-bezier(0.4,0,0.6,1)_infinite] relative before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-[#9b87f5]"
                 : "bg-white hover:bg-gray-100 border"
             }`}
           >
@@ -231,6 +231,8 @@ const OrgChart = () => {
   return (
     <div className="bg-gray-50 w-full p-6">
       <h3 className="text-xl font-semibold mb-6">Organization Structure</h3>
+      
+      <p className="text-sm text-gray-600 mb-4 italic">Tap a Departmental cell to view Roles and Responsibilities.</p>
       
       <div className="flex flex-col items-center space-y-4 transform scale-[0.715] origin-top">
         {/* Visionary - Top Level */}
