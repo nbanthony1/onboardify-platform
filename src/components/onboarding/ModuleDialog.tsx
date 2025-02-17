@@ -7,6 +7,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import OrgChart from "./OrgChart";
+import PDFViewer from "./PDFViewer";
 
 interface ModuleDialogProps {
   selectedModule: { title: string; content: string } | null;
@@ -29,6 +30,11 @@ const ModuleDialog = ({
       // Check for interactive org chart placeholder
       if (part === '[INTERACTIVE_ORG_CHART]') {
         return <OrgChart key={index} />;
+      }
+
+      // Check if content is a PDF path
+      if (part.endsWith('.pdf')) {
+        return <PDFViewer key={index} pdfUrl={part} />;
       }
       
       return (
