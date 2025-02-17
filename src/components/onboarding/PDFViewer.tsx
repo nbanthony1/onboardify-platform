@@ -12,37 +12,48 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
   const [isValidPDF, setIsValidPDF] = useState(true);
   const [fileUrl, setFileUrl] = useState<string | null>(null);
   const [needsUpload, setNeedsUpload] = useState(false);
+  const [isChecking, setIsChecking] = useState(true);
 
   useEffect(() => {
-    const getFileUrl = async () => {
+    const checkFileExists = async () => {
       try {
         if (pdfUrl.startsWith('/pdfs/')) {
           const filePath = pdfUrl.substring(1); // Remove leading slash
-          const { data } = await supabase.storage
+          const { data, error } = await supabase.storage
             .from('course_materials')
-            .getPublicUrl(filePath);
-          
-          if (data?.publicUrl) {
-            setFileUrl(data.publicUrl);
-          } else {
+            .list(filePath.split('/')[0], {
+              limit: 1,
+              search: filePath.split('/').pop()
+            });
+
+          if (error) throw error;
+
+          if (!data || data.length === 0) {
             setNeedsUpload(true);
             setIsValidPDF(false);
+          } else {
+            const { data: urlData } = await supabase.storage
+              .from('course_materials')
+              .getPublicUrl(filePath);
+            
+            if (urlData?.publicUrl) {
+              setFileUrl(urlData.publicUrl);
+            }
           }
         } else {
           setFileUrl(pdfUrl);
         }
       } catch (error) {
+        console.error('Error checking file:', error);
         setIsValidPDF(false);
-        toast({
-          title: "Error Loading PDF",
-          description: "Unable to load the PDF file. Please try again.",
-          variant: "destructive"
-        });
+        setNeedsUpload(true);
+      } finally {
+        setIsChecking(false);
       }
     };
 
     if (pdfUrl) {
-      getFileUrl();
+      checkFileExists();
     }
   }, [pdfUrl]);
 
@@ -50,18 +61,28 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
     setFileUrl(url);
     setIsValidPDF(true);
     setNeedsUpload(false);
+    toast({
+      title: "Upload Successful",
+      description: "The PDF has been uploaded successfully.",
+    });
   };
+
+  if (isChecking) {
+    return (
+      <div className="flex items-center justify-center h-[80vh] bg-gray-50 rounded-lg">
+        <p className="text-center text-gray-600">
+          Checking PDF status...
+        </p>
+      </div>
+    );
+  }
 
   if (needsUpload || !isValidPDF) {
     return (
       <div className="h-[80vh] flex flex-col items-center justify-center bg-gray-50 rounded-lg p-8">
         <h3 className="text-lg font-semibold mb-4">PDF Upload Required</h3>
         <p className="text-center text-gray-600 mb-8">
-          This module requires the {pdfUrl.split('/').pop()?.replace('.pdf', '')} PDF document.
-          <br />
-          <span className="text-sm text-gray-500">
-            Please upload it using the interface below.
-          </span>
+          Please upload the {pdfUrl.split('/').pop()?.replace('.pdf', '')} PDF document to continue.
         </p>
         <FileUploader 
           targetPath={pdfUrl.substring(1)} 
