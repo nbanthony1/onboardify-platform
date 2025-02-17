@@ -233,7 +233,9 @@ const OrgChart = () => {
     <div className="bg-gray-50 w-full p-6">
       <h3 className="text-xl font-semibold mb-6">Organization Structure</h3>
       
-      <p className="text-[1.2em] font-bold mb-4">Tap a Departmental cell to view Roles and Responsibilities.</p>
+      <div className="inline-block border-2 border-gray-300 rounded-lg px-4 py-2 mb-4">
+        <p className="text-sm text-gray-600 italic">Tap a Departmental cell to view Roles and Responsibilities.</p>
+      </div>
       
       <div className="flex flex-col items-center space-y-4 transform scale-[0.715] origin-top">
         {/* Visionary - Top Level */}
