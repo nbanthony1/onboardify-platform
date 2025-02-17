@@ -1,4 +1,3 @@
-
 import { Course } from "../types";
 
 export const introductionCourse: Course = {
@@ -35,14 +34,6 @@ export const introductionCourse: Course = {
     {
       title: "Roles and Responsibilities",
       content: "[INTERACTIVE_ORG_CHART]"
-    },
-    {
-      title: "Sales Contribution to Mission",
-      content: "How Sales Contributes to Our Mission\n\n" +
-        "• Consultative Selling – Acting as trusted advisors by educating clients on the benefits of humane and sustainable bird deterrent solutions.\n" +
-        "• Market & Competitive Intelligence – Analyzing industry trends and customer needs to refine our approach and stay ahead of competitors.\n" +
-        "• Collaborative Execution – Working closely with Marketing and Operations teams to ensure seamless product delivery and customer satisfaction.\n" +
-        "• Driving Business Growth – Contributing directly to the company's goal of becoming THE solution in pest control through high-quality sales execution and value-driven engagement."
     }
   ]
 };
