@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import FileUploader from './FileUploader';
 
 interface PDFViewerProps {
   pdfUrl: string;
@@ -10,11 +11,11 @@ interface PDFViewerProps {
 const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
   const [isValidPDF, setIsValidPDF] = useState(true);
   const [fileUrl, setFileUrl] = useState<string | null>(null);
+  const [needsUpload, setNeedsUpload] = useState(false);
 
   useEffect(() => {
     const getFileUrl = async () => {
       try {
-        // Check if this is a storage path
         if (pdfUrl.startsWith('/pdfs/')) {
           const filePath = pdfUrl.substring(1); // Remove leading slash
           const { data } = await supabase.storage
@@ -24,12 +25,8 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
           if (data?.publicUrl) {
             setFileUrl(data.publicUrl);
           } else {
+            setNeedsUpload(true);
             setIsValidPDF(false);
-            toast({
-              title: "PDF Not Found",
-              description: "The requested PDF file could not be found.",
-              variant: "destructive"
-            });
           }
         } else {
           setFileUrl(pdfUrl);
@@ -49,6 +46,12 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
     }
   }, [pdfUrl]);
 
+  const handleUploadComplete = (url: string) => {
+    setFileUrl(url);
+    setIsValidPDF(true);
+    setNeedsUpload(false);
+  };
+
   if (!pdfUrl) {
     return (
       <div className="flex items-center justify-center h-[80vh] bg-gray-100 rounded-lg">
@@ -59,6 +62,17 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
             Only PDF files are accepted.
           </span>
         </p>
+      </div>
+    );
+  }
+
+  if (needsUpload) {
+    return (
+      <div className="h-[80vh] flex items-center justify-center bg-gray-100 rounded-lg">
+        <FileUploader 
+          targetPath={pdfUrl.substring(1)} 
+          onUploadComplete={handleUploadComplete}
+        />
       </div>
     );
   }
