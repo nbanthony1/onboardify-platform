@@ -20,7 +20,7 @@ export const introductionCourse: Course = {
       title: "Core Values and Guarantee",
       content: "[Video Placeholder: Core Values Presentation]\n\n" +
         "Guarantee\n" +
-        "We guarantee significant reductions in bird activity, costs associated with pest control, and reputational risk from inhumane pest control practices. Our solutions provide permanent, effective, and ethical that align with environmental responsibility and operational efficiency."
+        "We guarantee significant reductions in bird activity, costs associated with pest control, and reputational risk from inhumane pest control practices. Our solutions are permanent, effective, and ethical that align with environmental responsibility and operational efficiency."
     },
     {
       title: "Market Positioning",
