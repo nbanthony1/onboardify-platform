@@ -9,71 +9,42 @@ export const salesProcessCourse: Course = {
   progress: 0,
   modules: [
     {
-      title: "Lead Generation and Qualification",
-      content: "Identifying Potential Clients and Assessing Needs\n\n" +
-        "Customer Research\n" +
-        "Begin by defining your ideal customer profile through detailed research. This involves understanding demographic traits like industry and business size, as well as psychological aspects such as the motivations and challenges of target decision-makers.\n\n" +
-        "Prospecting\n" +
-        "• Utilize various channels to identify potential clients\n" +
-        "• Leverage social media platforms\n" +
-        "• Attend industry events\n" +
-        "• Employ data analytics to discover prospects\n\n" +
-        "Qualification and Discovery\n" +
-        "Engage with identified prospects to assess their needs and determine if they align with your offerings. This stage involves asking probing questions to understand their pain points and readiness to purchase."
+      title: "The External Process: Symterra Path to Protection",
+      content: "The Proven Process (PATH)\n\n" +
+        "1️⃣ Problem Assessment\n\n" +
+        "• Conduct site evaluations to identify bird activity, environmental factors, and specific challenges.\n" +
+        "• Gather data on species behavior and areas of infestation.\n" +
+        "• Align with client goals (compliance, maintenance reduction, ESG initiatives).\n\n" +
+        "2️⃣ Advanced Solution Design\n\n" +
+        "• Develop a customized deterrent strategy based on structural and environmental factors.\n" +
+        "• Integrate Symterra's proprietary pulse-based technology to create an effective, non-invasive deterrent.\n" +
+        "• Ensure cost efficiency and seamless alignment with client operations.\n\n" +
+        "3️⃣ Technology Implementation\n\n" +
+        "• Deliver and ship the system to the customer or their designated installer.\n" +
+        "• Provide detailed installation guidelines and virtual assistance.\n" +
+        "• Ensure proper setup and testing for optimal performance.\n\n" +
+        "4️⃣ Hands-On Support\n\n" +
+        "• Train client teams and partners on system use and maintenance.\n" +
+        "• Provide ongoing customer support to address operational concerns.\n" +
+        "• Offer troubleshooting and best practices for long-term success."
     },
     {
-      title: "Sales Presentation and Demonstration",
-      content: "Effective Communication of Product Benefits\n\n" +
-        "Tailoring Presentations to Specific Industries\n\n" +
-        "Customize your sales presentations to address the unique challenges and needs of each industry you target. This demonstrates an understanding of the prospect's business environment and positions your product as a tailored solution.\n\n" +
-        "Utilizing Technology\n\n" +
-        "Incorporate multimedia elements and live demonstrations to showcase your product's capabilities effectively. This can enhance understanding and engagement during the presentation."
-    },
-    {
-      title: "Proposal Development and Pricing",
-      content: "Crafting Compelling Proposals\n\n" +
-        "Understanding Pricing Strategies\n" +
-        "• Develop value-based pricing strategies\n" +
-        "• Consider tiered pricing models\n" +
-        "• Evaluate bundling options\n" +
-        "• Assess subscription-based pricing\n\n" +
-        "Proposal Development\n" +
-        "Create proposals that clearly outline:\n" +
-        "• Product benefits and features\n" +
-        "• Implementation process\n" +
-        "• Return on investment calculations\n" +
-        "• Timeline and milestones\n" +
-        "• Pricing and payment terms"
-    },
-    {
-      title: "Closing and Onboarding",
-      content: "Negotiation Techniques\n\n" +
-        "Effective Negotiation\n" +
-        "• Aim for win-win outcomes\n" +
-        "• Understand client constraints\n" +
-        "• Prepare for common objections\n" +
-        "• Know your bottom line\n\n" +
-        "Client Onboarding Procedures\n" +
-        "• Set clear expectations\n" +
-        "• Provide comprehensive training\n" +
-        "• Maintain open communication\n" +
-        "• Address initial concerns promptly\n" +
-        "• Document key processes and contacts"
-    },
-    {
-      title: "Post-Sale Support and Retention",
-      content: "Ensuring Customer Satisfaction\n\n" +
-        "Continuous Engagement\n" +
-        "• Schedule regular follow-up meetings\n" +
-        "• Conduct satisfaction surveys\n" +
-        "• Provide product updates and news\n" +
-        "• Monitor usage and adoption\n\n" +
-        "Long-Term Relationship Building\n" +
-        "• Implement loyalty programs\n" +
-        "• Identify upsell opportunities\n" +
-        "• Establish feedback mechanisms\n" +
-        "• Act on customer suggestions\n" +
-        "• Recognize and reward loyalty"
+      title: "The Internal Process: Symterra Proven Process",
+      content: "1️⃣ Problem Assessment\n" +
+        "Same as the external process, but includes deeper data collection for R&D.\n\n" +
+        "2️⃣ Advanced Solution Design\n" +
+        "Includes pilot testing and internal validation before full implementation.\n\n" +
+        "3️⃣ Technology Implementation\n" +
+        "Internal quality checks ensure correct setup before delivery.\n\n" +
+        "4️⃣ Hands-On Support\n" +
+        "Training internal staff and partners to ensure knowledge transfer.\n\n" +
+        "5️⃣ Results Validation\n\n" +
+        "• Measure reductions in bird activity and collect client feedback.\n" +
+        "• Generate performance reports to validate system effectiveness.\n" +
+        "• Conduct optimization reviews.\n\n" +
+        "6️⃣ Continuous Optimization\n\n" +
+        "• Use R&D insights and evolving data to refine solutions.\n" +
+        "• Strengthen client relationships through ongoing engagement and technical improvements."
     }
   ]
 };
