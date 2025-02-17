@@ -1,4 +1,3 @@
-
 import { Course } from "../types";
 
 export const marketCourse: Course = {
@@ -40,11 +39,8 @@ export const marketCourse: Course = {
       title: "Customer Avatars",
       content: "Buyer Persona: Understanding Our Customers\n" +
         "The Buyer Persona defines who our customers are, their decision-making process, and what drives their needs.\n\n" +
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" +
-        "Primary Target Markets\n" +
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
+        "Primary Target Markets\n\n" +
         "1️⃣ Pest Control Operators (PCOs)\n" +
-        "──────────────────────────────────────\n" +
         "👥 Who They Are:\n" +
         "   Owners, General Managers, Regional Directors, Operations Managers, Procurement Managers\n\n" +
         "📊 Demographics:\n" +
@@ -57,8 +53,8 @@ export const marketCourse: Course = {
         "   • High costs of ineffective bird deterrents\n" +
         "   • Customer complaints about recurring bird problems\n" +
         "   • Need for reliable, long-term solutions\n\n" +
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
         "2️⃣ Commercial Enterprises\n" +
-        "──────────────────────────────────────\n" +
         "👥 Who They Are:\n" +
         "   Facilities Managers, Operations Directors, Property Managers\n\n" +
         "📊 Demographics:\n" +
@@ -71,8 +67,8 @@ export const marketCourse: Course = {
         "   • Bird-related damage affecting daily operations\n" +
         "   • Compliance with environmental and sustainability regulations\n" +
         "   • High costs of continuous maintenance and cleaning\n\n" +
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
         "3️⃣ Municipalities & Public Institutions\n" +
-        "──────────────────────────────────────\n" +
         "👥 Who They Are:\n" +
         "   City Planners, Public Works Directors, Environmental Officers\n\n" +
         "📊 Demographics:\n" +
@@ -85,8 +81,8 @@ export const marketCourse: Course = {
         "   • Public complaints about bird-related nuisances\n" +
         "   • Need for humane, long-term solutions\n" +
         "   • Limited budget for ineffective deterrent systems\n\n" +
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
         "4️⃣ Large End-User Organizations\n" +
-        "──────────────────────────────────────\n" +
         "👥 Who They Are:\n" +
         "   Corporate Real Estate Directors, Sustainability Executives, Facilities Managers\n\n" +
         "📊 Demographics:\n" +
@@ -99,8 +95,8 @@ export const marketCourse: Course = {
         "   • PR concerns about inhumane pest control methods\n" +
         "   • High cost of ongoing cleaning and maintenance\n" +
         "   • Compliance with sustainability initiatives and ESG goals\n\n" +
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
         "5️⃣ Pest Control Distributors\n" +
-        "──────────────────────────────────────\n" +
         "👥 Who They Are:\n" +
         "   Owners, Procurement Managers, Sales Directors\n\n" +
         "📊 Demographics:\n" +
