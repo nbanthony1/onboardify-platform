@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface PDFViewerProps {
   pdfUrl: string;
@@ -8,45 +9,43 @@ interface PDFViewerProps {
 
 const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
   const [isValidPDF, setIsValidPDF] = useState(true);
+  const [fileUrl, setFileUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    // Check if the file exists and is a PDF
-    const checkPDF = async () => {
+    const getFileUrl = async () => {
       try {
-        const response = await fetch(pdfUrl);
-        const contentType = response.headers.get('content-type');
-        
-        // Check for both application/pdf and binary PDF content types
-        const validPDFTypes = [
-          'application/pdf',
-          'application/x-pdf',
-          'application/acrobat',
-          'application/vnd.pdf',
-          'binary/octet-stream'
-        ];
-        
-        if (!contentType || !validPDFTypes.some(type => contentType.includes(type))) {
-          setIsValidPDF(false);
-          toast({
-            title: "Invalid File Type",
-            description: "Only PDF files are accepted for this upload.",
-            variant: "destructive"
-          });
+        // Check if this is a storage path
+        if (pdfUrl.startsWith('/pdfs/')) {
+          const filePath = pdfUrl.substring(1); // Remove leading slash
+          const { data } = await supabase.storage
+            .from('course_materials')
+            .getPublicUrl(filePath);
+          
+          if (data?.publicUrl) {
+            setFileUrl(data.publicUrl);
+          } else {
+            setIsValidPDF(false);
+            toast({
+              title: "PDF Not Found",
+              description: "The requested PDF file could not be found.",
+              variant: "destructive"
+            });
+          }
         } else {
-          setIsValidPDF(true);
+          setFileUrl(pdfUrl);
         }
       } catch (error) {
         setIsValidPDF(false);
         toast({
           title: "Error Loading PDF",
-          description: "Unable to load the PDF file. Please check the file format.",
+          description: "Unable to load the PDF file. Please try again.",
           variant: "destructive"
         });
       }
     };
 
     if (pdfUrl) {
-      checkPDF();
+      getFileUrl();
     }
   }, [pdfUrl]);
 
@@ -66,14 +65,14 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
 
   return (
     <div className="w-full h-[80vh]">
-      {isValidPDF ? (
+      {isValidPDF && fileUrl ? (
         <object
-          data={pdfUrl}
+          data={fileUrl}
           type="application/pdf"
           className="w-full h-full"
         >
           <p>It appears you don't have a PDF plugin for this browser. You can still 
-          <a href={pdfUrl} className="text-primary hover:underline ml-1">download the PDF here</a>.</p>
+          <a href={fileUrl} className="text-primary hover:underline ml-1">download the PDF here</a>.</p>
         </object>
       ) : (
         <div className="flex items-center justify-center h-full bg-gray-100 rounded-lg">
