@@ -52,23 +52,17 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
     setNeedsUpload(false);
   };
 
-  if (!pdfUrl) {
+  if (needsUpload || !isValidPDF) {
     return (
-      <div className="flex items-center justify-center h-[80vh] bg-gray-100 rounded-lg">
-        <p className="text-center text-gray-600">
-          Please upload a PDF file to continue.
+      <div className="h-[80vh] flex flex-col items-center justify-center bg-gray-50 rounded-lg p-8">
+        <h3 className="text-lg font-semibold mb-4">PDF Upload Required</h3>
+        <p className="text-center text-gray-600 mb-8">
+          This module requires the {pdfUrl.split('/').pop()?.replace('.pdf', '')} PDF document.
           <br />
-          <span className="text-sm text-gray-400">
-            Only PDF files are accepted.
+          <span className="text-sm text-gray-500">
+            Please upload it using the interface below.
           </span>
         </p>
-      </div>
-    );
-  }
-
-  if (needsUpload) {
-    return (
-      <div className="h-[80vh] flex items-center justify-center bg-gray-100 rounded-lg">
         <FileUploader 
           targetPath={pdfUrl.substring(1)} 
           onUploadComplete={handleUploadComplete}
@@ -77,22 +71,28 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
     );
   }
 
+  if (!pdfUrl) {
+    return (
+      <div className="flex items-center justify-center h-[80vh] bg-gray-50 rounded-lg">
+        <p className="text-center text-gray-600">
+          No PDF document specified.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full h-[80vh]">
-      {isValidPDF && fileUrl ? (
+      {fileUrl ? (
         <iframe
           src={`https://docs.google.com/viewer?url=${encodeURIComponent(fileUrl)}&embedded=true`}
           className="w-full h-full border-0"
           title="PDF Viewer"
         />
       ) : (
-        <div className="flex items-center justify-center h-full bg-gray-100 rounded-lg">
+        <div className="flex items-center justify-center h-full bg-gray-50 rounded-lg">
           <p className="text-center text-gray-600">
-            Please upload a valid PDF file to continue.
-            <br />
-            <span className="text-sm text-gray-400">
-              Only PDF files are accepted.
-            </span>
+            Loading PDF viewer...
           </p>
         </div>
       )}
