@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
@@ -16,6 +16,14 @@ interface Department {
 const OrgChart = () => {
   const [selectedDept, setSelectedDept] = useState<Department | null>(null);
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
+  const [showAnimation, setShowAnimation] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowAnimation(false);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const getResponsibilityExplanation = (resp: string) => {
     const explanations: { [key: string]: string } = {
@@ -229,8 +237,33 @@ const OrgChart = () => {
   ];
 
   return (
-    <div className="bg-gray-50 w-full p-6">
+    <div className="bg-gray-50 w-full p-6 relative">
       <h3 className="text-xl font-semibold mb-6">Organization Structure</h3>
+      
+      {showAnimation && (
+        <div className="absolute inset-0 z-10 pointer-events-none">
+          <div className="relative w-full h-full">
+            <div 
+              className="w-8 h-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+              style={{
+                animation: "moveCursor 1.5s ease-in-out infinite",
+                background: "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"M12 5l7 7-7 7\"/></svg>') no-repeat",
+                filter: "drop-shadow(0 0 2px rgba(0,0,0,0.3))"
+              }}
+            />
+            <div 
+              className="absolute left-1/2 top-1/2 bg-white rounded-lg shadow-lg p-4 w-64 opacity-0"
+              style={{
+                animation: "showDialog 1.5s ease-in-out infinite",
+                animationDelay: "0.75s"
+              }}
+            >
+              <h4 className="font-medium mb-2">Department Details</h4>
+              <p className="text-sm text-gray-600">View roles and responsibilities</p>
+            </div>
+          </div>
+        </div>
+      )}
       
       <p className="text-sm text-gray-600 mb-4 italic">Tap a Departmental cell to view Roles and Responsibilities.</p>
       
@@ -396,7 +429,46 @@ const OrgChart = () => {
         </div>
       </div>
 
-      {/* Department Details Dialog */}
+      <style jsx>{`
+        @keyframes moveCursor {
+          0% {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 0;
+          }
+          20% {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+          }
+          40% {
+            transform: translate(-50%, -50%) scale(0.95);
+            opacity: 1;
+          }
+          60% {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+          }
+          100% {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 0;
+          }
+        }
+
+        @keyframes showDialog {
+          0% {
+            transform: translate(-50%, -50%) scale(0.9);
+            opacity: 0;
+          }
+          50% {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+          }
+          100% {
+            transform: translate(-50%, -50%) scale(0.9);
+            opacity: 0;
+          }
+        }
+      `}</style>
+
       <Dialog open={!!selectedDept} onOpenChange={(open) => !open && setSelectedDept(null)}>
         <DialogContent className="max-w-[600px]">
           <DialogHeader>
@@ -419,7 +491,6 @@ const OrgChart = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Role Details Dialog */}
       <Dialog open={!!selectedRole} onOpenChange={(open) => !open && setSelectedRole(null)}>
         <DialogContent className="max-w-[600px]">
           <DialogHeader>
