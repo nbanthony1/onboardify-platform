@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -17,6 +16,58 @@ interface Department {
 const OrgChart = () => {
   const [selectedDept, setSelectedDept] = useState<Department | null>(null);
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
+
+  const getResponsibilityExplanation = (resp: string) => {
+    const explanations: { [key: string]: string } = {
+      "Big Ideas": "Strategic vision and innovative concepts for company growth",
+      "Big Relationships": "Building and maintaining key strategic partnerships",
+      "R&D": "Directing research and development initiatives",
+      "Culture": "Shaping and maintaining company culture and values",
+
+      "LMA": "Lead, Manage, and hold people Accountable",
+      "P&L": "Oversight of profit and loss statements",
+      "Remove Obstacles": "Identifying and resolving operational bottlenecks",
+      "Special Projects": "Managing critical company initiatives",
+
+      "Marketing Strategy": "Developing comprehensive marketing plans and objectives",
+      "Lead Generation": "Creating and implementing lead generation campaigns",
+      "Analytics & Reporting": "Tracking and analyzing marketing metrics",
+      "Market Research": "Conducting market analysis and competitor research",
+
+      "Revenue Growth": "Driving company revenue through sales initiatives",
+      "Market Expansion": "Identifying and entering new market opportunities",
+      "Client Relations": "Managing and improving client relationships",
+
+      "Manufacturing Process": "Overseeing production and manufacturing operations",
+      "QC": "Ensuring quality control standards are met",
+      "Logistics": "Managing supply chain and distribution",
+      "Tech Support": "Providing technical assistance and support",
+      "Asset Management": "Managing company resources and equipment",
+    };
+    return explanations[resp] || resp;
+  };
+
+  const renderTooltipButton = (deptName: string, onClick: () => void, isSelected: boolean) => (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <button
+            onClick={onClick}
+            className={`w-40 p-3 rounded-lg transition-colors ${
+              isSelected
+                ? "bg-primary text-white"
+                : "bg-white hover:bg-gray-100 border"
+            }`}
+          >
+            <h4 className="font-medium">{deptName}</h4>
+          </button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Click to view {deptName}'s responsibilities and roles</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
 
   const departments: Department[] = [
     {
@@ -175,35 +226,13 @@ const OrgChart = () => {
     }
   ];
 
-  const renderTooltipButton = (deptName: string, onClick: () => void, isSelected: boolean) => (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <button
-            onClick={onClick}
-            className={`w-40 p-3 rounded-lg transition-colors ${
-              isSelected
-                ? "bg-primary text-white"
-                : "bg-white hover:bg-gray-100 border"
-            }`}
-          >
-            <h4 className="font-medium">{deptName}</h4>
-          </button>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>Click to view {deptName}'s responsibilities and roles</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  );
-
   return (
     <div className="bg-gray-50 w-full p-6">
       <h3 className="text-xl font-semibold mb-6">Organization Structure</h3>
       
-      <div className="flex flex-col items-center space-y-6 transform scale-80">
+      <div className="flex flex-col items-center space-y-4 transform scale-[0.65] origin-top">
         {/* Visionary - Top Level */}
-        <div className="w-40">
+        <div className="w-36">
           {renderTooltipButton(
             "Visionary",
             () => setSelectedDept(departments[0]),
@@ -211,10 +240,10 @@ const OrgChart = () => {
           )}
         </div>
 
-        <div className="h-6 w-px bg-gray-300"></div>
+        <div className="h-4 w-px bg-gray-300"></div>
 
         {/* Integrator - Second Level */}
-        <div className="w-40">
+        <div className="w-36">
           {renderTooltipButton(
             "Integrator",
             () => setSelectedDept(departments[1]),
@@ -222,10 +251,10 @@ const OrgChart = () => {
           )}
         </div>
 
-        <div className="h-6 w-px bg-gray-300"></div>
+        <div className="h-4 w-px bg-gray-300"></div>
 
         {/* Main Departments Row */}
-        <div className="flex justify-center gap-4">
+        <div className="flex justify-center gap-3">
           {["Marketing", "Sales", "Operations", "R&D", "Finance"].map((deptName) => (
             <div key={deptName} className="flex flex-col items-center">
               {renderTooltipButton(
@@ -237,8 +266,8 @@ const OrgChart = () => {
               {/* Sub-roles for specific departments */}
               {(deptName === "Marketing" || deptName === "Sales" || deptName === "Operations") && (
                 <>
-                  <div className="h-6 w-px bg-gray-300"></div>
-                  <div className="flex gap-4">
+                  <div className="h-4 w-px bg-gray-300"></div>
+                  <div className="flex gap-3">
                     {deptName === "Marketing" && (
                       <>
                         <TooltipProvider>
@@ -372,9 +401,13 @@ const OrgChart = () => {
           {selectedDept?.responsibilities && (
             <div className="space-y-4">
               <h4 className="font-medium">Responsibilities:</h4>
-              <ul className="list-disc pl-5 space-y-1">
+              <ul className="list-disc pl-5 space-y-2">
                 {selectedDept.responsibilities.map((resp, index) => (
-                  <li key={index} className="text-sm">{resp}</li>
+                  <li key={index} className="text-sm">
+                    <span className="font-medium">{resp}:</span>
+                    <br />
+                    <span className="text-gray-600">{getResponsibilityExplanation(resp)}</span>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -391,9 +424,13 @@ const OrgChart = () => {
           {selectedRole?.responsibilities && (
             <div className="space-y-4">
               <h4 className="font-medium">Responsibilities:</h4>
-              <ul className="list-disc pl-5 space-y-1">
+              <ul className="list-disc pl-5 space-y-2">
                 {selectedRole.responsibilities.map((resp, index) => (
-                  <li key={index} className="text-sm">{resp}</li>
+                  <li key={index} className="text-sm">
+                    <span className="font-medium">{resp}</span>
+                    <br />
+                    <span className="text-gray-600">{getResponsibilityExplanation(resp)}</span>
+                  </li>
                 ))}
               </ul>
             </div>
