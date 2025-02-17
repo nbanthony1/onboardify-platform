@@ -4,7 +4,7 @@ import { Course } from "../types";
 export const salesProcessCourse: Course = {
   id: 4,
   title: "4. Sales Process",
-  description: "Complete sales cycle from lead generation to customer retention",
+  description: "The Proven Process (PATH)",
   department: "sales",
   progress: 0,
   modules: [
