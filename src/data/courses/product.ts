@@ -1,4 +1,3 @@
-
 import { Course } from "../types";
 
 export const productCourse: Course = {
@@ -10,15 +9,15 @@ export const productCourse: Course = {
   modules: [
     {
       title: "Technology Overview",
-      content: "Symterra Pulse is a state-of-the-art bird deterrent system that leverages advanced electromagnetic technology to safely and effectively deter birds from critical infrastructure, agricultural fields, and commercial facilities. Unlike traditional deterrents such as spikes, nets, or sound-based repellents, Symterra Pulse offers a non-invasive and humane solution that does not harm birds or disrupt the surrounding environment.\n\nUnique Selling Points:\n• Electromagnetic deterrence: Utilizes a scientifically-backed approach\n• Non-harmful technology: Safe for birds, humans, and wildlife\n• Low maintenance: Minimal upkeep and long-term durability\n• Customizable coverage: Scalable to various environments\n• Eco-friendly and silent operation"
+      content: "Presentation Link: https://docs.google.com/presentation/d/1BSgMRWMDW1YqmxHts6vkCwPpKCBg7jW1/edit#slide=id.p1\n\n[VIDEO_PLACEHOLDER]\n\nNote: A video will be added to this section."
     },
     {
-      title: "Benefits of Electromagnetic Deterrence",
-      content: "Electromagnetic bird deterrence represents a breakthrough in wildlife management by leveraging the natural avian response to electromagnetic fields.\n\nKey Benefits:\n• Effective Behavior Modification: Birds learn to avoid protected areas\n• Minimal Environmental Impact: No toxins introduced into ecosystems\n• Cost-Effective Solution: Reduces long-term operational costs\n• Versatile Application: Suitable for various settings"
+      title: "Product Overview",
+      content: "Presentation Link: https://docs.google.com/presentation/d/16atvIY1SGNVfDuRGvigXGgVDuuBLmrpd/edit#slide=id.p1\n\n[VIDEO_PLACEHOLDER]\n\nNote: A video will be added to this section."
     },
     {
-      title: "Product Features and Specifications",
-      content: "Symterra Pulse is engineered to meet the highest industry standards.\n\nProduct Components:\n• Control Unit: Centralized system for electromagnetic emissions\n• Emitter Modules: Strategic units generating deterrent fields\n• Solar or AC-Powered Options: Flexible power sources\n• Remote Monitoring: Cloud-based dashboard\n\nCertifications:\n• FCC & CE Certified\n• Environmental Compliance\n• OSHA Approved"
+      title: "Technical Specifications",
+      content: "Documentation Link: https://drive.google.com/drive/folders/1hKNK8WOdQ_UnVc28JJBKGMzYTb649QFr"
     },
     {
       title: "University of Arizona Study",
