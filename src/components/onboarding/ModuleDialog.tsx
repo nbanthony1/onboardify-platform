@@ -37,6 +37,11 @@ const ModuleDialog = ({
         return <PDFViewer key={index} pdfUrl={part} />;
       }
       
+      // Skip the "Note: Please upload..." message if we're showing a PDF
+      if (parts[0].endsWith('.pdf') && part.startsWith('Note: Please upload')) {
+        return null;
+      }
+      
       return (
         <div key={index} className="mb-6 last:mb-0">
           {part.split('\n').map((line, lineIndex) => {
