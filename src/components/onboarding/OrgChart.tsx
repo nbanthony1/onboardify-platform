@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface Role {
   title: string;
@@ -15,6 +16,7 @@ interface Department {
 
 const OrgChart = () => {
   const [selectedDept, setSelectedDept] = useState<Department | null>(null);
+  const [selectedRole, setSelectedRole] = useState<Role | null>(null);
 
   const departments: Department[] = [
     {
@@ -63,35 +65,44 @@ const OrgChart = () => {
             "Testimonials",
             "Events"
           ]
+        },
+        {
+          title: "Sales Support",
+          responsibilities: [
+            "Sales Enablement",
+            "Content Creation",
+            "Campaign Management"
+          ]
         }
       ]
     },
     {
       name: "Sales",
-      responsibilities: [],
+      responsibilities: [
+        "LMA",
+        "Revenue Growth",
+        "Market Expansion",
+        "Client Relations"
+      ],
       roles: [
-        {
-          title: "Leadership, Management, and Accountability",
-          responsibilities: [
-            "Providing strategic direction, setting clear goals, and ensuring alignment with company objectives",
-            "Developing and executing a structured approach to identifying, engaging, and converting prospects",
-            "Meeting and exceeding revenue, conversion, and performance goals through effective execution"
-          ]
-        },
         {
           title: "Account Acquisition",
           responsibilities: [
-            "Identifying Opportunities – Researching market trends and targeting potential clients that align with Symterra's value proposition",
-            "Acquiring Accounts – Implementing effective outreach strategies to convert leads into customers",
-            "Closing Deals – Negotiating contracts and finalizing agreements to secure long-term client relationships"
+            "Lead Qualification",
+            "Prospect Outreach",
+            "Solution Presentation",
+            "Contract Negotiation",
+            "Pipeline Management"
           ]
         },
         {
           title: "Account Management",
           responsibilities: [
-            "Grow Revenue – Expanding business with existing clients through upselling and cross-selling opportunities",
-            "Client Adoption – Ensuring customers integrate and utilize Symterra's solutions effectively",
-            "Relationship Management – Building and maintaining strong partnerships with PCOs, commercial enterprises, and municipalities to ensure long-term adoption and success"
+            "Client Relationship Building",
+            "Account Growth Strategy",
+            "Customer Success Monitoring",
+            "Renewal Management",
+            "Cross-selling Opportunities"
           ]
         }
       ]
@@ -110,27 +121,31 @@ const OrgChart = () => {
         {
           title: "Logistics",
           responsibilities: [
-            "Ship/Receive",
-            "Inventory Control",
-            "Customer Order",
-            "Fulfillment"
+            "Inventory Management",
+            "Supply Chain Optimization",
+            "Shipping Coordination",
+            "Order Fulfillment",
+            "Warehouse Operations"
           ]
         },
         {
           title: "Manufacturing",
           responsibilities: [
-            "QC",
-            "Inventory Control",
-            "Production",
-            "Sourcing"
+            "Production Planning",
+            "Quality Control",
+            "Process Optimization",
+            "Equipment Maintenance",
+            "Safety Compliance"
           ]
         },
         {
           title: "Customer Service",
           responsibilities: [
-            "Training",
-            "Troubleshooting",
-            "Onboarding"
+            "Technical Support",
+            "Issue Resolution",
+            "Customer Training",
+            "Product Support",
+            "Service Documentation"
           ]
         }
       ]
@@ -166,7 +181,7 @@ const OrgChart = () => {
         <TooltipTrigger asChild>
           <button
             onClick={onClick}
-            className={`w-48 p-4 rounded-lg transition-colors ${
+            className={`w-40 p-3 rounded-lg transition-colors ${
               isSelected
                 ? "bg-primary text-white"
                 : "bg-white hover:bg-gray-100 border"
@@ -183,12 +198,12 @@ const OrgChart = () => {
   );
 
   return (
-    <div className="p-6 bg-gray-50 rounded-lg">
+    <div className="bg-gray-50 w-full p-6">
       <h3 className="text-xl font-semibold mb-6">Organization Structure</h3>
       
-      <div className="flex flex-col items-center space-y-8">
+      <div className="flex flex-col items-center space-y-6 transform scale-80">
         {/* Visionary - Top Level */}
-        <div className="w-48">
+        <div className="w-40">
           {renderTooltipButton(
             "Visionary",
             () => setSelectedDept(departments[0]),
@@ -196,10 +211,10 @@ const OrgChart = () => {
           )}
         </div>
 
-        <div className="h-8 w-px bg-gray-300"></div>
+        <div className="h-6 w-px bg-gray-300"></div>
 
         {/* Integrator - Second Level */}
-        <div className="w-48">
+        <div className="w-40">
           {renderTooltipButton(
             "Integrator",
             () => setSelectedDept(departments[1]),
@@ -207,9 +222,9 @@ const OrgChart = () => {
           )}
         </div>
 
-        <div className="h-8 w-px bg-gray-300"></div>
+        <div className="h-6 w-px bg-gray-300"></div>
 
-        {/* Main Departments Row - All in one line */}
+        {/* Main Departments Row */}
         <div className="flex justify-center gap-4">
           {["Marketing", "Sales", "Operations", "R&D", "Finance"].map((deptName) => (
             <div key={deptName} className="flex flex-col items-center">
@@ -222,37 +237,46 @@ const OrgChart = () => {
               {/* Sub-roles for specific departments */}
               {(deptName === "Marketing" || deptName === "Sales" || deptName === "Operations") && (
                 <>
-                  <div className="h-8 w-px bg-gray-300"></div>
+                  <div className="h-6 w-px bg-gray-300"></div>
                   <div className="flex gap-4">
                     {deptName === "Marketing" && (
                       <>
                         <TooltipProvider>
                           <Tooltip>
-                            <TooltipTrigger className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">
+                            <TooltipTrigger 
+                              className="w-32 p-2 rounded-lg bg-gray-50 border text-sm hover:bg-gray-100"
+                              onClick={() => setSelectedRole(departments[2].roles[0])}
+                            >
                               Lead Generation
                             </TooltipTrigger>
                             <TooltipContent>
-                              <p>Marketing's Lead Generation role and responsibilities</p>
+                              <p>Click to view role details</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
                         <TooltipProvider>
                           <Tooltip>
-                            <TooltipTrigger className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">
+                            <TooltipTrigger 
+                              className="w-32 p-2 rounded-lg bg-gray-50 border text-sm hover:bg-gray-100"
+                              onClick={() => setSelectedRole(departments[2].roles[1])}
+                            >
                               Brand Awareness
                             </TooltipTrigger>
                             <TooltipContent>
-                              <p>Marketing's Brand Awareness role and responsibilities</p>
+                              <p>Click to view role details</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
                         <TooltipProvider>
                           <Tooltip>
-                            <TooltipTrigger className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">
+                            <TooltipTrigger 
+                              className="w-32 p-2 rounded-lg bg-gray-50 border text-sm hover:bg-gray-100"
+                              onClick={() => setSelectedRole(departments[2].roles[2])}
+                            >
                               Sales Support
                             </TooltipTrigger>
                             <TooltipContent>
-                              <p>Marketing's Sales Support role and responsibilities</p>
+                              <p>Click to view role details</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
@@ -262,21 +286,27 @@ const OrgChart = () => {
                       <>
                         <TooltipProvider>
                           <Tooltip>
-                            <TooltipTrigger className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">
+                            <TooltipTrigger 
+                              className="w-32 p-2 rounded-lg bg-gray-50 border text-sm hover:bg-gray-100"
+                              onClick={() => setSelectedRole(departments[3].roles[0])}
+                            >
                               Account Acquisition
                             </TooltipTrigger>
                             <TooltipContent>
-                              <p>Sales' Account Acquisition role and responsibilities</p>
+                              <p>Click to view role details</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
                         <TooltipProvider>
                           <Tooltip>
-                            <TooltipTrigger className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">
+                            <TooltipTrigger 
+                              className="w-32 p-2 rounded-lg bg-gray-50 border text-sm hover:bg-gray-100"
+                              onClick={() => setSelectedRole(departments[3].roles[1])}
+                            >
                               Account Management
                             </TooltipTrigger>
                             <TooltipContent>
-                              <p>Sales' Account Management role and responsibilities</p>
+                              <p>Click to view role details</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
@@ -286,31 +316,40 @@ const OrgChart = () => {
                       <>
                         <TooltipProvider>
                           <Tooltip>
-                            <TooltipTrigger className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">
+                            <TooltipTrigger 
+                              className="w-32 p-2 rounded-lg bg-gray-50 border text-sm hover:bg-gray-100"
+                              onClick={() => setSelectedRole(departments[4].roles[0])}
+                            >
                               Logistics
                             </TooltipTrigger>
                             <TooltipContent>
-                              <p>Operations' Logistics role and responsibilities</p>
+                              <p>Click to view role details</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
                         <TooltipProvider>
                           <Tooltip>
-                            <TooltipTrigger className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">
+                            <TooltipTrigger 
+                              className="w-32 p-2 rounded-lg bg-gray-50 border text-sm hover:bg-gray-100"
+                              onClick={() => setSelectedRole(departments[4].roles[1])}
+                            >
                               Manufacturing
                             </TooltipTrigger>
                             <TooltipContent>
-                              <p>Operations' Manufacturing role and responsibilities</p>
+                              <p>Click to view role details</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
                         <TooltipProvider>
                           <Tooltip>
-                            <TooltipTrigger className="w-40 p-3 rounded-lg bg-gray-50 border text-sm">
+                            <TooltipTrigger 
+                              className="w-32 p-2 rounded-lg bg-gray-50 border text-sm hover:bg-gray-100"
+                              onClick={() => setSelectedRole(departments[4].roles[2])}
+                            >
                               Customer Service
                             </TooltipTrigger>
                             <TooltipContent>
-                              <p>Operations' Customer Service role and responsibilities</p>
+                              <p>Click to view role details</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
@@ -324,42 +363,43 @@ const OrgChart = () => {
         </div>
       </div>
 
-      {/* Department Details Panel */}
-      {selectedDept && (
-        <div className="mt-8 bg-white p-6 rounded-lg border space-y-6">
-          <div>
-            <h3 className="text-xl font-semibold mb-2">{selectedDept.name}</h3>
-          </div>
-
-          {selectedDept.responsibilities.length > 0 && (
-            <div>
-              <h4 className="font-medium mb-3">Department Responsibilities:</h4>
+      {/* Department Details Dialog */}
+      <Dialog open={!!selectedDept} onOpenChange={(open) => !open && setSelectedDept(null)}>
+        <DialogContent className="max-w-[600px]">
+          <DialogHeader>
+            <DialogTitle>{selectedDept?.name}</DialogTitle>
+          </DialogHeader>
+          {selectedDept?.responsibilities && (
+            <div className="space-y-4">
+              <h4 className="font-medium">Responsibilities:</h4>
               <ul className="list-disc pl-5 space-y-1">
                 {selectedDept.responsibilities.map((resp, index) => (
-                  <li key={index}>{resp}</li>
+                  <li key={index} className="text-sm">{resp}</li>
                 ))}
               </ul>
             </div>
           )}
+        </DialogContent>
+      </Dialog>
 
-          {selectedDept.roles.length > 0 && (
-            <div>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {selectedDept.roles.map((role, index) => (
-                  <div key={index} className="p-4 rounded-lg bg-gray-50">
-                    <h5 className="font-medium mb-2">{role.title}</h5>
-                    <ul className="list-disc pl-5 space-y-1 text-sm">
-                      {role.responsibilities.map((resp, respIndex) => (
-                        <li key={respIndex}>{resp}</li>
-                      ))}
-                    </ul>
-                  </div>
+      {/* Role Details Dialog */}
+      <Dialog open={!!selectedRole} onOpenChange={(open) => !open && setSelectedRole(null)}>
+        <DialogContent className="max-w-[600px]">
+          <DialogHeader>
+            <DialogTitle>{selectedRole?.title}</DialogTitle>
+          </DialogHeader>
+          {selectedRole?.responsibilities && (
+            <div className="space-y-4">
+              <h4 className="font-medium">Responsibilities:</h4>
+              <ul className="list-disc pl-5 space-y-1">
+                {selectedRole.responsibilities.map((resp, index) => (
+                  <li key={index} className="text-sm">{resp}</li>
                 ))}
-              </div>
+              </ul>
             </div>
           )}
-        </div>
-      )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
