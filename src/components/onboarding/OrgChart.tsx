@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -57,7 +58,7 @@ const OrgChart = () => {
               isSelected
                 ? "bg-primary text-white"
                 : deptName === "Sales"
-                ? "bg-[#9b87f5]/90 text-white hover:bg-[#9b87f5] border animate-[pulse_1.5s_cubic-bezier(0.4,0,0.6,1)_infinite] relative before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-[#9b87f5]"
+                ? "bg-[#9b87f5]/70 text-white hover:bg-[#9b87f5] border animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] relative before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-[#9b87f5]"
                 : "bg-white hover:bg-gray-100 border"
             }`}
           >
