@@ -244,17 +244,15 @@ const OrgChart = () => {
         <div className="absolute inset-0 z-10 pointer-events-none">
           <div className="relative w-full h-full">
             <div 
-              className="w-8 h-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+              className="w-8 h-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-move-cursor"
               style={{
-                animation: "moveCursor 1.5s ease-in-out infinite",
                 background: "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"M12 5l7 7-7 7\"/></svg>') no-repeat",
                 filter: "drop-shadow(0 0 2px rgba(0,0,0,0.3))"
               }}
             />
             <div 
-              className="absolute left-1/2 top-1/2 bg-white rounded-lg shadow-lg p-4 w-64 opacity-0"
+              className="absolute left-1/2 top-1/2 bg-white rounded-lg shadow-lg p-4 w-64 opacity-0 animate-show-dialog"
               style={{
-                animation: "showDialog 1.5s ease-in-out infinite",
                 animationDelay: "0.75s"
               }}
             >
@@ -429,45 +427,31 @@ const OrgChart = () => {
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes moveCursor {
-          0% {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 0;
+      <style>
+        {`
+          @keyframes move-cursor {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+            20% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            40% { transform: translate(-50%, -50%) scale(0.95); opacity: 1; }
+            60% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
           }
-          20% {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-          }
-          40% {
-            transform: translate(-50%, -50%) scale(0.95);
-            opacity: 1;
-          }
-          60% {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-          }
-          100% {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 0;
-          }
-        }
 
-        @keyframes showDialog {
-          0% {
-            transform: translate(-50%, -50%) scale(0.9);
-            opacity: 0;
+          @keyframes show-dialog {
+            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0; }
           }
-          50% {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
+
+          .animate-move-cursor {
+            animation: move-cursor 1.5s ease-in-out infinite;
           }
-          100% {
-            transform: translate(-50%, -50%) scale(0.9);
-            opacity: 0;
+
+          .animate-show-dialog {
+            animation: show-dialog 1.5s ease-in-out infinite;
           }
-        }
-      `}</style>
+        `}
+      </style>
 
       <Dialog open={!!selectedDept} onOpenChange={(open) => !open && setSelectedDept(null)}>
         <DialogContent className="max-w-[600px]">
