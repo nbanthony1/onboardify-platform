@@ -56,11 +56,9 @@ const OrgChart = () => {
             className={`w-40 p-3 rounded-lg transition-colors ${
               isSelected
                 ? "bg-primary text-white"
+                : deptName === "Sales"
+                ? "bg-[#9b87f5] text-white hover:bg-[#9b87f5]/90 border animate-pulse-border relative before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-[#9b87f5]/50"
                 : "bg-white hover:bg-gray-100 border"
-            } ${
-              deptName === "Sales" 
-                ? "animate-pulse-border relative before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-[#9b87f5]/50"
-                : ""
             }`}
           >
             <h4 className="font-medium">{deptName}</h4>
@@ -234,7 +232,7 @@ const OrgChart = () => {
     <div className="bg-gray-50 w-full p-6">
       <h3 className="text-xl font-semibold mb-6">Organization Structure</h3>
       
-      <div className="flex flex-col items-center space-y-4 transform scale-[0.65] origin-top">
+      <div className="flex flex-col items-center space-y-4 transform scale-[0.715] origin-top">
         {/* Visionary - Top Level */}
         <div className="w-36">
           {renderTooltipButton(
