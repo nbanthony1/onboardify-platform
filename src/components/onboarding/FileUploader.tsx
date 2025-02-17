@@ -23,31 +23,31 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('path', targetPath);
-
     try {
-      const { data, error } = await supabase.functions.invoke('upload-pdf', {
-        body: formData,
-      });
+      // Upload file directly to Supabase Storage
+      const { data, error } = await supabase.storage
+        .from('course_materials')
+        .upload(targetPath, file, {
+          cacheControl: '3600',
+          upsert: true
+        });
 
       if (error) throw error;
+
+      // Get the public URL for the uploaded file
+      const { data: urlData } = await supabase.storage
+        .from('course_materials')
+        .getPublicUrl(targetPath);
+      
+      if (urlData?.publicUrl && onUploadComplete) {
+        onUploadComplete(urlData.publicUrl);
+      }
 
       toast({
         title: "Upload Successful",
         description: "The PDF has been uploaded successfully.",
       });
 
-      if (onUploadComplete) {
-        const { data: urlData } = await supabase.storage
-          .from('course_materials')
-          .getPublicUrl(targetPath);
-        
-        if (urlData?.publicUrl) {
-          onUploadComplete(urlData.publicUrl);
-        }
-      }
     } catch (error) {
       console.error('Upload error:', error);
       toast({
