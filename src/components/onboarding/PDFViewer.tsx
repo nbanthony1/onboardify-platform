@@ -80,14 +80,11 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
   return (
     <div className="w-full h-[80vh]">
       {isValidPDF && fileUrl ? (
-        <object
-          data={fileUrl}
-          type="application/pdf"
-          className="w-full h-full"
-        >
-          <p>It appears you don't have a PDF plugin for this browser. You can still 
-          <a href={fileUrl} className="text-primary hover:underline ml-1">download the PDF here</a>.</p>
-        </object>
+        <iframe
+          src={`https://docs.google.com/viewer?url=${encodeURIComponent(fileUrl)}&embedded=true`}
+          className="w-full h-full border-0"
+          title="PDF Viewer"
+        />
       ) : (
         <div className="flex items-center justify-center h-full bg-gray-100 rounded-lg">
           <p className="text-center text-gray-600">
