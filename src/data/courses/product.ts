@@ -9,15 +9,15 @@ export const productCourse: Course = {
   modules: [
     {
       title: "Technology Overview",
-      content: "Presentation Link: https://docs.google.com/presentation/d/1BSgMRWMDW1YqmxHts6vkCwPpKCBg7jW1/edit#slide=id.p1\n\n[VIDEO_PLACEHOLDER]\n\nNote: A video will be added to this section."
+      content: "/pdfs/product/technology-overview.pdf\n\nNote: Please upload the Technology Overview PDF document to continue."
     },
     {
       title: "Product Overview",
-      content: "Presentation Link: https://docs.google.com/presentation/d/16atvIY1SGNVfDuRGvigXGgVDuuBLmrpd/edit#slide=id.p1\n\n[VIDEO_PLACEHOLDER]\n\nNote: A video will be added to this section."
+      content: "/pdfs/product/product-overview.pdf\n\nNote: Please upload the Product Overview PDF document to continue."
     },
     {
       title: "Technical Specifications",
-      content: "Documentation Link: https://drive.google.com/drive/folders/1hKNK8WOdQ_UnVc28JJBKGMzYTb649QFr"
+      content: "/pdfs/product/technical-specifications.pdf\n\nNote: Please upload the Technical Specifications PDF document to continue."
     },
     {
       title: "University of Arizona Study",
