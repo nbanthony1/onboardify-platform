@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "@/hooks/use-toast";
 
 interface PDFViewerProps {
   pdfUrl: string;
@@ -16,13 +16,24 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
         const response = await fetch(pdfUrl);
         const contentType = response.headers.get('content-type');
         
-        if (!contentType?.includes('application/pdf')) {
+        // Check for both application/pdf and binary PDF content types
+        const validPDFTypes = [
+          'application/pdf',
+          'application/x-pdf',
+          'application/acrobat',
+          'application/vnd.pdf',
+          'binary/octet-stream'
+        ];
+        
+        if (!contentType || !validPDFTypes.some(type => contentType.includes(type))) {
           setIsValidPDF(false);
           toast({
             title: "Invalid File Type",
-            description: "Please ensure you've uploaded a valid PDF file.",
+            description: "Only PDF files are accepted for this upload.",
             variant: "destructive"
           });
+        } else {
+          setIsValidPDF(true);
         }
       } catch (error) {
         setIsValidPDF(false);
@@ -34,8 +45,24 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
       }
     };
 
-    checkPDF();
+    if (pdfUrl) {
+      checkPDF();
+    }
   }, [pdfUrl]);
+
+  if (!pdfUrl) {
+    return (
+      <div className="flex items-center justify-center h-[80vh] bg-gray-100 rounded-lg">
+        <p className="text-center text-gray-600">
+          Please upload a PDF file to continue.
+          <br />
+          <span className="text-sm text-gray-400">
+            Only PDF files are accepted.
+          </span>
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full h-[80vh]">
@@ -54,7 +81,7 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
             Please upload a valid PDF file to continue.
             <br />
             <span className="text-sm text-gray-400">
-              Supported format: .pdf
+              Only PDF files are accepted.
             </span>
           </p>
         </div>
