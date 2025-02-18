@@ -1,5 +1,6 @@
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import CourseCard from "@/components/onboarding/CourseCard";
 import ModuleDialog from "@/components/onboarding/ModuleDialog";
@@ -8,7 +9,6 @@ import TopProgressBar from "@/components/onboarding/TopProgressBar";
 import { courses, departments } from "@/data/courses";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
   const [selectedModule, setSelectedModule] = useState<{
@@ -22,27 +22,6 @@ const Index = () => {
   const { toast } = useToast();
   const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>({});
 
-  useEffect(() => {
-    const fetchCompletedModules = async () => {
-      const { data: progress, error } = await supabase
-        .from("module_progress")
-        .select("module_title");
-
-      if (error) {
-        console.error("Error fetching progress:", error);
-        return;
-      }
-
-      const completed: { [key: string]: boolean } = {};
-      progress.forEach((p) => {
-        completed[p.module_title] = true;
-      });
-      setCompletedModules(completed);
-    };
-
-    fetchCompletedModules();
-  }, []);
-
   const handleModuleClick = (
     module: string | { title: string; content: string }
   ) => {
@@ -50,41 +29,27 @@ const Index = () => {
     setSelectedModule(module);
   };
 
-  const handleCompleteModule = async (moduleTitle: string, courseId: number) => {
-    try {
-      const { error } = await supabase.from("module_progress").insert({
-        module_title: moduleTitle,
-        course_id: courseId,
-      });
+  const handleCompleteModule = (moduleTitle: string, courseId: number) => {
+    setCompletedModules((prev) => ({ ...prev, [moduleTitle]: true }));
 
-      if (error) throw error;
+    // Calculate new progress
+    const course = courses.find((c) => c.id === courseId);
+    if (course && course.modules) {
+      const totalModules = course.modules.length;
+      const completedCount =
+        course.modules.filter((module) =>
+          completedModules[typeof module === "string" ? module : module.title]
+        ).length + 1;
 
-      setCompletedModules((prev) => ({ ...prev, [moduleTitle]: true }));
-
-      const course = courses.find((c) => c.id === courseId);
-      if (course && course.modules) {
-        const totalModules = course.modules.length;
-        const completedCount =
-          course.modules.filter((module) =>
-            completedModules[typeof module === "string" ? module : module.title]
-          ).length + 1;
-
-        course.progress = Math.round((completedCount / totalModules) * 100);
-      }
-
-      toast({
-        title: "Module Completed!",
-        description: `You've completed the ${moduleTitle} module.`,
-      });
-
-      setSelectedModule(null);
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: "Failed to save progress. Please try again.",
-        variant: "destructive",
-      });
+      course.progress = Math.round((completedCount / totalModules) * 100);
     }
+
+    toast({
+      title: "Module Completed!",
+      description: `You've completed the ${moduleTitle} module.`,
+    });
+
+    setSelectedModule(null);
   };
 
   const isModuleCompleted = (moduleTitle: string) => {
@@ -117,12 +82,15 @@ const Index = () => {
     );
   };
 
+  // Calculate total modules across all courses
   const totalModules = courses.reduce((acc, course) => {
     return acc + (course.modules?.length || 0);
   }, 0);
 
+  // Calculate completed modules count
   const completedCount = Object.values(completedModules).filter(Boolean).length;
   
+  // Calculate progress percentage
   const progress = Math.round((completedCount / totalModules) * 100) || 0;
 
   return (

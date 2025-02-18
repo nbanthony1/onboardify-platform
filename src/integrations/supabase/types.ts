@@ -27,57 +27,6 @@ export type Database = {
         }
         Relationships: []
       }
-      module_progress: {
-        Row: {
-          completed_at: string | null
-          course_id: number
-          created_at: string | null
-          id: string
-          module_title: string
-          user_id: string | null
-        }
-        Insert: {
-          completed_at?: string | null
-          course_id: number
-          created_at?: string | null
-          id?: string
-          module_title: string
-          user_id?: string | null
-        }
-        Update: {
-          completed_at?: string | null
-          course_id?: number
-          created_at?: string | null
-          id?: string
-          module_title?: string
-          user_id?: string | null
-        }
-        Relationships: []
-      }
-      profiles: {
-        Row: {
-          department: string | null
-          first_name: string | null
-          id: string
-          last_name: string | null
-          role: Database["public"]["Enums"]["app_role"] | null
-        }
-        Insert: {
-          department?: string | null
-          first_name?: string | null
-          id: string
-          last_name?: string | null
-          role?: Database["public"]["Enums"]["app_role"] | null
-        }
-        Update: {
-          department?: string | null
-          first_name?: string | null
-          id?: string
-          last_name?: string | null
-          role?: Database["public"]["Enums"]["app_role"] | null
-        }
-        Relationships: []
-      }
       sales_data: {
         Row: {
           collections: number | null
@@ -146,7 +95,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      app_role: "admin" | "user"
+      [_ in never]: never
     }
     CompositeTypes: {
       [_ in never]: never
