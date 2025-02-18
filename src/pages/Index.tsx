@@ -4,8 +4,6 @@ import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import CourseCard from "@/components/onboarding/CourseCard";
 import ModuleDialog from "@/components/onboarding/ModuleDialog";
-import AnalyticsDashboard from "@/components/onboarding/AnalyticsDashboard";
-import EmployeeAvatar from "@/components/onboarding/EmployeeAvatar";
 import SearchBar from "@/components/onboarding/SearchBar";
 import TopProgressBar from "@/components/onboarding/TopProgressBar";
 import { courses, departments } from "@/data/courses";
@@ -100,23 +98,11 @@ const Index = () => {
       <div className="space-y-6">
         <TopProgressBar completedModules={completedModules} totalModules={totalModules} />
         
-        <div className="flex justify-between items-start">
-          <div>
-            <h1 className="text-4xl font-bold mb-2">Symterra Employee Onboarding Platform</h1>
-            <p className="text-muted-foreground mb-6">
-              Welcome! Start your learning journey with our curated courses.
-            </p>
-            <AnalyticsDashboard completedModules={completedModules} />
-          </div>
-          <EmployeeAvatar
-            name="Sarah Johnson"
-            role="Product Manager"
-            department="Product"
-            yearsOfExperience={3}
-            progress={progress}
-            completedCount={completedCount}
-            totalModules={totalModules}
-          />
+        <div>
+          <h1 className="text-4xl font-bold mb-2">Symterra Employee Onboarding Platform</h1>
+          <p className="text-muted-foreground mb-6">
+            Welcome! Start your learning journey with our curated courses.
+          </p>
         </div>
 
         <SearchBar onSearch={handleSearch} />
