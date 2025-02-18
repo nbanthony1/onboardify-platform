@@ -19,25 +19,60 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
       try {
         if (pdfUrl.startsWith('/pdfs/')) {
           const filePath = pdfUrl.substring(1); // Remove leading slash
-          const { data, error } = await supabase.storage
+          const folderPath = filePath.split('/')[0];
+          const fileName = filePath.split('/').pop();
+          
+          console.log('Checking file:', { folderPath, fileName, filePath });
+          
+          // First try to get the public URL directly
+          const { data: urlData } = await supabase.storage
             .from('course_materials')
-            .list(filePath.split('/')[0], {
-              limit: 1,
-              search: filePath.split('/').pop()
+            .getPublicUrl(filePath);
+          
+          if (urlData?.publicUrl) {
+            // Verify the file exists by trying to fetch it
+            try {
+              const response = await fetch(urlData.publicUrl, { method: 'HEAD' });
+              if (response.ok) {
+                console.log('File exists:', urlData.publicUrl);
+                setFileUrl(urlData.publicUrl);
+                setIsValidPDF(true);
+                setNeedsUpload(false);
+                setIsChecking(false);
+                return;
+              }
+            } catch (error) {
+              console.log('File not accessible:', error);
+            }
+          }
+
+          // If we couldn't verify the file, check if it exists in storage
+          const { data: files, error } = await supabase.storage
+            .from('course_materials')
+            .list(folderPath, {
+              limit: 100,
+              search: fileName
             });
+
+          console.log('Storage list result:', { files, error });
 
           if (error) throw error;
 
-          if (!data || data.length === 0) {
+          if (!files || files.length === 0) {
+            console.log('File not found in storage');
             setNeedsUpload(true);
             setIsValidPDF(false);
           } else {
-            const { data: urlData } = await supabase.storage
-              .from('course_materials')
-              .getPublicUrl(filePath);
-            
-            if (urlData?.publicUrl) {
+            const exactMatch = files.find(f => f.name === fileName);
+            if (exactMatch) {
+              console.log('Found exact match:', exactMatch);
               setFileUrl(urlData.publicUrl);
+              setIsValidPDF(true);
+              setNeedsUpload(false);
+            } else {
+              console.log('No exact match found');
+              setNeedsUpload(true);
+              setIsValidPDF(false);
             }
           }
         } else {
@@ -58,6 +93,7 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
   }, [pdfUrl]);
 
   const handleUploadComplete = (url: string) => {
+    console.log('Upload complete:', url);
     setFileUrl(url);
     setIsValidPDF(true);
     setNeedsUpload(false);
