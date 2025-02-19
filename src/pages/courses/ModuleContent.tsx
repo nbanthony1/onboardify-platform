@@ -2,6 +2,7 @@
 import { useParams, Link } from "react-router-dom";
 import { courses } from "@/data/courses";
 import PDFViewer from "@/components/onboarding/PDFViewer";
+import OrgChart from "@/components/onboarding/OrgChart";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 
@@ -19,6 +20,7 @@ const ModuleContent = () => {
 
   const moduleContent = typeof module === 'string' ? { title: module, content: '' } : module;
   const isPDF = moduleContent.content?.startsWith('/pdfs/');
+  const isOrgChart = moduleContent.content === '[INTERACTIVE_ORG_CHART]';
 
   return (
     <div className="container mx-auto py-8 space-y-8">
@@ -33,7 +35,9 @@ const ModuleContent = () => {
       </div>
 
       <div className="prose max-w-none">
-        {isPDF ? (
+        {isOrgChart ? (
+          <OrgChart />
+        ) : isPDF ? (
           <PDFViewer pdfUrl={moduleContent.content.split('\n')[0]} />
         ) : (
           moduleContent.content.split('\n').map((paragraph, i) => (
