@@ -8,7 +8,7 @@ const CourseLayout = () => {
       <header className="border-b">
         <div className="container mx-auto py-4">
           <nav className="flex items-center space-x-6">
-            <Link to="/courses" className="font-semibold">
+            <Link to="/" className="font-semibold">
               Onboardify Platform
             </Link>
             {courses.map((course) => (
