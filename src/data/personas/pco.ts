@@ -1,9 +1,8 @@
-
 import { PersonaData } from "./types";
 
 export const pcoData: PersonaData = {
   persona: {
-    image: "/lovable-uploads/07642426-d420-40ec-97bc-bb5fa12db3cb.png",
+    image: "/assets/michael.jpg",
     name: "Michael",
     age: 45,
     occupation: "Pest Control Operations Manager",
