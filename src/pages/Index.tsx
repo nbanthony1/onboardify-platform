@@ -5,108 +5,115 @@ import CustomerJourneyMap from "@/components/onboarding/CustomerJourneyMap";
 const Index = () => {
   // Example data for Jordan's persona
   const jordanPersona = {
-    image: "/lovable-uploads/26c697a8-2f40-458b-964f-88f8a37ee13a.png",
+    image: "/placeholder.svg",
     name: "Jordan",
     age: 28,
-    occupation: "Graphic Designer",
-    status: "Full-time",
-    location: "Work from home",
-    life: "Married, Mom of two",
+    occupation: "Software Developer",
+    status: "Full-time Remote",
+    location: "San Francisco, CA",
+    life: "Single, Lives with roommates",
     traits: [
-      { name: "Tech Savvy" },
-      { name: "Spontaneous" },
-      { name: "Risk Taker" },
-      { name: "Passionate" },
-      { name: "Successful" },
-      { name: "Finance Novice" },
+      { name: "Tech Enthusiast" },
+      { name: "Early Adopter" },
+      { name: "Problem Solver" },
+      { name: "Team Player" },
+      { name: "Creative" },
+      { name: "Detail-oriented" },
     ],
     goals: [
-      "Create beautifully designed client invoices",
-      "Track invoice payments",
-      "Sync with her business PayPal account",
-      "Understand payment trends over time",
+      "Streamline development workflow",
+      "Learn new technologies efficiently",
+      "Contribute to open source",
+      "Build innovative solutions",
     ],
     frustrations: [
-      "Most online invoicing tools are clunky and outdated",
-      "Other than PayPal income, it's hard to determine how her business is really doing financially",
-      "Feels like she is operating invoice to invoice",
+      "Outdated documentation",
+      "Complex setup processes",
+      "Poor developer experience",
     ],
-    motivation: "Jordan is content working as a solo freelancer because it gives her the flexibility to stay at home with her kids. She's worked hard to create a successful brand and wants to enjoy what's she earned. She's looking to spend less time on routine business tasks and take more control of her business finances.",
-    quote: "I want my brand to look beautiful across all client touch points.",
+    motivation: "Jordan is passionate about creating efficient and elegant solutions. They value clean code and seamless developer experiences. Always looking to improve their skills and help others learn.",
+    quote: "The best code is code that's easy to understand and maintain.",
   };
 
   // Example data for Jamie's journey map
   const jamieJourneyMap = {
-    persona: "JUMPING JAMIE",
-    scenario: "Jamie needs to switch her current mobile plan. She wants a plan that can save her money without having to sacrifice usage limits.",
+    persona: "JOURNEY JAMIE",
+    scenario: "Jamie is setting up a new development environment and needs to integrate various tools and services.",
     expectations: [
-      "Clear online information",
-      "Ability to compare plan breakdowns",
-      "Friendly and helpful customer support",
+      "Clear documentation",
+      "Quick setup process",
+      "Reliable integration",
+      "Good community support",
     ],
     phases: [
       {
-        name: "DEFINE",
+        name: "RESEARCH",
         doing: [
-          "Review current plan",
-          "Define parameters for new plan",
+          "Reading documentation",
+          "Checking community forums",
+          "Comparing alternatives",
         ],
         thinking: [
-          "I wonder if I can pay less.",
+          "Which solution best fits our needs?",
         ],
         saying: [
-          "That offer seems like a better deal.",
+          "I need something reliable and well-documented.",
         ],
       },
       {
-        name: "COMPARE",
+        name: "SETUP",
         doing: [
-          "Watches commercial on TV",
-          "Researches companies and offers on consumer reports website",
-          "Uses current carrier website tool to compare options",
+          "Installing dependencies",
+          "Configuring environment",
+          "Running initial tests",
         ],
         thinking: [
-          "That offer seems like a better deal.",
+          "Hope this doesn't break anything.",
         ],
         saying: [
-          "Ugh, why is this so difficult?!",
+          "The setup steps seem straightforward.",
         ],
       },
       {
-        name: "NEGOTIATE",
+        name: "INTEGRATE",
         doing: [
-          "Calls current carrier to tell them she is shopping around",
-          "Calls competitors to see what they can offer",
+          "Connecting services",
+          "Writing configuration files",
+          "Testing connections",
         ],
         thinking: [
-          "Over it. I'm switching providers.",
+          "Is everything properly connected?",
         ],
         saying: [
-          "Over it. I'm switching providers.",
+          "Let's make sure all systems work together.",
         ],
       },
       {
-        name: "SELECT",
+        name: "VALIDATE",
         doing: [
-          "Decides on a new plan and calls customer service to switch service",
+          "Running end-to-end tests",
+          "Checking all features",
+          "Documenting process",
         ],
         thinking: [
-          "Well, I guess that was all worth it.",
+          "Everything seems to be working.",
         ],
         saying: [
-          "Well, I guess that was all worth it.",
+          "Time to document this for the team.",
         ],
       },
     ],
     opportunities: [
-      "Compare alternate companys' offers for her",
-      "Breakdown current plan into $ amounts",
-      "Customer support via text messaging/chat",
+      "Automate setup process",
+      "Improve documentation clarity",
+      "Create tutorial videos",
+      "Build interactive guides",
     ],
     internalOwnership: [
-      "Customer Support Team: reduce average call time to 2 minutes",
-      "Web Team: add functionality to allow Jamie to compare plans within our site",
-      "Marketing Team: track competing offers to create competitor database",
+      "DevOps: Create setup scripts",
+      "Documentation Team: Update guides",
+      "QA Team: Validate process",
+      "Support Team: Monitor common issues",
     ],
   };
 
