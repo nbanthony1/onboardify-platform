@@ -8,6 +8,7 @@ import CustomerResearch from "./components/onboarding/CustomerResearch";
 import CourseLayout from "./components/layout/CourseLayout";
 import CoursesIndex from "./pages/courses/Index";
 import CourseContent from "./pages/courses/CourseContent";
+import ModuleContent from "./pages/courses/ModuleContent";
 import NotFound from "./pages/NotFound";
 import Index from "./pages/Index";
 
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/courses" element={<CourseLayout />}>
             <Route index element={<CoursesIndex />} />
             <Route path=":id" element={<CourseContent />} />
+            <Route path=":id/module/:moduleId" element={<ModuleContent />} />
             <Route path="market/customer-research" element={<CustomerResearch />} />
           </Route>
           <Route path="*" element={<NotFound />} />

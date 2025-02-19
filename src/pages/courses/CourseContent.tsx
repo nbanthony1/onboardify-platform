@@ -1,7 +1,7 @@
 
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { courses } from "@/data/courses";
-import PDFViewer from "@/components/onboarding/PDFViewer";
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 const CourseContent = () => {
   const { id } = useParams();
@@ -19,26 +19,19 @@ const CourseContent = () => {
         <p className="text-muted-foreground">{course.description}</p>
       </div>
       
-      <div className="space-y-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {course.modules?.map((module, index) => {
           const moduleContent = typeof module === 'string' ? { title: module, content: '' } : module;
-          const isPDF = moduleContent.content?.startsWith('/pdfs/');
           
           return (
-            <div key={index} className="border rounded-lg p-6 space-y-4">
-              <h2 className="text-2xl font-semibold">{moduleContent.title}</h2>
-              {moduleContent.content && (
-                <div className="prose max-w-none">
-                  {isPDF ? (
-                    <PDFViewer pdfUrl={moduleContent.content.split('\n')[0]} />
-                  ) : (
-                    moduleContent.content.split('\n').map((paragraph, i) => (
-                      <p key={i} className="text-muted-foreground">{paragraph}</p>
-                    ))
-                  )}
-                </div>
-              )}
-            </div>
+            <Link key={index} to={`/courses/${courseId}/module/${index + 1}`}>
+              <Card className="hover:shadow-md transition-shadow h-full">
+                <CardHeader>
+                  <CardTitle>{moduleContent.title}</CardTitle>
+                  <CardDescription>Click to view content</CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
           );
         })}
       </div>
