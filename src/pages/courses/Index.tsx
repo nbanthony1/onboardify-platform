@@ -11,7 +11,7 @@ const getIconForCourse = (courseId: number) => {
     case 3: return <BookOpen className="w-6 h-6 mb-2" />; // Market Research
     case 4: return <GitFork className="w-6 h-6 mb-2" />; // Sales Process
     case 5: return <MessageSquare className="w-6 h-6 mb-2" />; // Internal Communication
-    case 6: return <Wrench className="w-6 h-6 mb-2" />; // Sales Tools (changed from Tool to Wrench)
+    case 6: return <Wrench className="w-6 h-6 mb-2" />; // Sales Tools
     case 7: return <BarChart className="w-6 h-6 mb-2" />; // Performance Metrics
     default: return <BookOpen className="w-6 h-6 mb-2" />;
   }
@@ -29,7 +29,7 @@ const CoursesIndex = () => {
         {courses.map((course) => (
           <Link 
             key={course.id} 
-            to={"/courses/market/customer-research"}
+            to={course.id === 3 ? "/courses/market/customer-research" : `/courses/${course.id}`}
           >
             <Card className="hover:shadow-md transition-shadow h-full">
               <CardHeader>

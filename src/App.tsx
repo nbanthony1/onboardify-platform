@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CustomerResearch from "./components/onboarding/CustomerResearch";
 import CourseLayout from "./components/layout/CourseLayout";
 import CoursesIndex from "./pages/courses/Index";
+import CourseContent from "./pages/courses/CourseContent";
 import NotFound from "./pages/NotFound";
 import Index from "./pages/Index";
 
@@ -22,7 +23,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/courses" element={<CourseLayout />}>
             <Route index element={<CoursesIndex />} />
-            <Route path=":id" element={<CustomerResearch />} />
+            <Route path=":id" element={<CourseContent />} />
             <Route path="market/customer-research" element={<CustomerResearch />} />
           </Route>
           <Route path="*" element={<NotFound />} />
