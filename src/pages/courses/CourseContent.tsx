@@ -1,6 +1,7 @@
 
 import { useParams } from "react-router-dom";
 import { courses } from "@/data/courses";
+import PDFViewer from "@/components/onboarding/PDFViewer";
 
 const CourseContent = () => {
   const { id } = useParams();
@@ -21,14 +22,20 @@ const CourseContent = () => {
       <div className="space-y-6">
         {course.modules?.map((module, index) => {
           const moduleContent = typeof module === 'string' ? { title: module, content: '' } : module;
+          const isPDF = moduleContent.content?.startsWith('/pdfs/');
+          
           return (
             <div key={index} className="border rounded-lg p-6 space-y-4">
               <h2 className="text-2xl font-semibold">{moduleContent.title}</h2>
               {moduleContent.content && (
                 <div className="prose max-w-none">
-                  {moduleContent.content.split('\n').map((paragraph, i) => (
-                    <p key={i} className="text-muted-foreground">{paragraph}</p>
-                  ))}
+                  {isPDF ? (
+                    <PDFViewer pdfUrl={moduleContent.content.split('\n')[0]} />
+                  ) : (
+                    moduleContent.content.split('\n').map((paragraph, i) => (
+                      <p key={i} className="text-muted-foreground">{paragraph}</p>
+                    ))
+                  )}
                 </div>
               )}
             </div>
