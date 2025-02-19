@@ -2,7 +2,6 @@
 export interface Module {
   title: string;
   content: string;
-  route?: string; // Adding optional route property
 }
 
 export interface Course {

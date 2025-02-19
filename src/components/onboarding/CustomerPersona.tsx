@@ -2,7 +2,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { supabase } from "@/integrations/supabase/client";
 
 interface Trait {
   name: string;
@@ -37,25 +36,13 @@ const CustomerPersona = ({
   motivation,
   quote,
 }: CustomerPersonaProps) => {
-  const getImageUrl = () => {
-    if (image.startsWith('http')) {
-      return image;
-    }
-    if (image.startsWith('/assets/')) {
-      return image; // Local assets
-    }
-    if (image.startsWith('/lovable-uploads/')) {
-      return image; // Lovable uploads
-    }
-    // For Unsplash images
-    return `https://images.unsplash.com/${image}`;
-  };
+  const unsplashUrl = `https://images.unsplash.com/`;
 
   return (
     <Card>
       <CardHeader className="flex flex-row items-center gap-4">
         <Avatar className="h-20 w-20">
-          <AvatarImage src={getImageUrl()} alt={name} />
+          <AvatarImage src={`${unsplashUrl}${image}`} alt={name} />
           <AvatarFallback>{name[0]}</AvatarFallback>
         </Avatar>
         <div>
