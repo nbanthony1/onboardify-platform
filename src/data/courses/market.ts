@@ -11,7 +11,7 @@ export const marketCourse: Course = {
     {
       title: "Customer Research",
       content: "[CUSTOMER_RESEARCH]",
-      route: "market/customer-research"
+      route: "customer-research"
     }
   ]
 };
