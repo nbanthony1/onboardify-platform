@@ -39,12 +39,6 @@ const ModuleContent = () => {
   return (
     <div className="container mx-auto py-8 space-y-8">
       <div>
-        <Link to={`/courses/${courseId}`}>
-          <Button variant="ghost" className="mb-4">
-            <ChevronLeft className="mr-2 h-4 w-4" />
-            Back to {course.title}
-          </Button>
-        </Link>
         <h1 className="text-4xl font-bold">{moduleContent.title}</h1>
       </div>
 
