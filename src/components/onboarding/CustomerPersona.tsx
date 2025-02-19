@@ -1,12 +1,13 @@
 
-import { Card } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-interface PersonaTrait {
+interface Trait {
   name: string;
 }
 
-interface PersonaProps {
+interface CustomerPersonaProps {
   image: string;
   name: string;
   age: number;
@@ -14,7 +15,7 @@ interface PersonaProps {
   status: string;
   location: string;
   life: string;
-  traits: PersonaTrait[];
+  traits: Trait[];
   goals: string[];
   frustrations: string[];
   motivation: string;
@@ -34,65 +35,75 @@ const CustomerPersona = ({
   frustrations,
   motivation,
   quote,
-}: PersonaProps) => {
+}: CustomerPersonaProps) => {
+  const unsplashUrl = `https://images.unsplash.com/`;
+
   return (
-    <Card className="p-6 max-w-4xl mx-auto">
-      <div className="grid md:grid-cols-3 gap-8">
-        {/* Left Column - Basic Info */}
-        <div className="space-y-6">
-          <div className="aspect-square relative rounded-full overflow-hidden w-48 mx-auto">
-            <img src={image} alt={name} className="object-cover" />
+    <Card>
+      <CardHeader className="flex flex-row items-center gap-4">
+        <Avatar className="h-20 w-20">
+          <AvatarImage src={`${unsplashUrl}${image}`} alt={name} />
+          <AvatarFallback>{name[0]}</AvatarFallback>
+        </Avatar>
+        <div>
+          <h2 className="text-2xl font-bold">{name}</h2>
+          <p className="text-muted-foreground">
+            {age} • {occupation}
+          </p>
+        </div>
+      </CardHeader>
+      <CardContent className="space-y-6">
+        <div className="space-y-2">
+          <h3 className="font-semibold">Details</h3>
+          <div className="grid grid-cols-2 gap-2 text-sm">
+            <div>
+              <span className="text-muted-foreground">Status:</span> {status}
+            </div>
+            <div>
+              <span className="text-muted-foreground">Location:</span> {location}
+            </div>
+            <div>
+              <span className="text-muted-foreground">Life:</span> {life}
+            </div>
           </div>
-          <div className="space-y-2">
-            <p><span className="font-semibold">Name:</span> {name}</p>
-            <p><span className="font-semibold">Age:</span> {age}</p>
-            <p><span className="font-semibold">Occupation:</span> {occupation}</p>
-            <p><span className="font-semibold">Status:</span> {status}</p>
-            <p><span className="font-semibold">Location:</span> {location}</p>
-            <p><span className="font-semibold">Life:</span> {life}</p>
-          </div>
+        </div>
+
+        <div className="space-y-2">
+          <h3 className="font-semibold">Traits</h3>
           <div className="flex flex-wrap gap-2">
-            {traits.map((trait, index) => (
-              <Badge key={index} variant="secondary">
+            {traits.map((trait, i) => (
+              <Badge key={i} variant="secondary">
                 {trait.name}
               </Badge>
             ))}
           </div>
         </div>
 
-        {/* Middle Column - Quote and Motivation */}
-        <div className="md:col-span-2 space-y-6">
-          <blockquote className="text-2xl font-serif italic border-l-4 border-primary pl-4">
-            "{quote}"
-          </blockquote>
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold">Motivation</h3>
-            <p className="text-muted-foreground">{motivation}</p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Goals */}
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold">Goals</h3>
-              <ul className="list-disc list-inside space-y-2">
-                {goals.map((goal, index) => (
-                  <li key={index}>{goal}</li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Frustrations */}
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold">Frustrations</h3>
-              <ul className="list-disc list-inside space-y-2">
-                {frustrations.map((frustration, index) => (
-                  <li key={index}>{frustration}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
+        <div className="space-y-2">
+          <h3 className="font-semibold">Goals</h3>
+          <ul className="list-disc pl-4 space-y-1">
+            {goals.map((goal, i) => (
+              <li key={i}>{goal}</li>
+            ))}
+          </ul>
         </div>
-      </div>
+
+        <div className="space-y-2">
+          <h3 className="font-semibold">Frustrations</h3>
+          <ul className="list-disc pl-4 space-y-1">
+            {frustrations.map((frustration, i) => (
+              <li key={i}>{frustration}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="space-y-2">
+          <h3 className="font-semibold">Motivation</h3>
+          <p>{motivation}</p>
+        </div>
+
+        <blockquote className="border-l-4 pl-4 italic">"{quote}"</blockquote>
+      </CardContent>
     </Card>
   );
 };
