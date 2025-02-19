@@ -3,117 +3,118 @@ import CustomerPersona from "@/components/onboarding/CustomerPersona";
 import CustomerJourneyMap from "@/components/onboarding/CustomerJourneyMap";
 
 const Index = () => {
-  // Example data for Jordan's persona
-  const jordanPersona = {
+  // PCO Persona data
+  const pcoPersona = {
     image: "/placeholder.svg",
-    name: "Jordan",
-    age: 28,
-    occupation: "Software Developer",
-    status: "Full-time Remote",
-    location: "San Francisco, CA",
-    life: "Single, Lives with roommates",
+    name: "Michael",
+    age: 45,
+    occupation: "Pest Control Operations Manager",
+    status: "Full-time",
+    location: "Denver, CO",
+    life: "Married, Industry veteran",
     traits: [
-      { name: "Tech Enthusiast" },
-      { name: "Early Adopter" },
-      { name: "Problem Solver" },
-      { name: "Team Player" },
-      { name: "Creative" },
+      { name: "Results-driven" },
+      { name: "Skeptical of new tech" },
+      { name: "Cost-conscious" },
+      { name: "Practical" },
       { name: "Detail-oriented" },
+      { name: "Customer-focused" },
     ],
     goals: [
-      "Streamline development workflow",
-      "Learn new technologies efficiently",
-      "Contribute to open source",
-      "Build innovative solutions",
+      "Find effective bird deterrent solutions",
+      "Reduce customer complaints",
+      "Minimize operational costs",
+      "Differentiate from competitors",
     ],
     frustrations: [
-      "Outdated documentation",
-      "Complex setup processes",
-      "Poor developer experience",
+      "High costs of ineffective bird deterrents",
+      "Recurring customer complaints",
+      "Lack of reliable long-term solutions",
+      "Time wasted on temporary fixes",
     ],
-    motivation: "Jordan is passionate about creating efficient and elegant solutions. They value clean code and seamless developer experiences. Always looking to improve their skills and help others learn.",
-    quote: "The best code is code that's easy to understand and maintain.",
+    motivation: "As an Operations Manager at a leading pest control company, Michael needs to find reliable, cost-effective solutions for his clients' bird problems. He's skeptical of new technology but open to solutions that can demonstrate clear ROI and proven effectiveness.",
+    quote: "I need a bird deterrent solution that actually works and keeps my customers happy.",
   };
 
-  // Example data for Jamie's journey map
-  const jamieJourneyMap = {
-    persona: "JOURNEY JAMIE",
-    scenario: "Jamie is setting up a new development environment and needs to integrate various tools and services.",
+  // PCO Journey Map
+  const pcoJourneyMap = {
+    persona: "PEST CONTROL OPERATOR",
+    scenario: "Michael is evaluating new bird deterrent solutions for his company's service offerings.",
     expectations: [
-      "Clear documentation",
-      "Quick setup process",
-      "Reliable integration",
-      "Good community support",
+      "Proven effectiveness",
+      "Clear cost-benefit analysis",
+      "Easy implementation",
+      "Strong technical support",
     ],
     phases: [
       {
         name: "RESEARCH",
         doing: [
-          "Reading documentation",
-          "Checking community forums",
-          "Comparing alternatives",
+          "Reviewing current solutions",
+          "Researching new technologies",
+          "Calculating current costs",
         ],
         thinking: [
-          "Which solution best fits our needs?",
+          "Most solutions don't last long enough.",
         ],
         saying: [
-          "I need something reliable and well-documented.",
+          "We need something more effective than what we're using.",
         ],
       },
       {
-        name: "SETUP",
+        name: "EVALUATE",
         doing: [
-          "Installing dependencies",
-          "Configuring environment",
-          "Running initial tests",
+          "Comparing solution costs",
+          "Reading case studies",
+          "Consulting industry peers",
         ],
         thinking: [
-          "Hope this doesn't break anything.",
+          "Will this actually deliver ROI?",
         ],
         saying: [
-          "The setup steps seem straightforward.",
+          "Show me proof that this works.",
         ],
       },
       {
-        name: "INTEGRATE",
+        name: "TEST",
         doing: [
-          "Connecting services",
-          "Writing configuration files",
-          "Testing connections",
+          "Running pilot program",
+          "Monitoring results",
+          "Gathering client feedback",
         ],
         thinking: [
-          "Is everything properly connected?",
+          "Initial results look promising.",
         ],
         saying: [
-          "Let's make sure all systems work together.",
+          "Let's see how it performs in real conditions.",
         ],
       },
       {
-        name: "VALIDATE",
+        name: "IMPLEMENT",
         doing: [
-          "Running end-to-end tests",
-          "Checking all features",
-          "Documenting process",
+          "Training service teams",
+          "Updating service offerings",
+          "Rolling out to clients",
         ],
         thinking: [
-          "Everything seems to be working.",
+          "This could be a game-changer.",
         ],
         saying: [
-          "Time to document this for the team.",
+          "Our clients will appreciate this solution.",
         ],
       },
     ],
     opportunities: [
-      "Automate setup process",
-      "Improve documentation clarity",
-      "Create tutorial videos",
-      "Build interactive guides",
+      "Provide detailed ROI calculators",
+      "Create comprehensive training programs",
+      "Develop case studies and testimonials",
+      "Offer technical support and implementation guidance",
     ],
     internalOwnership: [
-      "DevOps: Create setup scripts",
-      "Documentation Team: Update guides",
-      "QA Team: Validate process",
-      "Support Team: Monitor common issues",
+      "Sales Team: Create ROI presentation materials",
+      "Training Team: Develop implementation guides",
+      "Support Team: Establish technical support program",
+      "Marketing Team: Produce case studies",
     ],
   };
 
@@ -122,18 +123,18 @@ const Index = () => {
       <div className="space-y-4">
         <h1 className="text-4xl font-bold">Customer Research</h1>
         <p className="text-muted-foreground">
-          Understanding our users through personas and journey mapping
+          Understanding Symterra's target market through personas and journey mapping
         </p>
       </div>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-semibold">Customer Persona</h2>
-        <CustomerPersona {...jordanPersona} />
+        <CustomerPersona {...pcoPersona} />
       </div>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-semibold">Customer Journey Map</h2>
-        <CustomerJourneyMap {...jamieJourneyMap} />
+        <CustomerJourneyMap {...pcoJourneyMap} />
       </div>
     </div>
   );
