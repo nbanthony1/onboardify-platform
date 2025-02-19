@@ -10,7 +10,8 @@ export const marketCourse: Course = {
   modules: [
     {
       title: "Customer Research",
-      content: "[CUSTOMER_RESEARCH]"
+      content: "[CUSTOMER_RESEARCH]",
+      route: "market/customer-research" // Adding the correct route
     }
   ]
 };
