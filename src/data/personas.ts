@@ -1,7 +1,7 @@
 export const personas = {
   pco: {
     persona: {
-      image: "photo-1581092795360-fd1ca04f0952",
+      image: "/photo-1581092795360-fd1ca04f0952",
       name: "Michael",
       age: 45,
       occupation: "Pest Control Operations Manager",
@@ -122,7 +122,7 @@ export const personas = {
   },
   commercial: {
     persona: {
-      image: "photo-1581091226825-a6a2a5aee158",
+      image: "/photo-1581091226825-a6a2a5aee158",
       name: "Sarah",
       age: 42,
       occupation: "Facilities Manager",
@@ -243,7 +243,7 @@ export const personas = {
   },
   municipality: {
     persona: {
-      image: "photo-1581092795360-fd1ca04f0952",
+      image: "/photo-1581092795360-fd1ca04f0952",
       name: "Robert",
       age: 52,
       occupation: "Public Works Director",
@@ -364,7 +364,7 @@ export const personas = {
   },
   corporate: {
     persona: {
-      image: "photo-1649972904349-6e44c42644a7",
+      image: "/photo-1649972904349-6e44c42644a7",
       name: "Lisa",
       age: 45,
       occupation: "Corporate Sustainability Director",
@@ -485,7 +485,7 @@ export const personas = {
   },
   distributor: {
     persona: {
-      image: "photo-1581092795360-fd1ca04f0952",
+      image: "/photo-1581092795360-fd1ca04f0952",
       name: "David",
       age: 48,
       occupation: "Distribution Company Owner",
