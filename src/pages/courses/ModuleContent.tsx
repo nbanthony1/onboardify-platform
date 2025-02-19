@@ -1,11 +1,9 @@
 
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { courses } from "@/data/courses";
 import PDFViewer from "@/components/onboarding/PDFViewer";
 import OrgChart from "@/components/onboarding/OrgChart";
 import CustomerResearch from "@/components/onboarding/CustomerResearch";
-import { Button } from "@/components/ui/button";
-import { ChevronLeft } from "lucide-react";
 
 const ModuleContent = () => {
   const { id, moduleId } = useParams();
@@ -37,11 +35,7 @@ const ModuleContent = () => {
   };
 
   return (
-    <div className="container mx-auto py-8 space-y-8">
-      <div>
-        <h1 className="text-4xl font-bold">{moduleContent.title}</h1>
-      </div>
-
+    <div className="container mx-auto py-8">
       <div className="prose max-w-none">
         {renderContent()}
       </div>
