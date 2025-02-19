@@ -2,6 +2,8 @@
 import { useParams, Link } from "react-router-dom";
 import { courses } from "@/data/courses";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft } from "lucide-react";
 
 const CourseContent = () => {
   const { id } = useParams();
@@ -15,6 +17,12 @@ const CourseContent = () => {
   return (
     <div className="container mx-auto py-8 space-y-8">
       <div className="space-y-4">
+        <Link to="/courses">
+          <Button variant="ghost" className="mb-4">
+            <ChevronLeft className="mr-2 h-4 w-4" />
+            Back to Courses
+          </Button>
+        </Link>
         <h1 className="text-4xl font-bold">{course.title}</h1>
         <p className="text-muted-foreground">{course.description}</p>
       </div>

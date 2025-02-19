@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { courses } from "@/data/courses";
 import { BookOpen, Users, PackageSearch, GitFork, MessageSquare, Wrench, BarChart } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft } from "lucide-react";
 
 const getIconForCourse = (courseId: number) => {
   switch (courseId) {
@@ -21,6 +23,12 @@ const CoursesIndex = () => {
   return (
     <div className="container mx-auto py-8 space-y-8">
       <div className="space-y-4">
+        <Link to="/">
+          <Button variant="ghost" className="mb-4">
+            <ChevronLeft className="mr-2 h-4 w-4" />
+            Back to Home
+          </Button>
+        </Link>
         <h1 className="text-4xl font-bold">Course Modules</h1>
         <p className="text-muted-foreground">Select a module to begin learning</p>
       </div>
