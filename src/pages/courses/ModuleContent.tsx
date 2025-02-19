@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { courses } from "@/data/courses";
 import PDFViewer from "@/components/onboarding/PDFViewer";
 import OrgChart from "@/components/onboarding/OrgChart";
+import CustomerResearch from "@/components/onboarding/CustomerResearch";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 
@@ -19,8 +20,21 @@ const ModuleContent = () => {
   }
 
   const moduleContent = typeof module === 'string' ? { title: module, content: '' } : module;
-  const isPDF = moduleContent.content?.startsWith('/pdfs/');
-  const isOrgChart = moduleContent.content === '[INTERACTIVE_ORG_CHART]';
+
+  const renderContent = () => {
+    if (moduleContent.content === '[INTERACTIVE_ORG_CHART]') {
+      return <OrgChart />;
+    }
+    if (moduleContent.content === '[CUSTOMER_RESEARCH]') {
+      return <CustomerResearch />;
+    }
+    if (moduleContent.content?.startsWith('/pdfs/')) {
+      return <PDFViewer pdfUrl={moduleContent.content} />;
+    }
+    return moduleContent.content.split('\n').map((paragraph, i) => (
+      <p key={i} className="text-muted-foreground">{paragraph}</p>
+    ));
+  };
 
   return (
     <div className="container mx-auto py-8 space-y-8">
@@ -35,15 +49,7 @@ const ModuleContent = () => {
       </div>
 
       <div className="prose max-w-none">
-        {isOrgChart ? (
-          <OrgChart />
-        ) : isPDF ? (
-          <PDFViewer pdfUrl={moduleContent.content.split('\n')[0]} />
-        ) : (
-          moduleContent.content.split('\n').map((paragraph, i) => (
-            <p key={i} className="text-muted-foreground">{paragraph}</p>
-          ))
-        )}
+        {renderContent()}
       </div>
     </div>
   );

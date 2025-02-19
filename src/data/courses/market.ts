@@ -10,8 +10,7 @@ export const marketCourse: Course = {
   modules: [
     {
       title: "Customer Research",
-      content: "Learn more about our customer personas and journey maps.",
-      link: "/courses/market/customer-research"
+      content: "[CUSTOMER_RESEARCH]"
     }
   ]
 };
