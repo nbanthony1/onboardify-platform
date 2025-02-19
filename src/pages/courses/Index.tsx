@@ -13,7 +13,10 @@ const CoursesIndex = () => {
       
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {courses.map((course) => (
-          <Link key={course.id} to={`/courses/${course.id}`}>
+          <Link 
+            key={course.id} 
+            to={course.id === 3 ? "/courses/market/customer-research" : `/courses/${course.id}`}
+          >
             <Card className="hover:shadow-md transition-shadow">
               <CardHeader>
                 <CardTitle>{course.title}</CardTitle>

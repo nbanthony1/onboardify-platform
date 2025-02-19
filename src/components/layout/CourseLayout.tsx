@@ -14,7 +14,7 @@ const CourseLayout = () => {
             {courses.map((course) => (
               <Link
                 key={course.id}
-                to={`/courses/${course.id}`}
+                to={course.id === 3 ? "/courses/market/customer-research" : `/courses/${course.id}`}
                 className="text-muted-foreground hover:text-foreground"
               >
                 {course.title.replace(/^\d+\.\s+/, '')}
