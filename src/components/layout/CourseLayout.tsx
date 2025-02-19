@@ -1,5 +1,6 @@
 
 import { Link, Outlet } from "react-router-dom";
+import { courses } from "@/data/courses";
 
 const CourseLayout = () => {
   return (
@@ -10,9 +11,15 @@ const CourseLayout = () => {
             <Link to="/courses" className="font-semibold">
               Onboardify Platform
             </Link>
-            <Link to="/courses/market/customer-research" className="text-muted-foreground hover:text-foreground">
-              Market Research
-            </Link>
+            {courses.map((course) => (
+              <Link
+                key={course.id}
+                to={`/courses/${course.id}`}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                {course.title.replace(/^\d+\.\s+/, '')}
+              </Link>
+            ))}
           </nav>
         </div>
       </header>

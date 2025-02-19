@@ -1,6 +1,7 @@
 
 import { Link } from "react-router-dom";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { courses } from "@/data/courses";
 
 const CoursesIndex = () => {
   return (
@@ -11,19 +12,23 @@ const CoursesIndex = () => {
       </div>
       
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <Link to="/courses/market/customer-research">
-          <Card className="hover:shadow-md transition-shadow">
-            <CardHeader>
-              <CardTitle>Market Research</CardTitle>
-              <CardDescription>Learn about customer personas and journey mapping</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground">
-                Understand your target market through detailed persona analysis and customer journey mapping
-              </p>
-            </CardContent>
-          </Card>
-        </Link>
+        {courses.map((course) => (
+          <Link key={course.id} to={`/courses/${course.id}`}>
+            <Card className="hover:shadow-md transition-shadow">
+              <CardHeader>
+                <CardTitle>{course.title}</CardTitle>
+                <CardDescription>{course.description}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {course.modules && course.modules.length > 0 && (
+                  <div className="text-sm text-muted-foreground">
+                    <p>{course.modules.length} modules available</p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </Link>
+        ))}
       </div>
     </div>
   );
