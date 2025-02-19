@@ -3,11 +3,20 @@ import CustomerPersona from "@/components/onboarding/CustomerPersona";
 import CustomerJourneyMap from "@/components/onboarding/CustomerJourneyMap";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { personas } from "@/data/personas";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const CustomerResearch = () => {
   return (
     <div className="container mx-auto py-8 space-y-12">
       <div className="space-y-4">
+        <Link to="/courses/3">
+          <Button variant="ghost" className="mb-4">
+            <ChevronLeft className="mr-2 h-4 w-4" />
+            Back to Market Segmentation
+          </Button>
+        </Link>
         <h1 className="text-4xl font-bold">Customer Research</h1>
         <p className="text-muted-foreground">
           Understanding Symterra's target market through personas and journey mapping
@@ -53,4 +62,3 @@ const CustomerResearch = () => {
 };
 
 export default CustomerResearch;
-
