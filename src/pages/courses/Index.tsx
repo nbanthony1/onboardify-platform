@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { courses } from "@/data/courses";
-import { BookOpen, Users, PackageSearch, GitFork, MessageSquare, Tool, BarChart } from "lucide-react";
+import { BookOpen, Users, PackageSearch, GitFork, MessageSquare, Wrench, BarChart } from "lucide-react";
 
 const getIconForCourse = (courseId: number) => {
   switch (courseId) {
@@ -11,7 +11,7 @@ const getIconForCourse = (courseId: number) => {
     case 3: return <BookOpen className="w-6 h-6 mb-2" />; // Market Research
     case 4: return <GitFork className="w-6 h-6 mb-2" />; // Sales Process
     case 5: return <MessageSquare className="w-6 h-6 mb-2" />; // Internal Communication
-    case 6: return <Tool className="w-6 h-6 mb-2" />; // Sales Tools
+    case 6: return <Wrench className="w-6 h-6 mb-2" />; // Sales Tools (changed from Tool to Wrench)
     case 7: return <BarChart className="w-6 h-6 mb-2" />; // Performance Metrics
     default: return <BookOpen className="w-6 h-6 mb-2" />;
   }
