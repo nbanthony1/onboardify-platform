@@ -66,7 +66,7 @@ const ModuleContent = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col">
       <div className="border-b">
         <div className="container mx-auto py-4">
           <Link to={`/courses/${courseId}`}>
