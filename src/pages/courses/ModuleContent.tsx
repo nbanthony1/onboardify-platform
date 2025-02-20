@@ -66,7 +66,7 @@ const ModuleContent = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col bg-background">
       <div className="border-b">
         <div className="container mx-auto py-4">
           <Link to={`/courses/${courseId}`}>
@@ -77,7 +77,7 @@ const ModuleContent = () => {
           </Link>
         </div>
       </div>
-      <div className="container mx-auto py-8">
+      <div className="container mx-auto py-8 flex-grow">
         <div className="max-w-4xl mx-auto">
           {renderContent()}
         </div>
