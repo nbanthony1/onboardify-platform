@@ -1,7 +1,8 @@
+
 export const personas = {
   pco: {
     persona: {
-      image: "/photo-1581092795360-fd1ca04f0952",
+      image: "/lovable-uploads/561aeae7-6126-4069-bd55-770f90d62323.png",
       name: "Michael",
       age: 45,
       occupation: "Pest Control Operations Manager",
