@@ -30,10 +30,21 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
     });
 
     try {
-      // Clean up the target path to ensure it only contains the file path
+      // Clean up the target path and ensure correct folder structure
       const cleanPath = targetPath.split('\n')[0].trim();
       console.log('Uploading file to path:', cleanPath);
       
+      // Create an empty file in the folder structure to ensure it exists
+      const folderPath = cleanPath.split('/').slice(0, -1).join('/');
+      if (folderPath) {
+        await supabase.storage
+          .from('course_materials')
+          .upload(`${folderPath}/.folder`, new Blob([''], { type: 'text/plain' }), {
+            upsert: true
+          });
+      }
+      
+      // Now upload the actual file
       const { data, error } = await supabase.storage
         .from('course_materials')
         .upload(cleanPath, file, {
@@ -48,6 +59,7 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
 
       console.log('Upload successful:', data);
 
+      // Get the public URL immediately after successful upload
       const { data: urlData } = await supabase.storage
         .from('course_materials')
         .getPublicUrl(cleanPath);
