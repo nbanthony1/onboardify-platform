@@ -244,7 +244,7 @@ export const personas = {
   },
   municipality: {
     persona: {
-      image: "/photo-1581092795360-fd1ca04f0952",
+      image: "/lovable-uploads/604a6607-bf43-45bb-8144-96a7286ad591.png",
       name: "Robert",
       age: 52,
       occupation: "Public Works Director",
