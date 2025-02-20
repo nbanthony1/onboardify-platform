@@ -30,11 +30,13 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
     });
 
     try {
-      console.log('Uploading file to path:', targetPath);
+      // Clean up the target path to ensure it only contains the file path
+      const cleanPath = targetPath.split('\n')[0].trim();
+      console.log('Uploading file to path:', cleanPath);
       
       const { data, error } = await supabase.storage
         .from('course_materials')
-        .upload(targetPath, file, {
+        .upload(cleanPath, file, {
           cacheControl: '3600',
           upsert: true
         });
@@ -48,7 +50,7 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
 
       const { data: urlData } = await supabase.storage
         .from('course_materials')
-        .getPublicUrl(targetPath);
+        .getPublicUrl(cleanPath);
       
       if (urlData?.publicUrl && onUploadComplete) {
         console.log('Got public URL:', urlData.publicUrl);
