@@ -365,7 +365,7 @@ export const personas = {
   },
   corporate: {
     persona: {
-      image: "/photo-1649972904349-6e44c42644a7",
+      image: "/lovable-uploads/91fb08c8-be41-4ab6-87a1-3c9f9e12c2dc.png",
       name: "Lisa",
       age: 45,
       occupation: "Corporate Sustainability Director",
