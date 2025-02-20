@@ -3,7 +3,7 @@ import { PersonaData } from "./types";
 
 export const commercial: PersonaData = {
   persona: {
-    image: "/photo-1581091226825-a6a2a5aee158",
+    image: "/lovable-uploads/26f24cc7-3313-4a90-b058-99b13012d133.png",
     name: "Sarah",
     age: 42,
     occupation: "Facilities Manager",
