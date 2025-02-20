@@ -26,7 +26,6 @@ const App = () => (
             <Route index element={<CoursesIndex />} />
             <Route path=":id" element={<CourseContent />} />
             <Route path=":id/module/:moduleId" element={<ModuleContent />} />
-            <Route path="market/customer-research" element={<CustomerResearch />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

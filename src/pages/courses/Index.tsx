@@ -37,7 +37,7 @@ const CoursesIndex = () => {
         {courses.map((course) => (
           <Link 
             key={course.id} 
-            to={course.id === 3 ? "/courses/market/customer-research" : `/courses/${course.id}`}
+            to={`/courses/${course.id}`}
           >
             <Card className="hover:shadow-md transition-shadow h-full">
               <CardHeader>
