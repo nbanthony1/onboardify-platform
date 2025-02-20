@@ -47,7 +47,7 @@ const ModuleContent = () => {
           <Link to={`/courses/${courseId}`}>
             <Button variant="ghost" size="sm">
               <ChevronLeft className="mr-2 h-4 w-4" />
-              Back to Course
+              Back to Market Segmentation
             </Button>
           </Link>
         </div>
