@@ -6,6 +6,8 @@ import OrgChart from "@/components/onboarding/OrgChart";
 import CustomerResearch from "@/components/onboarding/CustomerResearch";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
+import VideoUploader from "@/components/onboarding/VideoUploader";
+import { toast } from "@/hooks/use-toast";
 
 const ModuleContent = () => {
   const { id, moduleId } = useParams();
@@ -21,6 +23,14 @@ const ModuleContent = () => {
 
   const moduleContent = typeof module === 'string' ? { title: module, content: '' } : module;
 
+  const handleVideoUpload = (url: string) => {
+    toast({
+      title: "Video Uploaded",
+      description: "Your video has been uploaded successfully.",
+    });
+    console.log("Video URL:", url);
+  };
+
   const renderContent = () => {
     if (moduleContent.content === '[INTERACTIVE_ORG_CHART]') {
       return <OrgChart />;
@@ -30,6 +40,21 @@ const ModuleContent = () => {
     }
     if (moduleContent.content?.startsWith('/pdfs/')) {
       return <PDFViewer pdfUrl={moduleContent.content} />;
+    }
+    if (moduleContent.content?.startsWith('[Video Placeholder')) {
+      return (
+        <div className="space-y-4">
+          <VideoUploader 
+            targetPath={`videos/${courseId}/${moduleId}/${new Date().getTime()}`}
+            onUploadComplete={handleVideoUpload}
+          />
+          <div className="prose max-w-none">
+            {moduleContent.content.split('\n').map((paragraph, i) => (
+              <p key={i} className="text-muted-foreground mb-4">{paragraph}</p>
+            ))}
+          </div>
+        </div>
+      );
     }
     return (
       <div className="prose max-w-none">
