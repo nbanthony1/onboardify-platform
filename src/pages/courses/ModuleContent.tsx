@@ -72,7 +72,7 @@ const ModuleContent = () => {
           <Link to={`/courses/${courseId}`}>
             <Button variant="ghost" size="sm">
               <ChevronLeft className="mr-2 h-4 w-4" />
-              Back to Market Segmentation
+              Back to {course.title.replace(/^\d+\.\s/, '')}
             </Button>
           </Link>
         </div>
