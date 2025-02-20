@@ -23,7 +23,15 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
       return;
     }
 
+    // Show loading toast
+    toast({
+      title: "Uploading...",
+      description: "Please wait while we upload your file.",
+    });
+
     try {
+      console.log('Uploading file to path:', targetPath);
+      
       const { data, error } = await supabase.storage
         .from('course_materials')
         .upload(targetPath, file, {
@@ -31,13 +39,19 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
           upsert: true
         });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Upload error:', error);
+        throw error;
+      }
+
+      console.log('Upload successful:', data);
 
       const { data: urlData } = await supabase.storage
         .from('course_materials')
         .getPublicUrl(targetPath);
       
       if (urlData?.publicUrl && onUploadComplete) {
+        console.log('Got public URL:', urlData.publicUrl);
         onUploadComplete(urlData.publicUrl);
       }
 

@@ -20,13 +20,14 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
         if (pdfUrl.startsWith('/pdfs/')) {
           const filePath = pdfUrl.substring(1); // Remove leading slash
           
-          // Get the public URL directly
+          console.log('Checking file path:', filePath);
+
+          // Get the public URL
           const { data: urlData } = await supabase.storage
             .from('course_materials')
             .getPublicUrl(filePath);
 
           if (urlData?.publicUrl) {
-            // Verify the file exists by trying to fetch it
             try {
               const response = await fetch(urlData.publicUrl, { method: 'HEAD' });
               if (response.ok) {
@@ -42,7 +43,8 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
             }
           }
 
-          console.log('File not found, needs upload');
+          // If we reach here, file needs to be uploaded
+          console.log('File needs to be uploaded');
           setNeedsUpload(true);
           setIsValidPDF(false);
         } else {
@@ -65,14 +67,10 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
   }, [pdfUrl]);
 
   const handleUploadComplete = (url: string) => {
-    console.log('Upload complete:', url);
+    console.log('Upload complete, setting URL:', url);
     setFileUrl(url);
     setIsValidPDF(true);
     setNeedsUpload(false);
-    toast({
-      title: "Upload Successful",
-      description: "The PDF has been uploaded successfully.",
-    });
   };
 
   if (isChecking) {
@@ -86,11 +84,12 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
   }
 
   if (needsUpload || !isValidPDF) {
+    const filename = pdfUrl.split('/').pop()?.replace('.pdf', '');
     return (
       <div className="h-[80vh] flex flex-col items-center justify-center bg-gray-50 rounded-lg p-8">
         <h3 className="text-lg font-semibold mb-4">PDF Upload Required</h3>
         <p className="text-center text-gray-600 mb-8">
-          Please upload the {pdfUrl.split('/').pop()?.replace('.pdf', '')} PDF document to continue.
+          Please upload the {filename} PDF document to continue.
         </p>
         <FileUploader 
           targetPath={pdfUrl.substring(1)} 
