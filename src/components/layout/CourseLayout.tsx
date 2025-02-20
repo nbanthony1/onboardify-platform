@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 const CourseLayout = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <main>
         <Outlet />
       </main>
