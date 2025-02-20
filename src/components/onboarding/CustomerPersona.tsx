@@ -36,11 +36,13 @@ const CustomerPersona = ({
   motivation,
   quote,
 }: CustomerPersonaProps) => {
+  const unsplashUrl = `https://images.unsplash.com/`;
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center gap-4">
         <Avatar className="h-20 w-20">
-          <AvatarImage src={image} alt={name} />
+          <AvatarImage src={`${unsplashUrl}${image}`} alt={name} />
           <AvatarFallback>{name[0]}</AvatarFallback>
         </Avatar>
         <div>
