@@ -24,7 +24,6 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
     }
 
     try {
-      // Upload file directly to Supabase Storage
       const { data, error } = await supabase.storage
         .from('course_materials')
         .upload(targetPath, file, {
@@ -34,7 +33,6 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
 
       if (error) throw error;
 
-      // Get the public URL for the uploaded file
       const { data: urlData } = await supabase.storage
         .from('course_materials')
         .getPublicUrl(targetPath);

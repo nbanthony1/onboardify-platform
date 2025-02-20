@@ -19,16 +19,12 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
       try {
         if (pdfUrl.startsWith('/pdfs/')) {
           const filePath = pdfUrl.substring(1); // Remove leading slash
-          const folderPath = filePath.split('/')[0];
-          const fileName = filePath.split('/').pop();
           
-          console.log('Checking file:', { folderPath, fileName, filePath });
-          
-          // First try to get the public URL directly
+          // Get the public URL directly
           const { data: urlData } = await supabase.storage
             .from('course_materials')
             .getPublicUrl(filePath);
-          
+
           if (urlData?.publicUrl) {
             // Verify the file exists by trying to fetch it
             try {
@@ -46,37 +42,13 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
             }
           }
 
-          // If we couldn't verify the file, check if it exists in storage
-          const { data: files, error } = await supabase.storage
-            .from('course_materials')
-            .list(folderPath, {
-              limit: 100,
-              search: fileName
-            });
-
-          console.log('Storage list result:', { files, error });
-
-          if (error) throw error;
-
-          if (!files || files.length === 0) {
-            console.log('File not found in storage');
-            setNeedsUpload(true);
-            setIsValidPDF(false);
-          } else {
-            const exactMatch = files.find(f => f.name === fileName);
-            if (exactMatch) {
-              console.log('Found exact match:', exactMatch);
-              setFileUrl(urlData.publicUrl);
-              setIsValidPDF(true);
-              setNeedsUpload(false);
-            } else {
-              console.log('No exact match found');
-              setNeedsUpload(true);
-              setIsValidPDF(false);
-            }
-          }
+          console.log('File not found, needs upload');
+          setNeedsUpload(true);
+          setIsValidPDF(false);
         } else {
           setFileUrl(pdfUrl);
+          setIsValidPDF(true);
+          setNeedsUpload(false);
         }
       } catch (error) {
         console.error('Error checking file:', error);
