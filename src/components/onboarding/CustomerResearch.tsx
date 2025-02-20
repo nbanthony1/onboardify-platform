@@ -1,50 +1,62 @@
-import CustomerPersona from "@/components/onboarding/CustomerPersona";
-import CustomerJourneyMap from "@/components/onboarding/CustomerJourneyMap";
+
+import React, { useState } from 'react';
+import { personas } from '@/data/personas';
+import CustomerPersona from './CustomerPersona';
+import CustomerJourneyMap from './CustomerJourneyMap';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { personas } from "@/data/personas";
+import { type PersonaKey } from '@/data/personas';
 
 const CustomerResearch = () => {
+  const [selectedPersona, setSelectedPersona] = useState<PersonaKey>('pco');
+  
   return (
-    <div className="container mx-auto py-8 space-y-12">
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold">Customer Research</h1>
-        <p className="text-muted-foreground">
-          Understanding Symterra's target market through personas and journey mapping
-        </p>
-      </div>
-
-      <Tabs defaultValue="pco" className="space-y-8">
-        <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 gap-4">
-          <TabsTrigger value="pco">PCO</TabsTrigger>
-          <TabsTrigger value="commercial">Commercial</TabsTrigger>
-          <TabsTrigger value="municipality">Municipality</TabsTrigger>
-          <TabsTrigger value="corporate">Corporate</TabsTrigger>
-          <TabsTrigger value="distributor">Distributor</TabsTrigger>
+    <div className="space-y-8">
+      <h2 className="text-3xl font-bold">Customer Research</h2>
+      
+      <Tabs defaultValue="personas" className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="personas">Customer Personas</TabsTrigger>
+          <TabsTrigger value="journey">Journey Maps</TabsTrigger>
         </TabsList>
-
-        <TabsContent value="pco" className="space-y-8">
-          <CustomerPersona {...personas.pco.persona} />
-          <CustomerJourneyMap {...personas.pco.journeyMap} />
+        
+        <TabsContent value="personas" className="space-y-8">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {Object.entries(personas).map(([key, data]) => (
+              <button
+                key={key}
+                className={`p-4 rounded-lg border transition-all ${
+                  selectedPersona === key 
+                    ? 'border-primary ring-2 ring-primary ring-opacity-50' 
+                    : 'border-border hover:border-primary'
+                }`}
+                onClick={() => setSelectedPersona(key as PersonaKey)}
+              >
+                <div className="aspect-square relative overflow-hidden rounded-lg mb-4">
+                  <img 
+                    src={data.persona.image} 
+                    alt={data.persona.name}
+                    className="object-cover w-full h-full"
+                  />
+                </div>
+                <h3 className="font-semibold">{data.persona.name}</h3>
+                <p className="text-sm text-muted-foreground">{data.persona.occupation}</p>
+              </button>
+            ))}
+          </div>
+          
+          {selectedPersona && (
+            <CustomerPersona 
+              persona={personas[selectedPersona].persona}
+            />
+          )}
         </TabsContent>
-
-        <TabsContent value="commercial" className="space-y-8">
-          <CustomerPersona {...personas.commercial.persona} />
-          <CustomerJourneyMap {...personas.commercial.journeyMap} />
-        </TabsContent>
-
-        <TabsContent value="municipality" className="space-y-8">
-          <CustomerPersona {...personas.municipality.persona} />
-          <CustomerJourneyMap {...personas.municipality.journeyMap} />
-        </TabsContent>
-
-        <TabsContent value="corporate" className="space-y-8">
-          <CustomerPersona {...personas.corporate.persona} />
-          <CustomerJourneyMap {...personas.corporate.journeyMap} />
-        </TabsContent>
-
-        <TabsContent value="distributor" className="space-y-8">
-          <CustomerPersona {...personas.distributor.persona} />
-          <CustomerJourneyMap {...personas.distributor.journeyMap} />
+        
+        <TabsContent value="journey">
+          {selectedPersona && (
+            <CustomerJourneyMap 
+              journeyMap={personas[selectedPersona].journeyMap}
+            />
+          )}
         </TabsContent>
       </Tabs>
     </div>
