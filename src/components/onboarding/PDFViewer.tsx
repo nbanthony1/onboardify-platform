@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState } from 'react';
-import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import FileUploader from './FileUploader';
 
@@ -9,81 +8,37 @@ interface PDFViewerProps {
 }
 
 const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
-  const [isValidPDF, setIsValidPDF] = useState(true);
   const [fileUrl, setFileUrl] = useState<string | null>(null);
   const [needsUpload, setNeedsUpload] = useState(false);
-  const [isChecking, setIsChecking] = useState(true);
 
   useEffect(() => {
-    const checkFileExists = async () => {
-      try {
-        if (pdfUrl.startsWith('/pdfs/')) {
-          const filePath = pdfUrl.substring(1); // Remove leading slash
-          
-          console.log('Checking file path:', filePath);
-
-          // Get the public URL
-          const { data: urlData } = await supabase.storage
-            .from('course_materials')
-            .getPublicUrl(filePath);
-
-          if (urlData?.publicUrl) {
-            try {
-              const response = await fetch(urlData.publicUrl, { method: 'HEAD' });
-              if (response.ok) {
-                console.log('File exists:', urlData.publicUrl);
-                setFileUrl(urlData.publicUrl);
-                setIsValidPDF(true);
-                setNeedsUpload(false);
-                setIsChecking(false);
-                return;
-              }
-            } catch (error) {
-              console.log('File not accessible:', error);
-            }
-          }
-
-          // If we reach here, file needs to be uploaded
-          console.log('File needs to be uploaded');
-          setNeedsUpload(true);
-          setIsValidPDF(false);
-        } else {
-          setFileUrl(pdfUrl);
-          setIsValidPDF(true);
+    const getFileUrl = async () => {
+      if (pdfUrl.startsWith('/pdfs/')) {
+        const filePath = pdfUrl.substring(1); // Remove leading slash
+        const { data } = await supabase.storage
+          .from('course_materials')
+          .getPublicUrl(filePath);
+        
+        if (data?.publicUrl) {
+          setFileUrl(data.publicUrl);
           setNeedsUpload(false);
+        } else {
+          setNeedsUpload(true);
         }
-      } catch (error) {
-        console.error('Error checking file:', error);
-        setIsValidPDF(false);
-        setNeedsUpload(true);
-      } finally {
-        setIsChecking(false);
+      } else {
+        setFileUrl(pdfUrl);
       }
     };
 
-    if (pdfUrl) {
-      checkFileExists();
-    }
+    getFileUrl();
   }, [pdfUrl]);
 
   const handleUploadComplete = (url: string) => {
-    console.log('Upload complete, setting URL:', url);
     setFileUrl(url);
-    setIsValidPDF(true);
     setNeedsUpload(false);
   };
 
-  if (isChecking) {
-    return (
-      <div className="flex items-center justify-center h-[80vh] bg-gray-50 rounded-lg">
-        <p className="text-center text-gray-600">
-          Checking PDF status...
-        </p>
-      </div>
-    );
-  }
-
-  if (needsUpload || !isValidPDF) {
+  if (needsUpload) {
     const filename = pdfUrl.split('/').pop()?.replace('.pdf', '');
     return (
       <div className="h-[80vh] flex flex-col items-center justify-center bg-gray-50 rounded-lg p-8">
