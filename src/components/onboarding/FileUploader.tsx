@@ -11,13 +11,14 @@ interface FileUploaderProps {
 
 const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
   const handleFileChange = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault(); // Prevent form submission
     const file = event.target.files?.[0];
     if (!file) return;
 
-    if (file.type !== 'application/pdf') {
+    if (!file.type.startsWith('image/')) {
       toast({
         title: "Invalid File Type",
-        description: "Please upload a PDF file.",
+        description: "Please upload an image file.",
         variant: "destructive"
       });
       return;
@@ -26,7 +27,7 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
     // Show loading toast
     toast({
       title: "Uploading...",
-      description: "Please wait while we upload your file.",
+      description: "Please wait while we upload your image.",
     });
 
     try {
@@ -71,7 +72,7 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
 
       toast({
         title: "Upload Successful",
-        description: "The PDF has been uploaded successfully.",
+        description: "The image has been uploaded successfully.",
       });
 
     } catch (error) {
@@ -82,21 +83,28 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
         variant: "destructive"
       });
     }
+
+    // Clear the input value to allow uploading the same file again
+    event.target.value = '';
   }, [targetPath, onUploadComplete]);
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent any form submission
+  };
 
   return (
     <div className="flex flex-col items-center gap-4 p-6 border-2 border-dashed rounded-lg">
-      <p className="text-sm text-muted-foreground">Upload a PDF file to continue</p>
+      <p className="text-sm text-muted-foreground">Upload an image to continue</p>
       <Button
         variant="outline"
         className="relative"
-        onClick={() => document.getElementById('file-upload')?.click()}
+        onClick={handleClick}
       >
         Choose File
         <input
           id="file-upload"
           type="file"
-          accept="application/pdf"
+          accept="image/*"
           className="hidden"
           onChange={handleFileChange}
         />
