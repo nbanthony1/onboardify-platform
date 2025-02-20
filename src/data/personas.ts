@@ -123,8 +123,8 @@ export const personas = {
   },
   commercial: {
     persona: {
-      image: "/photo-1581091226825-a6a2a5aee158",
-      name: "Sarah",
+      image: "/lovable-uploads/f0bf927f-5429-4181-b177-dd67a782e8e6.png",
+      name: "Rebecca",
       age: 42,
       occupation: "Facilities Manager",
       status: "Full-time",
@@ -150,7 +150,7 @@ export const personas = {
         "Environmental compliance challenges",
         "Recurring pest issues",
       ],
-      motivation: "As a Facilities Manager for a major commercial property, Sarah needs to maintain pristine conditions while balancing costs and environmental responsibilities. She seeks solutions that align with corporate sustainability goals and provide clear ROI.",
+      motivation: "As a Facilities Manager for a major commercial property, Rebecca needs to maintain pristine conditions while balancing costs and environmental responsibilities. She seeks solutions that align with corporate sustainability goals and provide clear ROI.",
       quote: "We need a solution that protects our property while meeting our sustainability commitments.",
     },
     journeyMap: {
