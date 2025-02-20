@@ -11,7 +11,10 @@ interface FileUploaderProps {
 
 const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
   const handleFileChange = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault(); // Prevent form submission
+    // Prevent any form submission
+    event.preventDefault();
+    event.stopPropagation();
+    
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -31,21 +34,11 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
     });
 
     try {
-      // Clean up the target path and ensure correct folder structure
+      // Clean up the target path
       const cleanPath = targetPath.split('\n')[0].trim();
       console.log('Uploading file to path:', cleanPath);
-      
-      // Create an empty file in the folder structure to ensure it exists
-      const folderPath = cleanPath.split('/').slice(0, -1).join('/');
-      if (folderPath) {
-        await supabase.storage
-          .from('course_materials')
-          .upload(`${folderPath}/.folder`, new Blob([''], { type: 'text/plain' }), {
-            upsert: true
-          });
-      }
-      
-      // Now upload the actual file
+
+      // Upload the file
       const { data, error } = await supabase.storage
         .from('course_materials')
         .upload(cleanPath, file, {
@@ -60,11 +53,11 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
 
       console.log('Upload successful:', data);
 
-      // Get the public URL immediately after successful upload
+      // Get the public URL
       const { data: urlData } = await supabase.storage
         .from('course_materials')
         .getPublicUrl(cleanPath);
-      
+
       if (urlData?.publicUrl && onUploadComplete) {
         console.log('Got public URL:', urlData.publicUrl);
         onUploadComplete(urlData.publicUrl);
@@ -72,7 +65,7 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
 
       toast({
         title: "Upload Successful",
-        description: "The image has been uploaded successfully.",
+        description: "Your image has been uploaded successfully.",
       });
 
     } catch (error) {
@@ -84,21 +77,22 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
       });
     }
 
-    // Clear the input value to allow uploading the same file again
+    // Clear the input
     event.target.value = '';
   }, [targetPath, onUploadComplete]);
 
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent any form submission
-  };
-
   return (
-    <div className="flex flex-col items-center gap-4 p-6 border-2 border-dashed rounded-lg">
+    <div className="flex flex-col items-center gap-4 p-6 border-2 border-dashed rounded-lg" onClick={e => e.preventDefault()}>
       <p className="text-sm text-muted-foreground">Upload an image to continue</p>
       <Button
         variant="outline"
         className="relative"
-        onClick={handleClick}
+        onClick={e => {
+          e.preventDefault();
+          e.stopPropagation();
+          const input = document.getElementById('file-upload') as HTMLInputElement;
+          input?.click();
+        }}
       >
         Choose File
         <input
