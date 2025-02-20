@@ -486,7 +486,7 @@ export const personas = {
   },
   distributor: {
     persona: {
-      image: "/photo-1581092795360-fd1ca04f0952",
+      image: "/lovable-uploads/d01756bd-4331-4f90-8d1b-5ed53db35d6f.png",
       name: "David",
       age: 48,
       occupation: "Distribution Company Owner",
