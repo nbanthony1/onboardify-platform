@@ -10,15 +10,15 @@ export const productCourse: Course = {
   modules: [
     {
       title: "Technology Overview",
-      content: "/pdfs/product/technology-overview.pdf\n\nNote: Please upload the Technology Overview PDF document to continue."
+      content: "/pdfs/product/technology-overview.pdf"
     },
     {
       title: "Product Overview",
-      content: "/pdfs/product/product-overview.pdf\n\nNote: Please upload the Product Overview PDF document to continue."
+      content: "/pdfs/product/product-overview.pdf"
     },
     {
       title: "Technical Specifications",
-      content: "/pdfs/product/technical-specifications.pdf\n\nNote: Please upload the Technical Specifications PDF document to continue."
+      content: "/pdfs/product/technical-specifications.pdf"
     },
     {
       title: "University of Arizona Study",

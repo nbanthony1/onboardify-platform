@@ -92,9 +92,9 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
     const filename = pdfUrl.split('/').pop()?.replace('.pdf', '');
     return (
       <div className="h-[80vh] flex flex-col items-center justify-center bg-gray-50 rounded-lg p-8">
-        <h3 className="text-lg font-semibold mb-4">PDF Upload Required</h3>
+        <h3 className="text-lg font-semibold mb-4">Upload Required</h3>
         <p className="text-center text-gray-600 mb-8">
-          Please upload the {filename} PDF document to continue.
+          Please upload the {filename} PDF document.
         </p>
         <FileUploader 
           targetPath={pdfUrl.substring(1)} 
