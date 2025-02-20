@@ -4,13 +4,16 @@ import { courses } from "@/data/courses";
 import PDFViewer from "@/components/onboarding/PDFViewer";
 import OrgChart from "@/components/onboarding/OrgChart";
 import CustomerResearch from "@/components/onboarding/CustomerResearch";
+import VideoUploader from "@/components/onboarding/VideoUploader";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
+import { useState } from "react";
 
 const ModuleContent = () => {
   const { id, moduleId } = useParams();
   const courseId = parseInt(id || "1");
   const moduleIndex = parseInt(moduleId || "1") - 1;
+  const [videoUrl, setVideoUrl] = useState<string>("");
   
   const course = courses.find(c => c.id === courseId);
   const module = course?.modules?.[moduleIndex];
@@ -31,9 +34,30 @@ const ModuleContent = () => {
     if (moduleContent.content?.startsWith('/pdfs/')) {
       return <PDFViewer pdfUrl={moduleContent.content} />;
     }
-    return moduleContent.content.split('\n').map((paragraph, i) => (
-      <p key={i} className="text-muted-foreground">{paragraph}</p>
-    ));
+    if (videoUrl) {
+      return (
+        <div className="aspect-video w-full max-w-3xl mx-auto mb-4">
+          <video 
+            src={videoUrl} 
+            controls 
+            className="w-full h-full rounded-lg"
+          >
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      );
+    }
+    return (
+      <>
+        <VideoUploader
+          targetPath={`module-${courseId}-${moduleId}.mp4`}
+          onUploadComplete={setVideoUrl}
+        />
+        {moduleContent.content.split('\n').map((paragraph, i) => (
+          <p key={i} className="text-muted-foreground">{paragraph}</p>
+        ))}
+      </>
+    );
   };
 
   return (
