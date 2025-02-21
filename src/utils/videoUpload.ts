@@ -11,11 +11,12 @@ export const uploadVideoChunk = async (
   onProgress: (progress: number) => void
 ) => {
   const chunk = file.slice(start, end);
+  const chunkName = `${targetPath}_chunk_${start}`;
 
   try {
     const { error } = await supabase.storage
       .from('course_videos')
-      .upload(targetPath, chunk, {
+      .upload(chunkName, chunk, {
         cacheControl: '3600',
         upsert: true
       });
@@ -25,7 +26,7 @@ export const uploadVideoChunk = async (
     const progress = Math.min((end / file.size) * 100, 100);
     onProgress(progress);
     
-    return targetPath;
+    return chunkName;
   } catch (error) {
     console.error('Chunk upload error:', error);
     throw error;

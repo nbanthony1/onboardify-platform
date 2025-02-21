@@ -19,9 +19,23 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
   useEffect(() => {
     const checkExistingVideo = async () => {
       try {
-        const url = await getVideoUrl(targetPath);
-        if (url) {
-          setVideoUrl(url);
+        const { data: fileData, error: fileError } = await supabase.storage
+          .from('course_videos')
+          .list('', {
+            limit: 1,
+            search: targetPath
+          });
+
+        if (fileError) {
+          console.error('Error checking file existence:', fileError);
+          return;
+        }
+
+        if (fileData && fileData.length > 0) {
+          const url = await getVideoUrl(targetPath);
+          if (url) {
+            setVideoUrl(url);
+          }
         }
       } catch (error) {
         console.error('Error in checkExistingVideo:', error);
@@ -82,9 +96,20 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
     });
 
     try {
-      await uploadVideoChunk(file, 0, file.size, targetPath, (progress) => {
-        setUploadProgress(progress);
-      });
+      const CHUNK_SIZE = 10 * 1024 * 1024; // 10MB chunks
+      const chunks = Math.ceil(file.size / CHUNK_SIZE);
+      const chunkNames: string[] = [];
+
+      for (let i = 0; i < chunks; i++) {
+        const start = i * CHUNK_SIZE;
+        const end = Math.min(start + CHUNK_SIZE, file.size);
+        
+        const chunkName = await uploadVideoChunk(file, start, end, targetPath, (progress) => {
+          setUploadProgress(progress);
+        });
+        
+        chunkNames.push(chunkName);
+      }
 
       const url = await getVideoUrl(targetPath);
       if (url) {
