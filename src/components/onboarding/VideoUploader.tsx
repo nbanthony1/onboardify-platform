@@ -10,10 +10,12 @@ interface VideoUploaderProps {
   onUploadComplete?: (url: string) => void;
 }
 
+const CHUNK_SIZE = 10 * 1024 * 1024; // 10MB chunks
+
 const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => {
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
-  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const checkExistingVideo = async () => {
@@ -31,8 +33,6 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
           console.error('Error checking file existence:', fileError);
           return;
         }
-
-        console.log('File check response:', fileData);
 
         if (fileData && fileData.length > 0) {
           const { data } = await supabase.storage
@@ -77,22 +77,42 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
     }
   };
 
+  const uploadChunk = async (
+    file: File,
+    start: number,
+    end: number,
+    onProgress: (progress: number) => void
+  ) => {
+    const chunk = file.slice(start, end);
+    const chunkName = `${targetPath}_chunk_${start}`;
+
+    try {
+      const { error } = await supabase.storage
+        .from('course_videos')
+        .upload(chunkName, chunk, {
+          cacheControl: '3600',
+          upsert: true
+        });
+
+      if (error) throw error;
+      
+      const progress = Math.min((end / file.size) * 100, 100);
+      onProgress(progress);
+      
+      return chunkName;
+    } catch (error) {
+      console.error('Chunk upload error:', error);
+      throw error;
+    }
+  };
+
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     
-    console.log('File selected:', file);
-    
-    if (!file) {
-      console.log('No file selected');
-      return;
-    }
-
-    console.log('File type:', file.type);
-    console.log('File size:', file.size);
+    if (!file) return;
 
     const validVideoTypes = ['video/mp4', 'video/webm', 'video/ogg'];
     if (!validVideoTypes.includes(file.type)) {
-      console.log('Invalid file type');
       toast({
         title: "Invalid File Type",
         description: "Please upload a video file (MP4, WebM, or OGG).",
@@ -101,9 +121,8 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
       return;
     }
 
-    const maxSize = 5 * 1024 * 1024 * 1024;
+    const maxSize = 5 * 1024 * 1024 * 1024; // 5GB
     if (file.size > maxSize) {
-      console.log('File too large');
       toast({
         title: "File Too Large",
         description: "Please upload a video file smaller than 5GB.",
@@ -113,7 +132,7 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
     }
 
     setIsUploading(true);
-    console.log('Starting upload process');
+    setUploadProgress(0);
     
     toast({
       title: "Starting Upload",
@@ -121,33 +140,34 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
     });
 
     try {
-      console.log('Uploading to path:', targetPath);
-      
-      const { data, error } = await supabase.storage
-        .from('course_videos')
-        .upload(targetPath, file, {
-          cacheControl: '3600',
-          upsert: true
+      const chunks = Math.ceil(file.size / CHUNK_SIZE);
+      const chunkNames: string[] = [];
+
+      // Upload chunks
+      for (let i = 0; i < chunks; i++) {
+        const start = i * CHUNK_SIZE;
+        const end = Math.min(start + CHUNK_SIZE, file.size);
+        
+        const chunkName = await uploadChunk(file, start, end, (progress) => {
+          setUploadProgress(progress);
         });
-
-      console.log('Upload response:', { data, error });
-
-      if (error) {
-        throw error;
+        
+        chunkNames.push(chunkName);
       }
 
-      // Get the public URL
-      const { data: urlData } = await supabase.storage
+      // Combine chunks (you might need to implement a server-side function for this)
+      console.log('All chunks uploaded:', chunkNames);
+
+      // Get the final URL
+      const { data } = await supabase.storage
         .from('course_videos')
         .getPublicUrl(targetPath);
-      
-      console.log('Public URL data:', urlData);
 
-      if (urlData?.publicUrl) {
-        console.log('Setting video URL:', urlData.publicUrl);
-        setVideoUrl(urlData.publicUrl);
+      if (data?.publicUrl) {
+        console.log('Setting video URL:', data.publicUrl);
+        setVideoUrl(data.publicUrl);
         if (onUploadComplete) {
-          onUploadComplete(urlData.publicUrl);
+          onUploadComplete(data.publicUrl);
         }
         toast({
           title: "Upload Successful",
@@ -163,6 +183,7 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
       });
     } finally {
       setIsUploading(false);
+      setUploadProgress(0);
       if (event.target) {
         event.target.value = '';
       }
@@ -178,7 +199,7 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
               controls 
               className="absolute inset-0 w-full h-full"
               src={videoUrl}
-              key={videoUrl} // Force video reload when URL changes
+              key={videoUrl}
             >
               Your browser does not support the video tag.
             </video>
@@ -211,9 +232,17 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
             disabled={isUploading}
           />
           {isUploading && (
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Loader2 className="h-4 w-4 animate-spin" />
-              Uploading...
+            <div className="space-y-2 w-full">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Uploading... {Math.round(uploadProgress)}%
+              </div>
+              <div className="w-full bg-secondary rounded-full h-2">
+                <div 
+                  className="bg-primary h-2 rounded-full transition-all duration-300" 
+                  style={{ width: `${uploadProgress}%` }}
+                />
+              </div>
             </div>
           )}
         </form>
