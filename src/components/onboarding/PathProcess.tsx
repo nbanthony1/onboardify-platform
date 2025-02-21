@@ -94,8 +94,22 @@ const PathProcess = () => {
     {
       title: "Results Validation",
       description: [
+        "Front of the house",
+        "Sales, Operations, Leadership",
+        "",
+        "• Support the back of the house with all steps",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "Back of the house",
+        "R&D, Operations, Leadership",
+        "",
         "• Measure reductions in bird activity and collect client feedback",
+        "",
         "• Generate performance reports to validate system effectiveness",
+        "",
         "• Conduct optimization reviews"
       ]
     },
@@ -150,6 +164,7 @@ const PathProcess = () => {
             selectedStep?.title === "Technology Implementation" ? "Technology_1" :
             selectedStep?.title === "Advanced Solution Design" ? "Advanced_1" :
             selectedStep?.title === "Hands-On Support" ? "Hands_On_Support_1" :
+            selectedStep?.title === "Results Validation" ? "Results_Validation_1" :
             "Problem Assessment_1"
           }
         >
