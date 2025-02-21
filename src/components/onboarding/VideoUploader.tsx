@@ -74,12 +74,12 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
       return;
     }
 
-    // Max file size: 100MB
-    const maxSize = 100 * 1024 * 1024;
+    // Max file size: 5GB (Supabase Pro tier limit)
+    const maxSize = 5 * 1024 * 1024 * 1024;
     if (file.size > maxSize) {
       toast({
         title: "File Too Large",
-        description: "Please upload a video file smaller than 100MB.",
+        description: "Please upload a video file smaller than 5GB.",
         variant: "destructive"
       });
       return;
@@ -88,7 +88,7 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
     setIsUploading(true);
     toast({
       title: "Uploading...",
-      description: "Please wait while we upload your video.",
+      description: "Please wait while we upload your video. This may take several minutes for large files.",
     });
 
     try {
@@ -163,7 +163,7 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
       ) : (
         <div className="flex flex-col items-center gap-4 p-6 border-2 border-dashed rounded-lg">
           <p className="text-sm text-muted-foreground">Upload a video file (MP4, WebM, or OGG)</p>
-          <p className="text-xs text-muted-foreground">Maximum file size: 100MB</p>
+          <p className="text-xs text-muted-foreground">Maximum file size: 5GB</p>
           <Button
             variant="outline"
             className="relative"
