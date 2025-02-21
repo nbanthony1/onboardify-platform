@@ -101,7 +101,6 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
       return;
     }
 
-    // Increased max size to 5GB (5 * 1024 * 1024 * 1024 bytes)
     const maxSize = 5 * 1024 * 1024 * 1024;
     if (file.size > maxSize) {
       console.log('File too large');
@@ -145,6 +144,7 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
       console.log('Public URL data:', urlData);
 
       if (urlData?.publicUrl) {
+        console.log('Setting video URL:', urlData.publicUrl);
         setVideoUrl(urlData.publicUrl);
         if (onUploadComplete) {
           onUploadComplete(urlData.publicUrl);
@@ -173,13 +173,16 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
     <div className="space-y-6">
       {videoUrl ? (
         <div className="space-y-4">
-          <video 
-            controls 
-            className="w-full rounded-lg shadow-lg aspect-video bg-black"
-            src={videoUrl}
-          >
-            Your browser does not support the video tag.
-          </video>
+          <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
+            <video 
+              controls 
+              className="absolute inset-0 w-full h-full"
+              src={videoUrl}
+              key={videoUrl} // Force video reload when URL changes
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
           <div className="flex justify-end">
             <Button
               variant="destructive"
