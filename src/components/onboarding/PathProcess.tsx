@@ -8,6 +8,7 @@ interface Step {
 
 const PathProcess = () => {
   const [selectedStep, setSelectedStep] = useState<Step | null>(null);
+  const [showIntroDialog, setShowIntroDialog] = useState(false);
 
   const steps: Step[] = [
     {
@@ -138,7 +139,17 @@ const PathProcess = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8" aria-label="Path_home">
-      <h1 className="text-3xl font-bold text-center mb-12">Symterra's P.A.T.H Process</h1>
+      <div className="flex items-center justify-center mb-12">
+        <button
+          onClick={() => setShowIntroDialog(true)}
+          className="w-8 h-8 rounded-full bg-[#9b87f5] 
+                    hover:bg-[#7e69ab] transition-colors duration-200 
+                    flex items-center justify-center cursor-pointer
+                    shadow-[0_2px_4px_rgba(0,0,0,0.2)] mr-3"
+          aria-label="View PATH Process Overview"
+        />
+        <h1 className="text-3xl font-bold text-center">Symterra's P.A.T.H Process</h1>
+      </div>
       
       <div className="relative">
         {/* Vertical line */}
@@ -165,8 +176,8 @@ const PathProcess = () => {
               <h3 
                 className={`text-xl font-semibold ${
                   index < 4 
-                    ? 'mr-auto pr-1.5' // First 4 items: align left, 6px from oval
-                    : 'ml-auto pl-1.5' // Last 2 items: align right, 6px from oval
+                    ? 'mr-auto pr-3' // First 4 items: align left, 12px from oval
+                    : 'ml-auto pl-3' // Last 2 items: align right, 12px from oval
                 }`}
               >
                 {step.title}
@@ -175,6 +186,28 @@ const PathProcess = () => {
           ))}
         </div>
       </div>
+
+      {/* Introduction Dialog */}
+      <Dialog open={showIntroDialog} onOpenChange={setShowIntroDialog}>
+        <DialogContent className="max-w-4xl bg-white rounded-lg p-8">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-8 h-8 rounded-full bg-[#9b87f5] shadow-[0_2px_4px_rgba(0,0,0,0.2)]" />
+            <h2 className="text-2xl font-bold">Symterra's P.A.T.H Process</h2>
+          </div>
+
+          <div className="space-y-6">
+            <p className="text-gray-700">
+              • A <strong>step-by-step methodology</strong> to ensure consistent, effective, and scalable bird control solutions
+            </p>
+            <p className="text-gray-700">
+              • Company-driven execution for <strong>optimization and success</strong>
+            </p>
+            <p className="text-gray-700">
+              • Builds client <strong>trust, ensures compliance, and enhances long-term success</strong>
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Dialog for all step details */}
       <Dialog open={!!selectedStep} onOpenChange={(open) => !open && setSelectedStep(null)}>
