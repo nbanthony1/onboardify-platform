@@ -34,16 +34,14 @@ const UploadForm = ({ isUploading, uploadProgress, onFileChange }: UploadFormPro
       <p className="text-xs text-muted-foreground">Maximum file size: 5GB</p>
       
       <div className="w-full max-w-sm">
-        <label htmlFor="video-upload" className="w-full">
-          <Button 
-            variant="outline" 
-            className="w-full"
-            disabled={isUploading}
-            asChild
-          >
-            <span>Choose Video File</span>
-          </Button>
-        </label>
+        <Button 
+          variant="outline" 
+          className="w-full"
+          disabled={isUploading}
+          onClick={() => document.getElementById('video-upload')?.click()}
+        >
+          Choose Video File
+        </Button>
         <input
           id="video-upload"
           type="file"
