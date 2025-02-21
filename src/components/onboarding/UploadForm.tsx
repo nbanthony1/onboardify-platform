@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Loader2 } from "lucide-react";
+import { Loader2, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface UploadFormProps {
@@ -29,7 +29,7 @@ const UploadForm = ({ isUploading, uploadProgress, onFileChange }: UploadFormPro
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 p-6 border-2 border-dashed rounded-lg">
+    <div className="flex flex-col items-center gap-4 p-6 border-2 border-dashed rounded-lg bg-white">
       <p className="text-sm text-muted-foreground">Upload a video file (MP4, WebM, or OGG)</p>
       <p className="text-xs text-muted-foreground">Maximum file size: 5GB</p>
       
@@ -39,7 +39,9 @@ const UploadForm = ({ isUploading, uploadProgress, onFileChange }: UploadFormPro
           className="w-full"
           disabled={isUploading}
           onClick={() => document.getElementById('video-upload')?.click()}
+          size="lg"
         >
+          <Upload className="mr-2" />
           Choose Video File
         </Button>
         <input
