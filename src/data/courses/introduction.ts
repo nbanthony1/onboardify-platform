@@ -1,3 +1,4 @@
+
 import { Course } from "../types";
 
 export const introductionCourse: Course = {
@@ -16,7 +17,7 @@ export const introductionCourse: Course = {
         "To become the solution in pest control in 5 years."
     },
     {
-      title: "Core Values and Guarantee",
+      title: "Core Values and Secrets to Success",
       content: "[Video Placeholder: Core Values Presentation]\n\n" +
         "Guarantee\n" +
         "We guarantee significant reductions in bird activity, costs associated with pest control, and reputational risk from inhumane pest control practices. Our solutions are permanent, effective, and ethical that align with environmental responsibility and operational efficiency."
