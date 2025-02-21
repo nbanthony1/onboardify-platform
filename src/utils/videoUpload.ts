@@ -7,20 +7,45 @@ export const uploadVideo = async (
   onProgress: (progress: number) => void
 ) => {
   try {
-    // Upload the file with progress tracking
-    const { error, data } = await supabase.storage
+    // Since Supabase doesn't provide direct upload progress,
+    // we'll use XMLHttpRequest to track progress
+    const { data: { uploadUrl } } = await supabase.storage
       .from('course_videos')
-      .upload(targetPath, file, {
-        cacheControl: '3600',
-        upsert: true,
-        onUploadProgress: (progress) => {
-          // Calculate percentage
-          const percentage = (progress.loaded / progress.total) * 100;
+      .createSignedUploadUrl(targetPath);
+
+    if (!uploadUrl) {
+      throw new Error('Failed to get upload URL');
+    }
+
+    // Create a promise that resolves when the upload is complete
+    const uploadPromise = new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      
+      xhr.upload.addEventListener('progress', (event) => {
+        if (event.lengthComputable) {
+          const percentage = (event.loaded / event.total) * 100;
           onProgress(Math.round(percentage));
         }
       });
 
-    if (error) throw error;
+      xhr.addEventListener('load', () => {
+        if (xhr.status === 200) {
+          resolve(targetPath);
+        } else {
+          reject(new Error('Upload failed'));
+        }
+      });
+
+      xhr.addEventListener('error', () => {
+        reject(new Error('Upload failed'));
+      });
+
+      xhr.open('PUT', uploadUrl);
+      xhr.setRequestHeader('Content-Type', file.type);
+      xhr.send(file);
+    });
+
+    await uploadPromise;
     
     return targetPath;
   } catch (error) {
