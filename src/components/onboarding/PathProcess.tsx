@@ -62,7 +62,21 @@ const PathProcess = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-12">Symterra's P.A.T.H Process</h1>
+      {/* Title card with elevation and border */}
+      <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 mb-12">
+        <h1 className="text-3xl font-bold mb-6">Symterra's P.A.T.H Process</h1>
+        <div className="space-y-4 text-gray-600">
+          <p>
+            <strong className="text-gray-900">A step-by-step methodology</strong> to ensure consistent, effective, and scalable bird control solutions
+          </p>
+          <p>
+            Company-driven execution for <strong className="text-gray-900">optimization and success</strong>
+          </p>
+          <p>
+            Builds client <strong className="text-gray-900">trust, ensures compliance, and enhances long-term success</strong>
+          </p>
+        </div>
+      </div>
       
       <div className="relative">
         {/* Vertical line */}
@@ -77,13 +91,12 @@ const PathProcess = () => {
                 index % 2 === 0 ? 'justify-end pr-[52%]' : 'justify-start pl-[52%]'
               }`}
             >
-              {/* Circle */}
+              {/* Circle without animation */}
               <button
                 onClick={() => setSelectedStep(step)}
                 className="absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#9b87f5] 
                           hover:bg-[#7e69ab] transition-colors duration-200 
-                          flex items-center justify-center cursor-pointer
-                          animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite]"
+                          flex items-center justify-center cursor-pointer"
                 aria-label={`View ${step.title} details`}
               />
               
