@@ -116,8 +116,23 @@ const PathProcess = () => {
     {
       title: "Continuous Improvement",
       description: [
+        "Front of the house",
+        "Sales, Operations, Leadership",
+        "",
+        "• Support the back of the house with all steps",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "Back of the house",
+        "R&D, Operations, Leadership",
+        "",
         "• Use R&D insights and evolving data to refine solutions",
-        "• Strengthen client relationships through ongoing engagement and technical improvements"
+        "",
+        "• Strengthen client relationships through ongoing engagement and technical improvements",
+        "",
+        ""
       ]
     }
   ];
@@ -165,6 +180,7 @@ const PathProcess = () => {
             selectedStep?.title === "Advanced Solution Design" ? "Advanced_1" :
             selectedStep?.title === "Hands-On Support" ? "Hands_On_Support_1" :
             selectedStep?.title === "Results Validation" ? "Results_Validation_1" :
+            selectedStep?.title === "Continuous Improvement" ? "Continuous_Improvement_1" :
             "Problem Assessment_1"
           }
         >
