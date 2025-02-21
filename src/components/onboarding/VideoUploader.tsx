@@ -115,7 +115,20 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
   return (
     <div className="space-y-6">
       {videoUrl ? (
-        <VideoPlayer videoUrl={videoUrl} onDelete={handleDelete} />
+        <div className="space-y-4">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex-1">
+              <VideoPlayer videoUrl={videoUrl} onDelete={handleDelete} />
+            </div>
+            <div className="w-72">
+              <UploadForm 
+                isUploading={isUploading}
+                uploadProgress={uploadProgress}
+                onFileChange={handleFileChange}
+              />
+            </div>
+          </div>
+        </div>
       ) : (
         <UploadForm 
           isUploading={isUploading}
