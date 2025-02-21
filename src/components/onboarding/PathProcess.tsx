@@ -8,7 +8,6 @@ interface Step {
 }
 
 const PathProcess = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [selectedStep, setSelectedStep] = useState<Step | null>(null);
 
   const steps: Step[] = [
@@ -64,10 +63,7 @@ const PathProcess = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       {/* Title card with elevation and border */}
-      <div 
-        className="bg-white rounded-lg shadow-md border border-gray-200 p-6 mb-12 cursor-pointer hover:shadow-lg transition-shadow"
-        onClick={() => setIsOpen(true)}
-      >
+      <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 mb-12">
         <h1 className="text-3xl font-bold mb-6">Symterra's P.A.T.H Process</h1>
         <div className="space-y-4 text-gray-600">
           <p>
@@ -82,45 +78,36 @@ const PathProcess = () => {
         </div>
       </div>
       
-      {/* Main Dialog */}
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-4xl">
-          <DialogHeader>
-            <DialogTitle>Symterra's P.A.T.H Process</DialogTitle>
-          </DialogHeader>
-          
-          <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 -translate-x-1/2" />
-            
-            {/* Steps */}
-            <div className="space-y-24">
-              {steps.map((step, index) => (
-                <div 
-                  key={step.title}
-                  className={`relative flex items-center ${
-                    index % 2 === 0 ? 'justify-end pr-[52%]' : 'justify-start pl-[52%]'
-                  }`}
-                >
-                  {/* Circle without animation */}
-                  <button
-                    onClick={() => setSelectedStep(step)}
-                    className="absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#9b87f5] 
-                              hover:bg-[#7e69ab] transition-colors duration-200 
-                              flex items-center justify-center cursor-pointer"
-                    aria-label={`View ${step.title} details`}
-                  />
-                  
-                  {/* Title */}
-                  <h3 className="text-xl font-semibold">{step.title}</h3>
-                </div>
-              ))}
+      <div className="relative">
+        {/* Vertical line */}
+        <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 -translate-x-1/2" />
+        
+        {/* Steps */}
+        <div className="space-y-24">
+          {steps.map((step, index) => (
+            <div 
+              key={step.title}
+              className={`relative flex items-center ${
+                index % 2 === 0 ? 'justify-end pr-[52%]' : 'justify-start pl-[52%]'
+              }`}
+            >
+              {/* Circle without animation */}
+              <button
+                onClick={() => setSelectedStep(step)}
+                className="absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#9b87f5] 
+                          hover:bg-[#7e69ab] transition-colors duration-200 
+                          flex items-center justify-center cursor-pointer"
+                aria-label={`View ${step.title} details`}
+              />
+              
+              {/* Title */}
+              <h3 className="text-xl font-semibold">{step.title}</h3>
             </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+          ))}
+        </div>
+      </div>
 
-      {/* Step Details Dialog */}
+      {/* Dialog for step details */}
       <Dialog open={!!selectedStep} onOpenChange={(open) => !open && setSelectedStep(null)}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
