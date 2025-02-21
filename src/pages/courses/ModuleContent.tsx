@@ -31,6 +31,11 @@ const ModuleContent = () => {
     console.log("Video URL:", url);
   };
 
+  const generateVideoPath = () => {
+    // Create a simpler, more predictable path
+    return `course_${courseId}_module_${moduleId}_${Date.now()}.mp4`;
+  };
+
   const renderContent = () => {
     if (moduleContent.content === '[INTERACTIVE_ORG_CHART]') {
       return <OrgChart />;
@@ -45,7 +50,7 @@ const ModuleContent = () => {
       return (
         <div className="space-y-4">
           <VideoUploader 
-            targetPath={`videos/${courseId}/${moduleId}/${new Date().getTime()}`}
+            targetPath={generateVideoPath()}
             onUploadComplete={handleVideoUpload}
           />
           <div className="prose max-w-none">
