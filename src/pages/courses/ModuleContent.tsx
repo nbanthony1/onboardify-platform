@@ -4,6 +4,7 @@ import { courses } from "@/data/courses";
 import PDFViewer from "@/components/onboarding/PDFViewer";
 import OrgChart from "@/components/onboarding/OrgChart";
 import CustomerResearch from "@/components/onboarding/CustomerResearch";
+import PathProcess from "@/components/onboarding/PathProcess";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import VideoUploader from "@/components/onboarding/VideoUploader";
@@ -32,11 +33,15 @@ const ModuleContent = () => {
   };
 
   const generateVideoPath = () => {
-    // Create a simpler, more predictable path
     return `course_${courseId}_module_${moduleId}_${Date.now()}.mp4`;
   };
 
   const renderContent = () => {
+    // Special case for the PATH process module
+    if (courseId === 4 && moduleId === "1") {
+      return <PathProcess />;
+    }
+    
     if (moduleContent.content === '[INTERACTIVE_ORG_CHART]') {
       return <OrgChart />;
     }
