@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { X } from "lucide-react";
 
 interface Step {
   title: string;
@@ -18,11 +17,11 @@ const PathProcess = () => {
         "Front of the house",
         "Sales, Operations, Leadership",
         "",
-        "• We will partner with you to conduct a **comprehensive evaluation** of your site to understand your specific bird challenges",
+        "• We will partner with you to conduct a comprehensive evaluation of your site to understand your specific bird challenges",
         "",
         "• We take bird species, behavior patterns, and environmental factors affecting your property into consideration in working toward your customized solution",
         "",
-        "• We work with you to develop a **goal-oriented plan** for reducing bird activity",
+        "• We work with you to develop a goal-oriented plan for reducing bird activity",
         "",
         "Back of the house",
         "R&D, Operations, Leadership",
@@ -38,9 +37,9 @@ const PathProcess = () => {
         "Front of the house",
         "Sales, Operations, Leadership",
         "",
-        "• Using **proprietary pulse-based technology**, we create a customized deterrence solution tailored to your needs",
+        "• Using **proprietary** pulse-based technology, we create a customized deterrence solution tailored to your needs",
         "",
-        "• Our solutions are designed to be **effective, non-invasive, and long-lasting**",
+        "• Our solutions are designed to be **effective**, non-invasive, and long-lasting",
         "",
         "• We ensure the system is aligned with your operational goals and environmental policies",
         "",
@@ -60,7 +59,7 @@ const PathProcess = () => {
         "",
         "• Ship the system directly to you or your designated installer",
         "",
-        "• Provide **comprehensive installation guidelines** to ensure correct setup",
+        "• Provide **comprehensive** installation guidelines to ensure correct setup",
         "",
         "• Offer real-time virtual assistance during installation to guide the process and answer any questions",
         "",
@@ -78,7 +77,7 @@ const PathProcess = () => {
         "Front of the house",
         "Sales, Operations, Leadership",
         "",
-        "• We provide **onboarding and training** for your team to maximize the system's impact",
+        "• We provide **ongoing** training for your team to maximize the system's impact",
         "",
         "• Our support specialists are available to answer questions and provide assistance as needed",
         "",
@@ -107,9 +106,9 @@ const PathProcess = () => {
         "Back of the house",
         "R&D, Operations, Leadership",
         "",
-        "• **Measure reductions** in bird activity and collect client feedback",
+        "• **Monthly** reductions in bird activity and collect client feedback",
         "",
-        "• Generate **performance reports** to validate system effectiveness",
+        "• Generate **detailed** performance reports to validate system effectiveness",
         "",
         "• Conduct optimization reviews"
       ]
@@ -129,9 +128,9 @@ const PathProcess = () => {
         "Back of the house",
         "R&D, Operations, Leadership",
         "",
-        "• Use **R&D insights** and evolving data to refine solutions",
+        "• Use **continuous** R&D insights and evolving data to refine solutions",
         "",
-        "• Strengthen client relationships through ongoing engagement and **technical improvements**",
+        "• Strengthen client relationships through ongoing engagement and **consistent** technical improvements",
         "",
         ""
       ]
@@ -167,8 +166,8 @@ const PathProcess = () => {
               <h3 
                 className={`text-xl font-semibold ${
                   index < 4 
-                    ? 'ml-auto mr-6' // First 4 items: align right, 24px from oval
-                    : 'ml-6' // Last 2 items: align left, 24px from oval
+                    ? 'mr-auto ml-3' // First 4 items: align left, 12px from oval
+                    : 'ml-3' // Last 2 items: align right, 12px from oval
                 }`}
               >
                 {step.title}
