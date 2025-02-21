@@ -14,23 +14,42 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
   const [isUploading, setIsUploading] = useState(false);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
 
-  // Check if video exists on component mount
   useEffect(() => {
     const checkExistingVideo = async () => {
       try {
-        const { data } = await supabase.storage
+        console.log('Checking for existing video at path:', targetPath);
+        
+        // First check if the file exists in storage
+        const { data: fileData, error: fileError } = await supabase.storage
           .from('course_videos')
-          .getPublicUrl(targetPath);
+          .list(targetPath.split('/').slice(0, -1).join('/'), {
+            limit: 1,
+            search: targetPath.split('/').pop()
+          });
 
-        if (data?.publicUrl) {
-          // Verify the file exists by making a HEAD request
-          const response = await fetch(data.publicUrl, { method: 'HEAD' });
-          if (response.ok) {
-            setVideoUrl(data.publicUrl);
+        if (fileError) {
+          console.error('Error checking file existence:', fileError);
+          return;
+        }
+
+        console.log('File check response:', fileData);
+
+        if (fileData && fileData.length > 0) {
+          const { data } = await supabase.storage
+            .from('course_videos')
+            .getPublicUrl(targetPath);
+
+          if (data?.publicUrl) {
+            console.log('Found existing video URL:', data.publicUrl);
+            // Add timestamp to bust cache
+            const urlWithTimestamp = `${data.publicUrl}?t=${Date.now()}`;
+            setVideoUrl(urlWithTimestamp);
           }
+        } else {
+          console.log('No existing video found at path:', targetPath);
         }
       } catch (error) {
-        console.error('Error checking existing video:', error);
+        console.error('Error in checkExistingVideo:', error);
       }
     };
 
@@ -39,11 +58,15 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
 
   const handleDelete = async () => {
     try {
+      console.log('Attempting to delete video at path:', targetPath);
       const { error } = await supabase.storage
         .from('course_videos')
         .remove([targetPath]);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Delete error:', error);
+        throw error;
+      }
 
       setVideoUrl(null);
       toast({
@@ -93,6 +116,15 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
 
     try {
       console.log('Starting upload to path:', targetPath);
+      
+      // Ensure the directory exists by creating empty directories if needed
+      const pathParts = targetPath.split('/');
+      const fileName = pathParts.pop();
+      const dirPath = pathParts.join('/');
+      
+      console.log('Directory path:', dirPath);
+      console.log('File name:', fileName);
+
       const { data, error } = await supabase.storage
         .from('course_videos')
         .upload(targetPath, file, {
@@ -113,9 +145,11 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
       
       if (urlData?.publicUrl) {
         console.log('Got public URL:', urlData.publicUrl);
-        setVideoUrl(urlData.publicUrl);
+        // Add timestamp to bust cache
+        const urlWithTimestamp = `${urlData.publicUrl}?t=${Date.now()}`;
+        setVideoUrl(urlWithTimestamp);
         if (onUploadComplete) {
-          onUploadComplete(urlData.publicUrl);
+          onUploadComplete(urlWithTimestamp);
         }
       }
 
@@ -146,6 +180,7 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
             controls 
             className="w-full rounded-lg shadow-lg"
             src={videoUrl}
+            key={videoUrl} // Force video element to reload when URL changes
           >
             Your browser does not support the video tag.
           </video>
