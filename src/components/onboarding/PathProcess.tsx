@@ -160,9 +160,7 @@ const PathProcess = () => {
           {steps.map((step, index) => (
             <div 
               key={step.title}
-              className={`relative flex items-center ${
-                index < 4 ? 'flex-row-reverse justify-end' : 'flex-row justify-end'
-              }`}
+              className="relative flex items-center"
             >
               {/* Circle with shadow */}
               <button
@@ -179,8 +177,8 @@ const PathProcess = () => {
               <h3 
                 className={`text-xl font-semibold ${
                   index < 4 
-                    ? 'mr-3' // First 4 items: align left of oval, 12px spacing
-                    : 'ml-3' // Last 2 items: align right of oval, 12px spacing
+                    ? 'ml-3' // First 4 items: align left, exactly 12px from oval
+                    : 'ml-3' // Last 2 items: align right, exactly 12px from oval
                 }`}
               >
                 {step.title}
