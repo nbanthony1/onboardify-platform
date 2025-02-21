@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { X } from "lucide-react";
@@ -35,9 +34,21 @@ const PathProcess = () => {
     {
       title: "Advanced Solution Design",
       description: [
-        "• Develop a customized deterrent strategy based on structural and environmental factors",
-        "• Integrate Symterra's proprietary pulse-based technology to create an effective, non-invasive deterrent",
-        "• Ensure cost efficiency and seamless alignment with client operations"
+        "Front of the house",
+        "Sales, Operations, Leadership",
+        "",
+        "• Using proprietary pulse-based technology, we create a customized deterrence solution tailored to your needs",
+        "",
+        "• Our solutions are designed to be effective, non-invasive, and long-lasting",
+        "",
+        "• We ensure the system is aligned with your operational goals and environmental policies",
+        "",
+        "Back of the house",
+        "R&D, Operations, Leadership",
+        "",
+        "• We Support the front of the house with all steps",
+        "",
+        "• Pilot testing and internal validation before full implementation"
       ]
     },
     {
@@ -75,6 +86,8 @@ const PathProcess = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8" aria-label="Path_home">
+      <h1 className="text-3xl font-bold text-center mb-12">Symterra's P.A.T.H Process</h1>
+      
       <div className="relative">
         {/* Vertical line */}
         <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 -translate-x-1/2" />
@@ -85,15 +98,16 @@ const PathProcess = () => {
             <div 
               key={step.title}
               className={`relative flex items-center ${
-                index % 2 === 0 ? 'justify-end pr-[76px]' : 'justify-start pl-[76px]'
+                index % 2 === 0 ? 'justify-end pr-[38px]' : 'justify-start pl-[38px]'
               }`}
             >
-              {/* Circle */}
+              {/* Circle with shadow */}
               <button
                 onClick={() => setSelectedStep(step)}
                 className="absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#9b87f5] 
                           hover:bg-[#7e69ab] transition-colors duration-200 
-                          flex items-center justify-center cursor-pointer"
+                          flex items-center justify-center cursor-pointer
+                          shadow-[0_2px_4px_rgba(0,0,0,0.2)]"
                 aria-label={`View ${step.title} details`}
               />
               
@@ -104,9 +118,12 @@ const PathProcess = () => {
         </div>
       </div>
 
-      {/* Problem Assessment Dialog */}
+      {/* Dialog for both Problem Assessment and Advanced Solution Design */}
       <Dialog open={!!selectedStep} onOpenChange={(open) => !open && setSelectedStep(null)}>
-        <DialogContent className="max-w-4xl bg-white rounded-lg p-8" aria-label="Problem Assessment_1">
+        <DialogContent 
+          className="max-w-4xl bg-white rounded-lg p-8" 
+          aria-label={selectedStep?.title === "Advanced Solution Design" ? "Advanced_1" : "Problem Assessment_1"}
+        >
           <button 
             onClick={() => setSelectedStep(null)}
             className="absolute right-4 top-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
@@ -115,7 +132,7 @@ const PathProcess = () => {
           </button>
           
           <div className="flex items-center gap-4 mb-8">
-            <div className="w-8 h-8 rounded-full bg-[#9b87f5]" />
+            <div className="w-8 h-8 rounded-full bg-[#9b87f5] shadow-[0_2px_4px_rgba(0,0,0,0.2)]" />
             <h2 className="text-2xl font-bold">{selectedStep?.title}</h2>
           </div>
 
