@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import VideoPlayer from './VideoPlayer';
 import UploadForm from './UploadForm';
-import { uploadVideoChunk, getVideoUrl, deleteVideo } from '@/utils/videoUpload';
+import { uploadVideo, getVideoUrl, deleteVideo } from '@/utils/videoUpload';
 
 interface VideoUploaderProps {
   targetPath: string;
@@ -19,23 +19,9 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
   useEffect(() => {
     const checkExistingVideo = async () => {
       try {
-        const { data: fileData, error: fileError } = await supabase.storage
-          .from('course_videos')
-          .list('', {
-            limit: 1,
-            search: targetPath
-          });
-
-        if (fileError) {
-          console.error('Error checking file existence:', fileError);
-          return;
-        }
-
-        if (fileData && fileData.length > 0) {
-          const url = await getVideoUrl(targetPath);
-          if (url) {
-            setVideoUrl(url);
-          }
+        const url = await getVideoUrl(targetPath);
+        if (url) {
+          setVideoUrl(url);
         }
       } catch (error) {
         console.error('Error in checkExistingVideo:', error);
@@ -96,20 +82,9 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
     });
 
     try {
-      const CHUNK_SIZE = 10 * 1024 * 1024; // 10MB chunks
-      const chunks = Math.ceil(file.size / CHUNK_SIZE);
-      const chunkNames: string[] = [];
-
-      for (let i = 0; i < chunks; i++) {
-        const start = i * CHUNK_SIZE;
-        const end = Math.min(start + CHUNK_SIZE, file.size);
-        
-        const chunkName = await uploadVideoChunk(file, start, end, targetPath, (progress) => {
-          setUploadProgress(progress);
-        });
-        
-        chunkNames.push(chunkName);
-      }
+      await uploadVideo(file, targetPath, (progress) => {
+        setUploadProgress(progress);
+      });
 
       const url = await getVideoUrl(targetPath);
       if (url) {
@@ -131,7 +106,6 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
       });
     } finally {
       setIsUploading(false);
-      setUploadProgress(0);
       if (event.target) {
         event.target.value = '';
       }

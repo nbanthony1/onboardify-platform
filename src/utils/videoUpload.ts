@@ -1,34 +1,29 @@
 
 import { supabase } from "@/integrations/supabase/client";
 
-const CHUNK_SIZE = 10 * 1024 * 1024; // 10MB chunks
-
-export const uploadVideoChunk = async (
+export const uploadVideo = async (
   file: File,
-  start: number,
-  end: number,
   targetPath: string,
   onProgress: (progress: number) => void
 ) => {
-  const chunk = file.slice(start, end);
-  const chunkName = `${targetPath}_chunk_${start}`;
-
   try {
-    const { error } = await supabase.storage
+    // Upload the entire file at once
+    const { error, data } = await supabase.storage
       .from('course_videos')
-      .upload(chunkName, chunk, {
+      .upload(targetPath, file, {
         cacheControl: '3600',
-        upsert: true
+        upsert: true,
+        duplex: 'half'
       });
 
     if (error) throw error;
     
-    const progress = Math.min((end / file.size) * 100, 100);
-    onProgress(progress);
+    // Set progress to 100% when complete
+    onProgress(100);
     
-    return chunkName;
+    return targetPath;
   } catch (error) {
-    console.error('Chunk upload error:', error);
+    console.error('Upload error:', error);
     throw error;
   }
 };
