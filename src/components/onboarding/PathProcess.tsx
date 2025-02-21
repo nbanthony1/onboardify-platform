@@ -165,10 +165,11 @@ const PathProcess = () => {
               {/* Circle with shadow */}
               <button
                 onClick={() => setSelectedStep(step)}
-                className="absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#9b87f5] 
+                className={`w-8 h-8 rounded-full bg-[#9b87f5] 
                           hover:bg-[#7e69ab] transition-colors duration-200 
                           flex items-center justify-center cursor-pointer
-                          shadow-[0_2px_4px_rgba(0,0,0,0.2)]"
+                          shadow-[0_2px_4px_rgba(0,0,0,0.2)]
+                          ${index < 4 ? 'ml-[calc(50%-1rem)]' : 'ml-[calc(50%-1rem)]'}`}
                 aria-label={`View ${step.title} details`}
               />
               
@@ -176,8 +177,8 @@ const PathProcess = () => {
               <h3 
                 className={`text-xl font-semibold ${
                   index < 4 
-                    ? 'mr-auto pr-3' // First 4 items: align left, 12px from oval
-                    : 'ml-auto pl-3' // Last 2 items: align right, 12px from oval
+                    ? 'ml-3' // First 4 items: align left, exactly 12px from oval
+                    : 'ml-3' // Last 2 items: align right, exactly 12px from oval
                 }`}
               >
                 {step.title}
