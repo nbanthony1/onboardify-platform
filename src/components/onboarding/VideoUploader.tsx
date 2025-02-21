@@ -43,8 +43,6 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
             console.log('Found existing video URL:', data.publicUrl);
             setVideoUrl(data.publicUrl);
           }
-        } else {
-          console.log('No existing video found at path:', targetPath);
         }
       } catch (error) {
         console.error('Error in checkExistingVideo:', error);
@@ -79,18 +77,22 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
     }
   };
 
-  const handleUploadClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
-
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (!file) return;
+    
+    console.log('File selected:', file);
+    
+    if (!file) {
+      console.log('No file selected');
+      return;
+    }
+
+    console.log('File type:', file.type);
+    console.log('File size:', file.size);
 
     const validVideoTypes = ['video/mp4', 'video/webm', 'video/ogg'];
     if (!validVideoTypes.includes(file.type)) {
+      console.log('Invalid file type');
       toast({
         title: "Invalid File Type",
         description: "Please upload a video file (MP4, WebM, or OGG).",
@@ -99,9 +101,9 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
       return;
     }
 
-    // Max file size: 500MB for better reliability
-    const maxSize = 500 * 1024 * 1024;
+    const maxSize = 500 * 1024 * 1024; // 500MB
     if (file.size > maxSize) {
+      console.log('File too large');
       toast({
         title: "File Too Large",
         description: "Please upload a video file smaller than 500MB.",
@@ -111,13 +113,15 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
     }
 
     setIsUploading(true);
+    console.log('Starting upload process');
+    
     toast({
       title: "Starting Upload",
       description: "Please wait while we upload your video...",
     });
 
     try {
-      console.log('Starting upload to path:', targetPath);
+      console.log('Uploading to path:', targetPath);
       
       const { data, error } = await supabase.storage
         .from('course_videos')
@@ -126,19 +130,20 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
           upsert: true
         });
 
+      console.log('Upload response:', { data, error });
+
       if (error) {
         throw error;
       }
 
-      console.log('Upload successful:', data);
-
-      // Get the public URL immediately after successful upload
+      // Get the public URL
       const { data: urlData } = await supabase.storage
         .from('course_videos')
         .getPublicUrl(targetPath);
       
+      console.log('Public URL data:', urlData);
+
       if (urlData?.publicUrl) {
-        console.log('Got public URL:', urlData.publicUrl);
         setVideoUrl(urlData.publicUrl);
         if (onUploadComplete) {
           onUploadComplete(urlData.publicUrl);
@@ -186,32 +191,28 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
           </div>
         </div>
       ) : (
-        <div className="flex flex-col items-center gap-4 p-6 border-2 border-dashed rounded-lg">
+        <form className="flex flex-col items-center gap-4 p-6 border-2 border-dashed rounded-lg">
           <p className="text-sm text-muted-foreground">Upload a video file (MP4, WebM, or OGG)</p>
           <p className="text-xs text-muted-foreground">Maximum file size: 500MB</p>
-          <Button
-            variant="outline"
-            onClick={handleUploadClick}
-            disabled={isUploading}
-          >
-            {isUploading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Uploading...
-              </>
-            ) : (
-              'Choose Video'
-            )}
-          </Button>
           <input
-            ref={fileInputRef}
             type="file"
             accept="video/mp4,video/webm,video/ogg"
-            className="hidden"
+            className="block w-full text-sm text-slate-500
+              file:mr-4 file:py-2 file:px-4
+              file:rounded-md file:border-0
+              file:text-sm file:font-semibold
+              file:bg-primary file:text-primary-foreground
+              hover:file:opacity-90"
             onChange={handleFileChange}
             disabled={isUploading}
           />
-        </div>
+          {isUploading && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              Uploading...
+            </div>
+          )}
+        </form>
       )}
     </div>
   );
