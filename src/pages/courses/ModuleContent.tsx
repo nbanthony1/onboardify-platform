@@ -52,7 +52,7 @@ const ModuleContent = () => {
     if (moduleContent.content?.startsWith('/pdfs/')) {
       return <PDFViewer pdfUrl={moduleContent.content} />;
     }
-    if (courseId === 1 && moduleId === "1") {
+    if (courseId === 1 && moduleId === "2") {
       return (
         <div className="space-y-6">
           <VideoPlayer videoUrl="https://drive.google.com/file/d/1WKVu84EXGcD6Fpb04eH6LOH1kFcQuX8M/view?usp=sharing" />
