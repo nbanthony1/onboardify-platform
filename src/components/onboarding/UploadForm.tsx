@@ -9,6 +9,24 @@ interface UploadFormProps {
 }
 
 const UploadForm = ({ isUploading, uploadProgress, onFileChange }: UploadFormProps) => {
+  // Calculate estimated time remaining based on progress
+  const getTimeRemaining = (progress: number) => {
+    if (progress === 0) return 'Calculating...';
+    if (progress === 100) return 'Complete';
+    
+    // Using a rough estimate of 1MB/s upload speed
+    const remainingPercentage = 100 - progress;
+    const estimatedSeconds = Math.ceil(remainingPercentage * 0.5); // Rough estimation
+    
+    if (estimatedSeconds < 60) {
+      return `About ${estimatedSeconds} seconds remaining`;
+    } else {
+      const minutes = Math.floor(estimatedSeconds / 60);
+      const seconds = estimatedSeconds % 60;
+      return `About ${minutes}m ${seconds}s remaining`;
+    }
+  };
+
   return (
     <form className="flex flex-col items-center gap-4 p-6 border-2 border-dashed rounded-lg">
       <p className="text-sm text-muted-foreground">Upload a video file (MP4, WebM, or OGG)</p>
@@ -27,9 +45,14 @@ const UploadForm = ({ isUploading, uploadProgress, onFileChange }: UploadFormPro
       />
       {isUploading && (
         <div className="space-y-2 w-full">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Loader2 className="h-4 w-4 animate-spin" />
-            Uploading... {Math.round(uploadProgress)}%
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              Uploading... {Math.round(uploadProgress)}%
+            </div>
+            <p className="text-xs text-muted-foreground">
+              {getTimeRemaining(uploadProgress)}
+            </p>
           </div>
           <div className="w-full bg-secondary rounded-full h-2">
             <div 
