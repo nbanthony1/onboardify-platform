@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
@@ -17,18 +16,18 @@ const PathProcess = () => {
         "Front of the house",
         "Sales, Operations, Leadership",
         "",
-        "• We will partner with you to conduct a comprehensive evaluation of your site to understand your specific bird challenges",
+        "• We will **partner with you** to conduct a comprehensive evaluation of your site to understand your specific bird challenges",
         "",
-        "• We take bird species, behavior patterns, and environmental factors affecting your property into consideration in working toward your customized solution",
+        "• We take bird species, behavior patterns, and environmental factors affecting your property into consideration in working toward your **customized solution**",
         "",
-        "• We work with you to develop a goal-oriented plan for reducing bird activity",
+        "• We work with you to **develop a goal-oriented plan** for reducing bird activity",
         "",
         "Back of the house",
         "R&D, Operations, Leadership",
         "",
-        "• We Support the front of the house with all steps",
+        "• We Support the front of the house with **all steps**",
         "",
-        "• Deep data collection for R&D and product development"
+        "• **Deep data collection** for R&D and product development"
       ]
     },
     {
@@ -37,18 +36,18 @@ const PathProcess = () => {
         "Front of the house",
         "Sales, Operations, Leadership",
         "",
-        "• Using **proprietary** pulse-based technology, we create a customized deterrence solution tailored to your needs",
+        "• Using **proprietary pulse-based technology**, we create a **customized deterrence solution** tailored to your needs",
         "",
-        "• Our solutions are designed to be **effective**, non-invasive, and long-lasting",
+        "• Our solutions are designed to be **effective, non-invasive, and long-lasting**",
         "",
-        "• We ensure the system is aligned with your operational goals and environmental policies",
+        "• We ensure the system is aligned with your **operational goals and environmental policies**",
         "",
         "Back of the house",
         "R&D, Operations, Leadership",
         "",
         "• We Support the front of the house with all steps",
         "",
-        "• Pilot testing and internal validation before full implementation"
+        "• **Pilot testing and internal validation** before full implementation"
       ]
     },
     {
@@ -57,18 +56,18 @@ const PathProcess = () => {
         "Front of the house",
         "Sales, Operations, Leadership",
         "",
-        "• Ship the system directly to you or your designated installer",
+        "• Ship the system **directly to you** or your designated installer",
         "",
-        "• Provide **comprehensive** installation guidelines to ensure correct setup",
+        "• Provide **comprehensive installation guidelines** to ensure correct setup",
         "",
-        "• Offer real-time virtual assistance during installation to guide the process and answer any questions",
+        "• **Offer real-time virtual assistance** during installation to guide the process and answer any questions",
         "",
         "Back of the house",
         "R&D, Operations, Leadership",
         "",
         "• We Support the front of the house with all steps",
         "",
-        "• Internal quality checks ensure correct setup before delivery"
+        "• **Internal quality checks** ensure correct setup before delivery"
       ]
     },
     {
@@ -77,18 +76,18 @@ const PathProcess = () => {
         "Front of the house",
         "Sales, Operations, Leadership",
         "",
-        "• We provide **ongoing** training for your team to maximize the system's impact",
+        "• We **provide onboarding and training** for your team to maximize the system's impact",
         "",
-        "• Our support specialists are available to answer questions and provide assistance as needed",
+        "• Our support specialists are **available to answer questions and provide assistance** as needed",
         "",
-        "• You receive ongoing guidance and best practices to maintain long-term effectiveness",
+        "• You receive **ongoing guidance and best practices** to maintain long-term effectiveness",
         "",
         "Back of the house",
         "R&D, Operations, Leadership",
         "",
         "• We Support the front of the house with all steps",
         "",
-        "• Training internal staff and partners to ensure knowledge transfer"
+        "• **Training internal staff and partners** to ensure knowledge transfer"
       ]
     },
     {
@@ -106,11 +105,11 @@ const PathProcess = () => {
         "Back of the house",
         "R&D, Operations, Leadership",
         "",
-        "• **Monthly** reductions in bird activity and collect client feedback",
+        "• **Measure reductions** in bird activity and collect client feedback",
         "",
-        "• Generate **detailed** performance reports to validate system effectiveness",
+        "• Generate **performance reports** to validate system effectiveness",
         "",
-        "• Conduct optimization reviews"
+        "• Conduct **optimization reviews**"
       ]
     },
     {
@@ -128,9 +127,9 @@ const PathProcess = () => {
         "Back of the house",
         "R&D, Operations, Leadership",
         "",
-        "• Use **continuous** R&D insights and evolving data to refine solutions",
+        "• Use **refine solutions** with R&D insights and evolving data",
         "",
-        "• Strengthen client relationships through ongoing engagement and **consistent** technical improvements",
+        "• **Strengthen client relationships** through ongoing engagement and technical improvements",
         "",
         ""
       ]
@@ -166,8 +165,8 @@ const PathProcess = () => {
               <h3 
                 className={`text-xl font-semibold ${
                   index < 4 
-                    ? 'mr-auto ml-3' // First 4 items: align left, 12px from oval
-                    : 'mr-auto ml-3' // Last 2 items: also align left, 12px from oval
+                    ? 'mr-auto pr-1.5' // First 4 items: align left, 6px from oval
+                    : 'ml-auto pl-1.5' // Last 2 items: align right, 6px from oval
                 }`}
               >
                 {step.title}
