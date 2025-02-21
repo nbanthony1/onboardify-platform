@@ -101,12 +101,13 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
       return;
     }
 
-    const maxSize = 500 * 1024 * 1024; // 500MB
+    // Increased max size to 5GB (5 * 1024 * 1024 * 1024 bytes)
+    const maxSize = 5 * 1024 * 1024 * 1024;
     if (file.size > maxSize) {
       console.log('File too large');
       toast({
         title: "File Too Large",
-        description: "Please upload a video file smaller than 500MB.",
+        description: "Please upload a video file smaller than 5GB.",
         variant: "destructive"
       });
       return;
@@ -193,7 +194,7 @@ const VideoUploader = ({ targetPath, onUploadComplete }: VideoUploaderProps) => 
       ) : (
         <form className="flex flex-col items-center gap-4 p-6 border-2 border-dashed rounded-lg">
           <p className="text-sm text-muted-foreground">Upload a video file (MP4, WebM, or OGG)</p>
-          <p className="text-xs text-muted-foreground">Maximum file size: 500MB</p>
+          <p className="text-xs text-muted-foreground">Maximum file size: 5GB</p>
           <input
             type="file"
             accept="video/mp4,video/webm,video/ogg"
