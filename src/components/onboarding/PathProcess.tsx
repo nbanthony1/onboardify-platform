@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { X } from "lucide-react";
 
 interface Step {
@@ -54,9 +54,21 @@ const PathProcess = () => {
     {
       title: "Technology Implementation",
       description: [
-        "• Deliver and ship the system to the customer or their designated installer",
-        "• Provide detailed installation guidelines and virtual assistance",
-        "• Ensure proper setup and testing for optimal performance"
+        "Front of the house",
+        "Sales, Operations, Leadership",
+        "",
+        "• Ship the system directly to you or your designated installer",
+        "",
+        "• Provide comprehensive installation guidelines to ensure correct setup",
+        "",
+        "• Offer real-time virtual assistance during installation to guide the process and answer any questions",
+        "",
+        "Back of the house",
+        "R&D, Operations, Leadership",
+        "",
+        "• We Support the front of the house with all steps",
+        "",
+        "• Internal quality checks ensure correct setup before delivery"
       ]
     },
     {
@@ -98,7 +110,7 @@ const PathProcess = () => {
             <div 
               key={step.title}
               className={`relative flex items-center ${
-                index % 2 === 0 ? 'justify-end pr-[38px]' : 'justify-start pl-[38px]'
+                index % 2 === 0 ? 'justify-end pr-[19px]' : 'justify-start pl-[19px]'
               }`}
             >
               {/* Circle with shadow */}
@@ -118,11 +130,15 @@ const PathProcess = () => {
         </div>
       </div>
 
-      {/* Dialog for both Problem Assessment and Advanced Solution Design */}
+      {/* Dialog for all step details */}
       <Dialog open={!!selectedStep} onOpenChange={(open) => !open && setSelectedStep(null)}>
         <DialogContent 
           className="max-w-4xl bg-white rounded-lg p-8" 
-          aria-label={selectedStep?.title === "Advanced Solution Design" ? "Advanced_1" : "Problem Assessment_1"}
+          aria-label={
+            selectedStep?.title === "Technology Implementation" ? "Technology_1" :
+            selectedStep?.title === "Advanced Solution Design" ? "Advanced_1" :
+            "Problem Assessment_1"
+          }
         >
           <button 
             onClick={() => setSelectedStep(null)}
