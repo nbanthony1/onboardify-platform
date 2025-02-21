@@ -7,19 +7,20 @@ export const uploadVideo = async (
   onProgress: (progress: number) => void
 ) => {
   try {
-    // Upload the entire file at once
+    // Upload the file with progress tracking
     const { error, data } = await supabase.storage
       .from('course_videos')
       .upload(targetPath, file, {
         cacheControl: '3600',
         upsert: true,
-        duplex: 'half'
+        onUploadProgress: (progress) => {
+          // Calculate percentage
+          const percentage = (progress.loaded / progress.total) * 100;
+          onProgress(Math.round(percentage));
+        }
       });
 
     if (error) throw error;
-    
-    // Set progress to 100% when complete
-    onProgress(100);
     
     return targetPath;
   } catch (error) {
