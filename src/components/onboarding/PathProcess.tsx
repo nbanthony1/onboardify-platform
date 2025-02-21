@@ -167,7 +167,7 @@ const PathProcess = () => {
                 className={`text-xl font-semibold ${
                   index < 4 
                     ? 'mr-auto ml-3' // First 4 items: align left, 12px from oval
-                    : 'ml-3' // Last 2 items: align right, 12px from oval
+                    : 'mr-auto ml-3' // Last 2 items: also align left, 12px from oval
                 }`}
               >
                 {step.title}
