@@ -74,9 +74,21 @@ const PathProcess = () => {
     {
       title: "Hands-On Support",
       description: [
-        "• Train client teams and partners on system use and maintenance",
-        "• Provide ongoing customer support to address operational concerns",
-        "• Offer troubleshooting and best practices for long-term success"
+        "Front of the house",
+        "Sales, Operations, Leadership",
+        "",
+        "• We provide onboarding and training for your team to maximize the system's impact",
+        "",
+        "• Our support specialists are available to answer questions and provide assistance as needed",
+        "",
+        "• You receive ongoing guidance and best practices to maintain long-term effectiveness",
+        "",
+        "Back of the house",
+        "R&D, Operations, Leadership",
+        "",
+        "• We Support the front of the house with all steps",
+        "",
+        "• Training internal staff and partners to ensure knowledge transfer"
       ]
     },
     {
@@ -137,6 +149,7 @@ const PathProcess = () => {
           aria-label={
             selectedStep?.title === "Technology Implementation" ? "Technology_1" :
             selectedStep?.title === "Advanced Solution Design" ? "Advanced_1" :
+            selectedStep?.title === "Hands-On Support" ? "Hands_On_Support_1" :
             "Problem Assessment_1"
           }
         >
