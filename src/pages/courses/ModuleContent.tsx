@@ -56,11 +56,6 @@ const ModuleContent = () => {
       return (
         <div className="space-y-6">
           <VideoPlayer videoUrl="https://drive.google.com/file/d/1WKVu84EXGcD6Fpb04eH6LOH1kFcQuX8M/view?usp=sharing" />
-          <div className="prose max-w-none">
-            {moduleContent.content.split('\n').map((paragraph, i) => (
-              <p key={i} className="text-muted-foreground mb-4">{paragraph}</p>
-            ))}
-          </div>
         </div>
       );
     }
