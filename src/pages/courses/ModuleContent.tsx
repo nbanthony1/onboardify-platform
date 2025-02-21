@@ -7,6 +7,7 @@ import CustomerResearch from "@/components/onboarding/CustomerResearch";
 import PathProcess from "@/components/onboarding/PathProcess";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
+import VideoPlayer from "@/components/onboarding/VideoPlayer";
 import VideoUploader from "@/components/onboarding/VideoUploader";
 import { toast } from "@/hooks/use-toast";
 
@@ -50,6 +51,18 @@ const ModuleContent = () => {
     }
     if (moduleContent.content?.startsWith('/pdfs/')) {
       return <PDFViewer pdfUrl={moduleContent.content} />;
+    }
+    if (courseId === 1 && moduleId === "1") {
+      return (
+        <div className="space-y-6">
+          <VideoPlayer videoUrl="https://drive.google.com/file/d/1WKVu84EXGcD6Fpb04eH6LOH1kFcQuX8M/view?usp=sharing" />
+          <div className="prose max-w-none">
+            {moduleContent.content.split('\n').map((paragraph, i) => (
+              <p key={i} className="text-muted-foreground mb-4">{paragraph}</p>
+            ))}
+          </div>
+        </div>
+      );
     }
     if (moduleContent.content?.startsWith('[Video Placeholder')) {
       return (
