@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { X } from "lucide-react";
 
 interface Step {
   title: string;
@@ -14,9 +15,21 @@ const PathProcess = () => {
     {
       title: "Problem Assessment",
       description: [
-        "• Conduct site evaluations to identify bird activity, environmental factors, and specific challenges",
-        "• Gather data on species behavior and areas of infestation",
-        "• Align with client goals (compliance, maintenance reduction, ESG initiatives)"
+        "Front of the house",
+        "Sales, Operations, Leadership",
+        "",
+        "• We will partner with you to conduct a comprehensive evaluation of your site to understand your specific bird challenges",
+        "",
+        "• We take bird species, behavior patterns, and environmental factors affecting your property into consideration in working toward your customized solution",
+        "",
+        "• We work with you to develop a goal-oriented plan for reducing bird activity",
+        "",
+        "Back of the house",
+        "R&D, Operations, Leadership",
+        "",
+        "• We Support the front of the house with all steps",
+        "",
+        "• Deep data collection for R&D and product development"
       ]
     },
     {
@@ -61,23 +74,7 @@ const PathProcess = () => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      {/* Title card with elevation and border */}
-      <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 mb-12">
-        <h1 className="text-3xl font-bold mb-6">Symterra's P.A.T.H Process</h1>
-        <div className="space-y-4 text-gray-600">
-          <p>
-            <strong className="text-gray-900">A step-by-step methodology</strong> to ensure consistent, effective, and scalable bird control solutions
-          </p>
-          <p>
-            Company-driven execution for <strong className="text-gray-900">optimization and success</strong>
-          </p>
-          <p>
-            Builds client <strong className="text-gray-900">trust, ensures compliance, and enhances long-term success</strong>
-          </p>
-        </div>
-      </div>
-      
+    <div className="max-w-4xl mx-auto px-4 py-8" aria-label="Path_home">
       <div className="relative">
         {/* Vertical line */}
         <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 -translate-x-1/2" />
@@ -88,10 +85,10 @@ const PathProcess = () => {
             <div 
               key={step.title}
               className={`relative flex items-center ${
-                index % 2 === 0 ? 'justify-end pr-[52%]' : 'justify-start pl-[52%]'
+                index % 2 === 0 ? 'justify-end pr-[76px]' : 'justify-start pl-[76px]'
               }`}
             >
-              {/* Circle without animation */}
+              {/* Circle */}
               <button
                 onClick={() => setSelectedStep(step)}
                 className="absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#9b87f5] 
@@ -107,16 +104,41 @@ const PathProcess = () => {
         </div>
       </div>
 
-      {/* Dialog for step details */}
+      {/* Problem Assessment Dialog */}
       <Dialog open={!!selectedStep} onOpenChange={(open) => !open && setSelectedStep(null)}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle>{selectedStep?.title}</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            {selectedStep?.description.map((point, index) => (
-              <p key={index} className="text-gray-700">{point}</p>
-            ))}
+        <DialogContent className="max-w-4xl bg-white rounded-lg p-8" aria-label="Problem Assessment_1">
+          <button 
+            onClick={() => setSelectedStep(null)}
+            className="absolute right-4 top-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
+          >
+            <X className="h-6 w-6" />
+          </button>
+          
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-8 h-8 rounded-full bg-[#9b87f5]" />
+            <h2 className="text-2xl font-bold">{selectedStep?.title}</h2>
+          </div>
+
+          <div className="grid grid-cols-2 gap-16">
+            <div className="space-y-6">
+              <h3 className="text-2xl font-bold">Front of the house</h3>
+              <h4 className="text-xl text-gray-600">Sales, Operations, Leadership</h4>
+              <div className="space-y-4">
+                {selectedStep?.description.slice(3, 8).map((point, index) => (
+                  <p key={index} className="text-gray-700">{point}</p>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <h3 className="text-2xl font-bold">Back of the house</h3>
+              <h4 className="text-xl text-gray-600">R&D, Operations, Leadership</h4>
+              <div className="space-y-4">
+                {selectedStep?.description.slice(12).map((point, index) => (
+                  <p key={index} className="text-gray-700">{point}</p>
+                ))}
+              </div>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
