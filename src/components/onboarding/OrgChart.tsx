@@ -106,26 +106,31 @@ const OrgChart = () => {
         {
           title: "Lead Generation",
           responsibilities: [
-            "Multi Channel",
-            "SEO",
-            "Email/CRM",
-            "Website"
+            "Develop and execute multi-channel lead generation campaigns",
+            "Implement SEO strategies to increase organic traffic",
+            "Manage email marketing and CRM systems",
+            "Optimize website conversion paths",
+            "Track and analyze lead metrics"
           ]
         },
         {
           title: "Brand Awareness",
           responsibilities: [
-            "PR",
-            "Testimonials",
-            "Events"
+            "Develop and execute PR strategies",
+            "Manage customer testimonial program",
+            "Plan and coordinate industry events",
+            "Create brand guidelines",
+            "Monitor brand perception"
           ]
         },
         {
           title: "Sales Support",
           responsibilities: [
-            "Sales Enablement",
-            "Content Creation",
-            "Campaign Management"
+            "Create sales enablement materials",
+            "Develop product presentations and collateral",
+            "Manage marketing campaigns aligned with sales goals",
+            "Provide competitive analysis",
+            "Support sales team with market insights"
           ]
         }
       ]
@@ -142,21 +147,21 @@ const OrgChart = () => {
         {
           title: "Account Acquisition",
           responsibilities: [
-            "Lead Qualification",
-            "Prospect Outreach",
-            "Solution Presentation",
-            "Contract Negotiation",
-            "Pipeline Management"
+            "Identify and qualify new business opportunities",
+            "Conduct product demonstrations and presentations",
+            "Develop and negotiate proposals",
+            "Manage sales pipeline effectively",
+            "Execute closing strategies"
           ]
         },
         {
           title: "Account Management",
           responsibilities: [
-            "Client Relationship Building",
-            "Account Growth Strategy",
-            "Customer Success Monitoring",
-            "Renewal Management",
-            "Cross-selling Opportunities"
+            "Maintain strong client relationships",
+            "Identify upsell and cross-sell opportunities",
+            "Monitor account health and satisfaction",
+            "Manage contract renewals",
+            "Develop account growth strategies"
           ]
         }
       ]
@@ -175,31 +180,31 @@ const OrgChart = () => {
         {
           title: "Logistics",
           responsibilities: [
-            "Inventory Management",
-            "Supply Chain Optimization",
-            "Shipping Coordination",
-            "Order Fulfillment",
-            "Warehouse Operations"
+            "Optimize supply chain operations",
+            "Manage inventory levels and warehousing",
+            "Coordinate shipping and delivery",
+            "Track and improve delivery performance",
+            "Implement cost-saving measures"
           ]
         },
         {
           title: "Manufacturing",
           responsibilities: [
-            "Production Planning",
-            "Quality Control",
-            "Process Optimization",
-            "Equipment Maintenance",
-            "Safety Compliance"
+            "Oversee production processes",
+            "Maintain quality control standards",
+            "Manage equipment maintenance",
+            "Implement efficiency improvements",
+            "Ensure safety compliance"
           ]
         },
         {
           title: "Customer Service",
           responsibilities: [
-            "Technical Support",
-            "Issue Resolution",
-            "Customer Training",
-            "Product Support",
-            "Service Documentation"
+            "Provide technical support and troubleshooting",
+            "Handle customer inquiries and issues",
+            "Maintain customer satisfaction metrics",
+            "Document support processes",
+            "Train customers on product usage"
           ]
         }
       ]
