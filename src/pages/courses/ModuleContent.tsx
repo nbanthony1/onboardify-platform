@@ -43,6 +43,13 @@ const ModuleContent = () => {
     if (moduleContent.content?.startsWith('/pdfs/')) {
       return <PDFViewer pdfUrl={moduleContent.content} />;
     }
+    if (courseId === 1 && moduleId === "1") {
+      return (
+        <div className="space-y-6">
+          <VideoPlayer videoUrl="https://drive.google.com/file/d/1Rwj6GVu7niykCCpRGp2QIw_d3ODbmJgF/view?usp=sharing" />
+        </div>
+      );
+    }
     if (courseId === 1 && moduleId === "2") {
       return (
         <div className="space-y-6">
