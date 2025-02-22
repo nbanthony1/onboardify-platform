@@ -155,15 +155,6 @@ const PathProcess = () => {
       </div>
 
       <div className="flex items-center justify-center mb-12 relative">
-        <div className="flex items-center">
-          <button
-            className="w-8 h-8 rounded-full bg-[#9b87f5] 
-                      hover:bg-[#7e69ab] transition-colors duration-200 
-                      flex items-center justify-center cursor-pointer
-                      shadow-[0_2px_4px_rgba(0,0,0,0.2)] mr-3"
-            aria-label="View PATH Process Overview"
-          />
-        </div>
         <h1 className="text-3xl font-bold text-center">Symterra's P.A.T.H Process</h1>
       </div>
       
