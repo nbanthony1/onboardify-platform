@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
@@ -139,7 +138,22 @@ const PathProcess = () => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8" aria-label="Path_home">
+    <div className="max-w-4xl mx-auto px-4 py-8 relative" aria-label="Path_home">
+      <div className="absolute left-4 top-4 bg-white rounded-lg p-6 shadow-lg max-w-md z-10">
+        <h2 className="text-[32px] font-bold mb-6">Symterra's P.A.T.H Process</h2>
+        <ul className="space-y-4">
+          <li>
+            A <span className="font-semibold">step-by-step methodology</span> to ensure consistent, effective, and scalable bird control solutions
+          </li>
+          <li>
+            Company-driven execution for <span className="font-semibold">optimization and success</span>
+          </li>
+          <li>
+            Builds client <span className="font-semibold">trust, ensures compliance, and enhances long-term success</span>
+          </li>
+        </ul>
+      </div>
+
       <div className="flex items-center justify-center mb-12 relative">
         <div className="flex items-center">
           <button
@@ -150,7 +164,6 @@ const PathProcess = () => {
                       shadow-[0_2px_4px_rgba(0,0,0,0.2)] mr-3"
             aria-label="View PATH Process Overview"
           />
-          <span className="absolute -left-2 text-xs text-gray-600">Tap here</span>
         </div>
         <h1 className="text-3xl font-bold text-center">Symterra's P.A.T.H Process</h1>
       </div>
