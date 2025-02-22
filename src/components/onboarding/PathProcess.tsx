@@ -8,7 +8,7 @@ interface Step {
 
 const PathProcess = () => {
   const [selectedStep, setSelectedStep] = useState<Step | null>(null);
-  const [showIntroDialog, setShowIntroDialog] = useState(false);
+  const [showIntroDialog, setShowIntroDialog] = useState(true);
 
   const steps: Step[] = [
     {
@@ -152,17 +152,14 @@ const PathProcess = () => {
       </div>
       
       <div className="relative">
-        {/* Vertical line */}
         <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 -translate-x-1/2" />
         
-        {/* Steps */}
         <div className="space-y-24">
           {steps.map((step, index) => (
             <div 
               key={step.title}
               className="relative flex items-center"
             >
-              {/* Circle with shadow */}
               <button
                 onClick={() => setSelectedStep(step)}
                 className={`w-8 h-8 rounded-full bg-[#9b87f5] 
@@ -173,7 +170,6 @@ const PathProcess = () => {
                 aria-label={`View ${step.title} details`}
               />
               
-              {/* Title */}
               <h3 
                 className={`text-xl font-semibold ${
                   index < 4 
@@ -188,7 +184,6 @@ const PathProcess = () => {
         </div>
       </div>
 
-      {/* Introduction Dialog */}
       <Dialog open={showIntroDialog} onOpenChange={setShowIntroDialog}>
         <DialogContent className="max-w-4xl bg-white rounded-lg p-8">
           <div className="flex items-center gap-4 mb-8">
@@ -210,7 +205,6 @@ const PathProcess = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Dialog for all step details */}
       <Dialog open={!!selectedStep} onOpenChange={(open) => !open && setSelectedStep(null)}>
         <DialogContent 
           className="max-w-4xl bg-white rounded-lg p-8" 
