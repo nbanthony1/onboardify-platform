@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { toast } from "@/hooks/use-toast";
 import { Department, Role } from './types/org-chart';
@@ -15,7 +14,7 @@ const OrgChart = () => {
   useEffect(() => {
     toast({
       title: "Coach Tip",
-      description: "Tap any colored department box to view its roles and responsibilities!",
+      description: "Tap any departmental box to view its roles and responsibilities",
       duration: 5000,
     });
   }, []);
