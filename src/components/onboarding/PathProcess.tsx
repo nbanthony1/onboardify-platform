@@ -10,6 +10,7 @@ interface Step {
 const PathProcess = () => {
   const [selectedStep, setSelectedStep] = useState<Step | null>(null);
   const [showInstructionDialog, setShowInstructionDialog] = useState(true);
+  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
 
   const steps: Step[] = [
     {
@@ -138,17 +139,35 @@ const PathProcess = () => {
     }
   ];
 
+  const handleStepClick = (stepIndex: number) => {
+    setSelectedStep(steps[stepIndex]);
+  };
+
+  const handleDialogClose = () => {
+    if (selectedStep) {
+      const currentIndex = steps.indexOf(selectedStep);
+      setCompletedSteps(prev => [...prev, currentIndex]);
+      setSelectedStep(null);
+    }
+  };
+
+  const shouldPulse = (index: number) => {
+    if (index === 0 && completedSteps.length === 0) return true;
+    if (index > 0 && completedSteps.includes(index - 1) && !completedSteps.includes(index)) return true;
+    return false;
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-8" aria-label="Path_home">
       <div className="flex items-center justify-center mb-12 relative">
         <div className="flex items-center">
-          <span className="absolute text-xs text-gray-600">Tap here</span>
           <button
-            onClick={() => setSelectedStep(steps[0])}
-            className="w-8 h-8 rounded-full bg-[#9b87f5] 
+            onClick={() => handleStepClick(0)}
+            className={`w-8 h-8 rounded-full bg-[#9b87f5] 
                       hover:bg-[#7e69ab] transition-colors duration-200 
                       flex items-center justify-center cursor-pointer
-                      shadow-[0_2px_4px_rgba(0,0,0,0.2)] mr-3"
+                      shadow-[0_2px_4px_rgba(0,0,0,0.2)] mr-3
+                      ${shouldPulse(0) ? 'animate-pulse' : ''}`}
             aria-label="View PATH Process Overview"
           />
         </div>
@@ -180,12 +199,13 @@ const PathProcess = () => {
               className="relative flex items-center"
             >
               <button
-                onClick={() => setSelectedStep(step)}
+                onClick={() => handleStepClick(index)}
                 className={`w-8 h-8 rounded-full bg-[#9b87f5] 
                           hover:bg-[#7e69ab] transition-colors duration-200 
                           flex items-center justify-center cursor-pointer
                           shadow-[0_2px_4px_rgba(0,0,0,0.2)]
-                          ${index < 4 ? 'ml-[calc(50%-1rem)]' : 'ml-[calc(50%-1rem)]'}`}
+                          ${index < 4 ? 'ml-[calc(50%-1rem)]' : 'ml-[calc(50%-1rem)]'}
+                          ${shouldPulse(index) ? 'animate-pulse' : ''}`}
                 aria-label={`View ${step.title} details`}
               />
               
@@ -203,7 +223,9 @@ const PathProcess = () => {
         </div>
       </div>
 
-      <Dialog open={!!selectedStep} onOpenChange={(open) => !open && setSelectedStep(null)}>
+      <Dialog open={!!selectedStep} onOpenChange={(open) => {
+        if (!open) handleDialogClose();
+      }}>
         <DialogContent 
           className="max-w-4xl bg-white rounded-lg p-8"
           aria-label={
@@ -262,3 +284,4 @@ const PathProcess = () => {
 };
 
 export default PathProcess;
+
