@@ -2,7 +2,6 @@
 import React from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Department } from '../types/org-chart';
-import { getResponsibilityExplanation } from '../utils/responsibility-utils';
 
 interface DepartmentDialogProps {
   department: Department | null;
@@ -21,11 +20,7 @@ export const DepartmentDialog: React.FC<DepartmentDialogProps> = ({ department, 
             <h4 className="font-medium">Responsibilities:</h4>
             <ul className="list-disc pl-5 space-y-2">
               {department.responsibilities.map((resp, index) => (
-                <li key={index} className="text-sm">
-                  <span className="font-medium">{resp}:</span>
-                  <br />
-                  <span className="text-gray-600">{getResponsibilityExplanation(resp)}</span>
-                </li>
+                <li key={index} className="text-sm">{resp}</li>
               ))}
             </ul>
           </div>
