@@ -2,7 +2,6 @@
 import React from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Role } from '../types/org-chart';
-import { getResponsibilityExplanation } from '../utils/responsibility-utils';
 
 interface RoleDialogProps {
   role: Role | null;
