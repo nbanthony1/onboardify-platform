@@ -1,4 +1,3 @@
-
 import { Course } from "../types";
 
 export const introductionCourse: Course = {
@@ -21,16 +20,6 @@ export const introductionCourse: Course = {
       content: "[Video Placeholder: Core Values Presentation]\n\n" +
         "Guarantee\n" +
         "We guarantee significant reductions in bird activity, costs associated with pest control, and reputational risk from inhumane pest control practices. Our solutions are permanent, effective, and ethical that align with environmental responsibility and operational efficiency."
-    },
-    {
-      title: "Market Positioning",
-      content: "Who We Serve\n" +
-        "Symterra serves a diverse range of industries that require innovative bird control solutions:\n\n" +
-        "• Pest Control Operators (PCOs) – Companies seeking humane, effective bird deterrent solutions to enhance their service offerings.\n" +
-        "• Commercial Enterprises – Hotels, airports, warehouses, retail centers, and manufacturing facilities needing operational efficiency.\n" +
-        "• Municipalities & Public Institutions – City planners, public works directors, and environmental officers ensuring public safety and compliance.\n" +
-        "• Large End-User Organizations – Fortune 500 companies, universities, stadiums, and corporate campuses managing bird-related challenges.\n" +
-        "• Pest Control Distributors – Distributors seeking exclusive, high-margin, innovative bird deterrent products."
     },
     {
       title: "Roles and Responsibilities",
