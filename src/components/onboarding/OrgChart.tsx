@@ -1,7 +1,7 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { toast } from "@/hooks/use-toast";
 
 interface Role {
   title: string;
@@ -17,6 +17,15 @@ interface Department {
 const OrgChart = () => {
   const [selectedDept, setSelectedDept] = useState<Department | null>(null);
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
+
+  // Show coach tip when component mounts
+  useEffect(() => {
+    toast({
+      title: "Coach Tip",
+      description: "Tap any colored department box to view its roles and responsibilities!",
+      duration: 5000,
+    });
+  }, []);
 
   const getResponsibilityExplanation = (resp: string) => {
     const explanations: { [key: string]: string } = {
