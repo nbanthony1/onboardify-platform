@@ -13,18 +13,16 @@ const InstructionDialog: React.FC<InstructionDialogProps> = ({ open, onOpenChang
       <DialogContent className="max-w-xl bg-white rounded-lg p-8">
         <h2 className="text-[32px] font-bold mb-6">Symterra's P.A.T.H Process</h2>
         <ul className="space-y-4">
-          <li className="flex gap-2">
+          <li>
             <span className="font-medium">A step-by-step methodology</span>
-            <span className="text-gray-700">
-              to ensure consistent, effective, and scalable bird control solutions
-            </span>
+            {" to ensure consistent, effective, and scalable bird control solutions"}
           </li>
-          <li className="flex gap-2">
-            <span className="text-gray-700">Company-driven execution for</span>
+          <li>
+            {"Company-driven execution for "}
             <span className="font-medium">optimization and success</span>
           </li>
-          <li className="flex gap-2">
-            <span className="text-gray-700">Builds client</span>
+          <li>
+            {"Builds client "}
             <span className="font-medium">trust, ensures compliance, and enhances long-term success</span>
           </li>
         </ul>
