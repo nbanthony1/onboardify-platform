@@ -106,31 +106,31 @@ const OrgChart = () => {
         {
           title: "Lead Generation",
           responsibilities: [
-            "Develop and execute multi-channel lead generation campaigns",
-            "Implement SEO strategies to increase organic traffic",
-            "Manage email marketing and CRM systems",
-            "Optimize website conversion paths",
-            "Track and analyze lead metrics"
+            "Pioneering innovative digital acquisition strategies across multiple platforms",
+            "Building sustainable organic traffic growth through content leadership",
+            "Orchestrating personalized customer journeys through marketing automation",
+            "Creating frictionless conversion experiences for qualified prospects",
+            "Driving data-informed decisions through advanced analytics"
           ]
         },
         {
           title: "Brand Awareness",
           responsibilities: [
-            "Develop and execute PR strategies",
-            "Manage customer testimonial program",
-            "Plan and coordinate industry events",
-            "Create brand guidelines",
-            "Monitor brand perception"
+            "Crafting compelling brand narratives that resonate with our target audience",
+            "Building social proof through authentic customer success stories",
+            "Creating immersive brand experiences through strategic event planning",
+            "Establishing consistent brand identity across all touchpoints",
+            "Shaping positive brand perception in the market"
           ]
         },
         {
           title: "Sales Support",
           responsibilities: [
-            "Create sales enablement materials",
-            "Develop product presentations and collateral",
-            "Manage marketing campaigns aligned with sales goals",
-            "Provide competitive analysis",
-            "Support sales team with market insights"
+            "Equipping sales teams with powerful storytelling tools and resources",
+            "Translating product features into compelling customer benefits",
+            "Aligning marketing initiatives with revenue-driving opportunities",
+            "Delivering actionable competitive intelligence to sales teams",
+            "Bridging market insights with sales execution strategies"
           ]
         }
       ]
@@ -147,21 +147,21 @@ const OrgChart = () => {
         {
           title: "Account Acquisition",
           responsibilities: [
-            "Identify and qualify new business opportunities",
-            "Conduct product demonstrations and presentations",
-            "Develop and negotiate proposals",
-            "Manage sales pipeline effectively",
-            "Execute closing strategies"
+            "Uncovering and cultivating high-value business opportunities",
+            "Creating engaging product narratives that solve customer pain points",
+            "Architecting customized solutions that drive customer success",
+            "Orchestrating strategic deal progression through the sales cycle",
+            "Delivering consistent revenue growth through targeted prospecting"
           ]
         },
         {
           title: "Account Management",
           responsibilities: [
-            "Maintain strong client relationships",
-            "Identify upsell and cross-sell opportunities",
-            "Monitor account health and satisfaction",
-            "Manage contract renewals",
-            "Develop account growth strategies"
+            "Nurturing strategic partnerships through proactive relationship building",
+            "Expanding customer value through solution optimization",
+            "Ensuring customer success through proactive engagement",
+            "Securing long-term partnerships through strategic planning",
+            "Maximizing account potential through strategic growth initiatives"
           ]
         }
       ]
@@ -180,31 +180,31 @@ const OrgChart = () => {
         {
           title: "Logistics",
           responsibilities: [
-            "Optimize supply chain operations",
-            "Manage inventory levels and warehousing",
-            "Coordinate shipping and delivery",
-            "Track and improve delivery performance",
-            "Implement cost-saving measures"
+            "Designing efficient supply chain networks that drive business growth",
+            "Creating strategic inventory solutions that optimize cash flow",
+            "Orchestrating seamless delivery experiences for customers",
+            "Engineering performance metrics that enhance operational efficiency",
+            "Implementing innovative solutions for cost optimization"
           ]
         },
         {
           title: "Manufacturing",
           responsibilities: [
-            "Oversee production processes",
-            "Maintain quality control standards",
-            "Manage equipment maintenance",
-            "Implement efficiency improvements",
-            "Ensure safety compliance"
+            "Orchestrating production excellence through process innovation",
+            "Ensuring product excellence through rigorous quality standards",
+            "Maximizing operational uptime through preventive maintenance",
+            "Driving continuous improvement through operational optimization",
+            "Creating safe and efficient manufacturing environments"
           ]
         },
         {
           title: "Customer Service",
           responsibilities: [
-            "Provide technical support and troubleshooting",
-            "Handle customer inquiries and issues",
-            "Maintain customer satisfaction metrics",
-            "Document support processes",
-            "Train customers on product usage"
+            "Delivering exceptional technical solutions through expert support",
+            "Creating positive customer experiences through responsive service",
+            "Building customer loyalty through measured service excellence",
+            "Establishing best practices through knowledge management",
+            "Empowering customer success through educational initiatives"
           ]
         }
       ]
