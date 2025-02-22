@@ -130,23 +130,23 @@ export const departments: Department[] = [
   {
     name: "R&D",
     responsibilities: [
-      "LMA",
-      "Product Development",
-      "Regulatory",
-      "Compliance"
+      "Lead, Manage and Hold People Accountable: Oversees the R&D team by setting clear objectives, monitoring progress, and ensuring accountability to meet innovation goals",
+      "Product Development: Drives the creation and refinement of innovative products, transforming ideas into market-ready solutions",
+      "Regulatory: Ensures all R&D initiatives adhere to relevant industry regulations and standards, facilitating smooth market entry",
+      "Compliance: Maintains strict adherence to internal policies and external guidelines, fostering a culture of ethical research and development"
     ],
     roles: []
   },
   {
     name: "Finance",
     responsibilities: [
-      "LMA",
-      "Budget/Forecast",
-      "Risk Management",
-      "Accounting",
-      "Reporting",
-      "Legal",
-      "HR"
+      "Lead, Manage and Hold People Accountable: Directs the finance team by establishing performance benchmarks, promoting accountability, and aligning efforts with strategic financial goals",
+      "Budget/Forecast: Crafts comprehensive budgets and financial forecasts to guide strategic planning and resource allocation",
+      "Risk Management: Identifies and mitigates financial risks, ensuring the organization's assets and investments are safeguarded",
+      "Accounting: Manages the accurate recording and processing of financial transactions in compliance with established accounting standards",
+      "Reporting: Delivers timely, transparent financial reports to stakeholders, providing critical insights into the company's performance",
+      "Legal: Oversees legal matters, ensuring contracts and financial activities comply with relevant laws and regulations",
+      "HR: Supports the financial function by managing human resources, from talent acquisition to staff development, to maintain a productive and compliant team"
     ],
     roles: []
   }
