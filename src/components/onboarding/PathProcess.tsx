@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
@@ -158,7 +157,6 @@ const PathProcess = () => {
       <div className="flex items-center justify-center mb-12 relative">
         <div className="flex items-center">
           <button
-            onClick={() => setSelectedStep(steps[0])}
             className="w-8 h-8 rounded-full bg-[#9b87f5] 
                       hover:bg-[#7e69ab] transition-colors duration-200 
                       flex items-center justify-center cursor-pointer
