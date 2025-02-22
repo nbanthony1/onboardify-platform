@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
@@ -139,7 +140,7 @@ const PathProcess = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 relative" aria-label="Path_home">
-      <div className="absolute left-4 top-4 bg-white rounded-lg p-6 shadow-lg max-w-md z-10">
+      <div className="absolute -left-[420px] top-4 bg-white rounded-lg p-6 shadow-lg max-w-md z-10">
         <h2 className="text-[32px] font-bold mb-6">Symterra's P.A.T.H Process</h2>
         <ul className="space-y-4">
           <li>
