@@ -2,12 +2,12 @@
 import React, { useState } from 'react';
 import { Step } from './types/path-process';
 import { pathSteps } from './data/path-steps';
-import InstructionDialog from './components/InstructionDialog';
+import InitialInstructionDialog from './components/InitialInstructionDialog';
 import StepDialog from './components/StepDialog';
 
 const PathProcess = () => {
   const [selectedStep, setSelectedStep] = useState<Step | null>(null);
-  const [showInstructionDialog, setShowInstructionDialog] = useState(true);
+  const [showInitialDialog, setShowInitialDialog] = useState(true);
   const [showFirstPulse, setShowFirstPulse] = useState(false);
 
   const handleStepClick = (stepIndex: number) => {
@@ -37,10 +37,10 @@ const PathProcess = () => {
         <h1 className="text-3xl font-bold text-center">Symterra's P.A.T.H. Process</h1>
       </div>
       
-      <InstructionDialog 
-        open={showInstructionDialog} 
+      <InitialInstructionDialog 
+        open={showInitialDialog} 
         onOpenChange={(isOpen) => {
-          setShowInstructionDialog(isOpen);
+          setShowInitialDialog(isOpen);
           if (!isOpen) {
             setShowFirstPulse(true);
           }
