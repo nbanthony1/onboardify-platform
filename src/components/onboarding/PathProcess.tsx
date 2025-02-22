@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
@@ -10,7 +9,7 @@ interface Step {
 const PathProcess = () => {
   const [selectedStep, setSelectedStep] = useState<Step | null>(null);
   const [showInstructionDialog, setShowInstructionDialog] = useState(true);
-  const [completedSteps, setCompletedSteps] = useState<number[]>([-1]); // Start with -1 to prevent first pulse
+  const [currentPulsingStep, setCurrentPulsingStep] = useState<number>(-1); // -1 means no step is pulsing yet
 
   const steps: Step[] = [
     {
@@ -146,15 +145,14 @@ const PathProcess = () => {
   const handleDialogClose = () => {
     if (selectedStep) {
       const currentIndex = steps.indexOf(selectedStep);
-      setCompletedSteps(prev => [...prev, currentIndex]);
+      setCurrentPulsingStep(currentIndex + 1); // Start pulsing the next step
       setSelectedStep(null);
     }
   };
 
   const shouldPulse = (index: number) => {
-    if (index === 0 && completedSteps.length === 1 && completedSteps[0] === -1) return true;
-    if (index > 0 && completedSteps.includes(index - 1) && !completedSteps.includes(index)) return true;
-    return false;
+    // Only pulse if this is the current pulsing step
+    return index === currentPulsingStep;
   };
 
   return (
@@ -177,7 +175,7 @@ const PathProcess = () => {
       <Dialog open={showInstructionDialog} onOpenChange={(isOpen) => {
         setShowInstructionDialog(isOpen);
         if (!isOpen) {
-          setCompletedSteps([]); // Start pulsing the first oval when instruction dialog is closed
+          setCurrentPulsingStep(0); // Start pulsing the first oval when instruction dialog is closed
         }
       }}>
         <DialogContent className="max-w-lg bg-white rounded-lg p-6">
