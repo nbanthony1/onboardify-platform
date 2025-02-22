@@ -47,6 +47,7 @@ const ModuleContent = () => {
       return (
         <div className="space-y-6">
           <VideoPlayer videoUrl="https://drive.google.com/file/d/1Rwj6GVu7niykCCpRGp2QIw_d3ODbmJgF/view?usp=sharing" />
+          <VideoPlayer videoUrl="https://drive.google.com/file/d/1Lqh7OPpZZ18hXv44ENB-vs_x6Xi820Uk/view?usp=sharing" />
         </div>
       );
     }
