@@ -10,7 +10,7 @@ interface Step {
 const PathProcess = () => {
   const [selectedStep, setSelectedStep] = useState<Step | null>(null);
   const [showInstructionDialog, setShowInstructionDialog] = useState(true);
-  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  const [completedSteps, setCompletedSteps] = useState<number[]>([-1]); // Start with -1 to prevent first pulse
 
   const steps: Step[] = [
     {
@@ -152,7 +152,7 @@ const PathProcess = () => {
   };
 
   const shouldPulse = (index: number) => {
-    if (index === 0 && completedSteps.length === 0) return true;
+    if (index === 0 && completedSteps.length === 1 && completedSteps[0] === -1) return true;
     if (index > 0 && completedSteps.includes(index - 1) && !completedSteps.includes(index)) return true;
     return false;
   };
@@ -167,21 +167,26 @@ const PathProcess = () => {
                       hover:bg-[#7e69ab] transition-colors duration-200 
                       flex items-center justify-center cursor-pointer
                       shadow-[0_2px_4px_rgba(0,0,0,0.2)] mr-3
-                      ${shouldPulse(0) ? 'animate-pulse' : ''}`}
+                      ${shouldPulse(0) ? '[animation:pulse_3s_cubic-bezier(0.4,0,0.6,1)_infinite]' : ''}`}
             aria-label="View PATH Process Overview"
           />
         </div>
-        <h1 className="text-3xl font-bold text-center">Symterra's P.A.T.H Process</h1>
+        <h1 className="text-3xl font-bold text-center">Symterra's P.A.T.H. Process</h1>
       </div>
       
-      <Dialog open={showInstructionDialog} onOpenChange={setShowInstructionDialog}>
+      <Dialog open={showInstructionDialog} onOpenChange={(isOpen) => {
+        setShowInstructionDialog(isOpen);
+        if (!isOpen) {
+          setCompletedSteps([]); // Start pulsing the first oval when instruction dialog is closed
+        }
+      }}>
         <DialogContent className="max-w-lg bg-white rounded-lg p-6">
           <div className="flex items-center gap-4 mb-6">
             <div className="w-8 h-8 rounded-full bg-[#9b87f5] shadow-[0_2px_4px_rgba(0,0,0,0.2)]" />
             <h2 className="text-xl font-bold">Interactive Guide</h2>
           </div>
           <p className="text-gray-700 mb-4">
-            Tap on any purple oval to learn more about each step of the P.A.T.H process!
+            Tap on any purple oval to learn more about each step of the P.A.T.H. process!
           </p>
           <p className="text-gray-600 text-sm italic">
             Each step contains detailed information about front and back of house operations.
@@ -205,7 +210,7 @@ const PathProcess = () => {
                           flex items-center justify-center cursor-pointer
                           shadow-[0_2px_4px_rgba(0,0,0,0.2)]
                           ${index < 4 ? 'ml-[calc(50%-1rem)]' : 'ml-[calc(50%-1rem)]'}
-                          ${shouldPulse(index) ? 'animate-pulse' : ''}`}
+                          ${shouldPulse(index) ? '[animation:pulse_3s_cubic-bezier(0.4,0,0.6,1)_infinite]' : ''}`}
                 aria-label={`View ${step.title} details`}
               />
               
@@ -284,4 +289,3 @@ const PathProcess = () => {
 };
 
 export default PathProcess;
-
