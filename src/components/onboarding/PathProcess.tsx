@@ -8,7 +8,7 @@ import StepDialog from './components/StepDialog';
 const PathProcess = () => {
   const [selectedStep, setSelectedStep] = useState<Step | null>(null);
   const [showInstructionDialog, setShowInstructionDialog] = useState(true);
-  const [currentPulsingStep, setCurrentPulsingStep] = useState<number>(-1);
+  const [showFirstPulse, setShowFirstPulse] = useState(false);
 
   const handleStepClick = (stepIndex: number) => {
     setSelectedStep(pathSteps[stepIndex]);
@@ -16,14 +16,8 @@ const PathProcess = () => {
 
   const handleDialogClose = () => {
     if (selectedStep) {
-      const currentIndex = pathSteps.indexOf(selectedStep);
-      setCurrentPulsingStep(currentIndex + 1);
       setSelectedStep(null);
     }
-  };
-
-  const shouldPulse = (index: number) => {
-    return index === currentPulsingStep;
   };
 
   return (
@@ -36,7 +30,7 @@ const PathProcess = () => {
                       hover:bg-[#7e69ab] transition-colors duration-200 
                       flex items-center justify-center cursor-pointer
                       shadow-[0_2px_4px_rgba(0,0,0,0.2)] mr-3
-                      ${shouldPulse(0) ? '[animation:pulse_3s_cubic-bezier(0.4,0,0.6,1)_infinite]' : ''}`}
+                      ${showFirstPulse ? '[animation:pulse_3s_cubic-bezier(0.4,0,0.6,1)_infinite]' : ''}`}
             aria-label="View PATH Process Overview"
           />
         </div>
@@ -48,7 +42,7 @@ const PathProcess = () => {
         onOpenChange={(isOpen) => {
           setShowInstructionDialog(isOpen);
           if (!isOpen) {
-            setCurrentPulsingStep(0);
+            setShowFirstPulse(true);
           }
         }}
       />
@@ -68,8 +62,7 @@ const PathProcess = () => {
                           hover:bg-[#7e69ab] transition-colors duration-200 
                           flex items-center justify-center cursor-pointer
                           shadow-[0_2px_4px_rgba(0,0,0,0.2)]
-                          ${index < 4 ? 'ml-[calc(50%-1rem)]' : 'ml-[calc(50%-1rem)]'}
-                          ${shouldPulse(index) ? '[animation:pulse_3s_cubic-bezier(0.4,0,0.6,1)_infinite]' : ''}`}
+                          ${index < 4 ? 'ml-[calc(50%-1rem)]' : 'ml-[calc(50%-1rem)]'}`}
                 aria-label={`View ${step.title} details`}
               />
               
