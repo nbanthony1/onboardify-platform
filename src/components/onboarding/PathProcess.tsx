@@ -150,7 +150,7 @@ const PathProcess = () => {
                       shadow-[0_2px_4px_rgba(0,0,0,0.2)] mr-3"
             aria-label="View PATH Process Overview"
           />
-          <span className="absolute -left-16 text-xs text-gray-600">Start here</span>
+          <span className="absolute -left-12 text-xs text-gray-600">Start here</span>
         </div>
         <h1 className="text-3xl font-bold text-center">Symterra's P.A.T.H Process</h1>
       </div>
