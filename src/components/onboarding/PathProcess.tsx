@@ -8,7 +8,7 @@ interface Step {
 
 const PathProcess = () => {
   const [selectedStep, setSelectedStep] = useState<Step | null>(null);
-  const [showIntroDialog, setShowIntroDialog] = useState(false);
+  const [showInstructionDialog, setShowInstructionDialog] = useState(true);
 
   const steps: Step[] = [
     {
@@ -141,7 +141,7 @@ const PathProcess = () => {
     <div className="max-w-4xl mx-auto px-4 py-8" aria-label="Path_home">
       <div className="flex items-center justify-center mb-12">
         <button
-          onClick={() => setShowIntroDialog(true)}
+          onClick={() => setSelectedStep(steps[0])}
           className="w-8 h-8 rounded-full bg-[#9b87f5] 
                     hover:bg-[#7e69ab] transition-colors duration-200 
                     flex items-center justify-center cursor-pointer
@@ -151,18 +151,30 @@ const PathProcess = () => {
         <h1 className="text-3xl font-bold text-center">Symterra's P.A.T.H Process</h1>
       </div>
       
+      <Dialog open={showInstructionDialog} onOpenChange={setShowInstructionDialog}>
+        <DialogContent className="max-w-lg bg-white rounded-lg p-6">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-8 h-8 rounded-full bg-[#9b87f5] shadow-[0_2px_4px_rgba(0,0,0,0.2)]" />
+            <h2 className="text-xl font-bold">Interactive Guide</h2>
+          </div>
+          <p className="text-gray-700 mb-4">
+            Tap on any purple oval to learn more about each step of the P.A.T.H process!
+          </p>
+          <p className="text-gray-600 text-sm italic">
+            Each step contains detailed information about front and back of house operations.
+          </p>
+        </DialogContent>
+      </Dialog>
+
       <div className="relative">
-        {/* Vertical line */}
         <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 -translate-x-1/2" />
         
-        {/* Steps */}
         <div className="space-y-24">
           {steps.map((step, index) => (
             <div 
               key={step.title}
               className="relative flex items-center"
             >
-              {/* Circle with shadow */}
               <button
                 onClick={() => setSelectedStep(step)}
                 className={`w-8 h-8 rounded-full bg-[#9b87f5] 
@@ -173,12 +185,11 @@ const PathProcess = () => {
                 aria-label={`View ${step.title} details`}
               />
               
-              {/* Title */}
               <h3 
                 className={`text-xl font-semibold ${
                   index < 4 
-                    ? 'ml-3' // First 4 items: align left, exactly 12px from oval
-                    : 'ml-3' // Last 2 items: align right, exactly 12px from oval
+                    ? 'ml-3' 
+                    : 'ml-3'
                 }`}
               >
                 {step.title}
@@ -188,32 +199,9 @@ const PathProcess = () => {
         </div>
       </div>
 
-      {/* Introduction Dialog */}
-      <Dialog open={showIntroDialog} onOpenChange={setShowIntroDialog}>
-        <DialogContent className="max-w-4xl bg-white rounded-lg p-8">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-8 h-8 rounded-full bg-[#9b87f5] shadow-[0_2px_4px_rgba(0,0,0,0.2)]" />
-            <h2 className="text-2xl font-bold">Symterra's P.A.T.H Process</h2>
-          </div>
-
-          <div className="space-y-6">
-            <p className="text-gray-700">
-              • A <strong>step-by-step methodology</strong> to ensure consistent, effective, and scalable bird control solutions
-            </p>
-            <p className="text-gray-700">
-              • Company-driven execution for <strong>optimization and success</strong>
-            </p>
-            <p className="text-gray-700">
-              • Builds client <strong>trust, ensures compliance, and enhances long-term success</strong>
-            </p>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      {/* Dialog for all step details */}
       <Dialog open={!!selectedStep} onOpenChange={(open) => !open && setSelectedStep(null)}>
         <DialogContent 
-          className="max-w-4xl bg-white rounded-lg p-8" 
+          className="max-w-4xl bg-white rounded-lg p-8"
           aria-label={
             selectedStep?.title === "Technology Implementation" ? "Technology_1" :
             selectedStep?.title === "Advanced Solution Design" ? "Advanced_1" :
