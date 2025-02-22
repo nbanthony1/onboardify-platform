@@ -35,29 +35,29 @@ export const departments: Department[] = [
       {
         title: "Lead Generation",
         responsibilities: [
-          "Multi-Channel Lead Generation",
-          "SEO",
-          "Email/CRM",
-          "Website"
+          "Multi-Channel Lead Generation: Drives prospect engagement by leveraging various channels—digital, social, and traditional—to capture and nurture leads",
+          "SEO: Enhances online visibility by optimizing website content and structure to rank higher in search engine results",
+          "Email/CRM: Utilizes targeted email campaigns and customer relationship management tools to nurture leads and convert prospects",
+          "Website: Serves as the digital storefront, providing an engaging and informative experience that encourages visitor conversion"
         ]
       },
       {
         title: "Brand Awareness",
         responsibilities: [
-          "PR",
-          "Testimonials",
-          "Events"
+          "PR: Builds and maintains a positive public image through strategic media outreach and communications",
+          "Testimonials: Leverages customer success stories to build trust and validate the brand's value proposition",
+          "Events: Creates opportunities for direct engagement with audiences through conferences, webinars, and networking events"
         ]
       },
       {
         title: "Sales Support",
         responsibilities: [
-          "Market Collateral",
-          "Presentations",
-          "Letters of Intent",
-          "CRM",
-          "Commercial Work",
-          "Newsletter"
+          "Market Collateral: Develops branded materials that clearly communicate product benefits and value propositions to support the sales process",
+          "Presentations: Crafts compelling visual and verbal presentations to effectively convey key messages during sales meetings",
+          "Letters of Intent: Prepares preliminary agreements outlining mutual interest and key terms, paving the way for formal contracts",
+          "CRM: Centralizes customer data to streamline sales activities and maintain consistent communication with prospects",
+          "Commercial Work: Develops tailored commercial strategies and materials to target specific market segments and drive sales",
+          "Newsletter: Delivers regular updates and insights to keep prospects and clients informed and engaged with the brand"
         ]
       }
     ],
@@ -74,17 +74,17 @@ export const departments: Department[] = [
       {
         title: "Account Acquisition",
         responsibilities: [
-          "Identifying",
-          "Acquiring",
-          "Closing"
+          "Identifying: Conducts research and data analysis to pinpoint potential clients within target markets",
+          "Acquiring: Engages with targeted prospects through personalized outreach and value-based communication to generate interest",
+          "Closing: Negotiates and finalizes agreements, transforming prospects into active accounts"
         ]
       },
       {
         title: "Account Management",
         responsibilities: [
-          "Grow Revenue",
-          "Client Adoption",
-          "Relationship Management"
+          "Grow Revenue: Implements upselling and cross-selling strategies to expand revenue streams within existing accounts",
+          "Client Adoption: Facilitates effective onboarding and usage of products or services to ensure customer success",
+          "Relationship Management: Maintains ongoing communication and support, fostering long-term, trusted client relationships"
         ]
       }
     ]
@@ -103,26 +103,26 @@ export const departments: Department[] = [
       {
         title: "Logistics",
         responsibilities: [
-          "Shipping & Receiving",
-          "Inventory Control",
-          "Customs Broker"
+          "Shipping & Receiving: Oversees the efficient movement of goods, ensuring timely dispatch and receipt to meet operational demands",
+          "Inventory Control: Manages stock levels and tracks inventory to optimize supply chain efficiency and reduce costs",
+          "Customs Broker: Navigates international trade regulations and customs processes to ensure smooth global shipments"
         ]
       },
       {
         title: "Manufacturing",
         responsibilities: [
-          "Quality Control",
-          "Inventory Control",
-          "Production",
-          "Sourcing"
+          "Quality Control: Implements rigorous testing and inspection processes to ensure products meet established standards",
+          "Inventory Control: Oversees raw materials and finished goods to support production needs while minimizing waste",
+          "Production: Manages the end-to-end manufacturing process to produce high-quality products efficiently",
+          "Sourcing: Identifies and collaborates with suppliers to secure quality materials at competitive prices"
         ]
       },
       {
         title: "Customer Service",
         responsibilities: [
-          "Training",
-          "Troubleshooting",
-          "Onboarding"
+          "Training: Delivers comprehensive training programs to empower customers with the knowledge to use products effectively",
+          "Troubleshooting: Provides responsive support to quickly resolve technical issues and customer challenges",
+          "Onboarding: Guides new customers through a seamless integration process, ensuring a positive initial experience"
         ]
       }
     ]
