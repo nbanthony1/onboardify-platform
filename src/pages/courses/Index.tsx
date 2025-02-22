@@ -42,7 +42,7 @@ const CoursesIndex = () => {
               <CardContent>
                 {course.modules && course.modules.length > 0 && (
                   <div className="text-sm text-muted-foreground text-center">
-                    <p>{course.modules.length} modules available</p>
+                    <p>{course.modules.length} module{course.modules.length !== 1 ? 's' : ''} available</p>
                   </div>
                 )}
               </CardContent>
