@@ -10,17 +10,24 @@ interface InstructionDialogProps {
 const InstructionDialog: React.FC<InstructionDialogProps> = ({ open, onOpenChange }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-lg bg-white rounded-lg p-6">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#9b87f5] shadow-[0_2px_4px_rgba(0,0,0,0.2)]" />
-          <h2 className="text-xl font-bold">Interactive Guide</h2>
-        </div>
-        <p className="text-gray-700 mb-4">
-          Tap on any purple oval to learn more about each step of the P.A.T.H. process!
-        </p>
-        <p className="text-gray-600 text-sm italic">
-          Each step contains detailed information about front and back of house operations.
-        </p>
+      <DialogContent className="max-w-xl bg-white rounded-lg p-8">
+        <h2 className="text-[32px] font-bold mb-6">Symterra's P.A.T.H Process</h2>
+        <ul className="space-y-4">
+          <li className="flex gap-2">
+            <span className="font-medium">A step-by-step methodology</span>
+            <span className="text-gray-700">
+              to ensure consistent, effective, and scalable bird control solutions
+            </span>
+          </li>
+          <li className="flex gap-2">
+            <span className="text-gray-700">Company-driven execution for</span>
+            <span className="font-medium">optimization and success</span>
+          </li>
+          <li className="flex gap-2">
+            <span className="text-gray-700">Builds client</span>
+            <span className="font-medium">trust, ensures compliance, and enhances long-term success</span>
+          </li>
+        </ul>
       </DialogContent>
     </Dialog>
   );
