@@ -10,7 +10,8 @@ export const salesProcessCourse: Course = {
   modules: [
     {
       title: "P.A.T.H. The Symterra Path to Protection",
-      content: "The Proven Process (PATH)\n\n" +
+      content: "💡 Coach Tip: Click on each purple oval to learn more about each step of the PATH process!\n\n" +
+        "The Proven Process (PATH)\n\n" +
         "1️⃣ Problem Assessment\n\n" +
         "• Conduct site evaluations to identify bird activity, environmental factors, and specific challenges.\n" +
         "• Gather data on species behavior and areas of infestation.\n" +
