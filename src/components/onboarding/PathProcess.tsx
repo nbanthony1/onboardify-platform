@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
@@ -139,15 +140,18 @@ const PathProcess = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8" aria-label="Path_home">
-      <div className="flex items-center justify-center mb-12">
-        <button
-          onClick={() => setSelectedStep(steps[0])}
-          className="w-8 h-8 rounded-full bg-[#9b87f5] 
-                    hover:bg-[#7e69ab] transition-colors duration-200 
-                    flex items-center justify-center cursor-pointer
-                    shadow-[0_2px_4px_rgba(0,0,0,0.2)] mr-3"
-          aria-label="View PATH Process Overview"
-        />
+      <div className="flex items-center justify-center mb-12 relative">
+        <div className="flex items-center">
+          <button
+            onClick={() => setSelectedStep(steps[0])}
+            className="w-8 h-8 rounded-full bg-[#9b87f5] 
+                      hover:bg-[#7e69ab] transition-colors duration-200 
+                      flex items-center justify-center cursor-pointer
+                      shadow-[0_2px_4px_rgba(0,0,0,0.2)] mr-3"
+            aria-label="View PATH Process Overview"
+          />
+          <span className="absolute -left-16 text-xs text-gray-600">Start here</span>
+        </div>
         <h1 className="text-3xl font-bold text-center">Symterra's P.A.T.H Process</h1>
       </div>
       
