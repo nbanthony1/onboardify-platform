@@ -9,12 +9,14 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import VideoPlayer from "@/components/onboarding/VideoPlayer";
 import VideoUploader from "@/components/onboarding/VideoUploader";
-import { toast } from "@/hooks/use-toast";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { useState } from "react";
 
 const ModuleContent = () => {
   const { id, moduleId } = useParams();
   const courseId = parseInt(id || "1");
   const moduleIndex = parseInt(moduleId || "1") - 1;
+  const [showInstructionDialog, setShowInstructionDialog] = useState(true);
   
   const course = courses.find(c => c.id === courseId);
   const module = course?.modules?.[moduleIndex];
@@ -24,14 +26,6 @@ const ModuleContent = () => {
   }
 
   const moduleContent = typeof module === 'string' ? { title: module, content: '' } : module;
-
-  const handleVideoUpload = (url: string) => {
-    toast({
-      title: "Video Uploaded",
-      description: "Your video has been uploaded successfully.",
-    });
-    console.log("Video URL:", url);
-  };
 
   const generateVideoPath = () => {
     return `course_${courseId}_module_${moduleId}_${Date.now()}.mp4`;
@@ -64,7 +58,9 @@ const ModuleContent = () => {
         <div className="space-y-4">
           <VideoUploader 
             targetPath={generateVideoPath()}
-            onUploadComplete={handleVideoUpload}
+            onUploadComplete={(url: string) => {
+              console.log("Video URL:", url);
+            }}
           />
           <div className="prose max-w-none">
             {moduleContent.content.split('\n').map((paragraph, i) => (
@@ -97,6 +93,20 @@ const ModuleContent = () => {
       </div>
       <div className="container mx-auto py-8 flex-grow">
         <div className="max-w-4xl mx-auto">
+          <Dialog open={showInstructionDialog} onOpenChange={setShowInstructionDialog}>
+            <DialogContent className="max-w-lg bg-white rounded-lg p-6">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-8 h-8 rounded-full bg-[#9b87f5] shadow-[0_2px_4px_rgba(0,0,0,0.2)]" />
+                <h2 className="text-xl font-bold">Interactive Guide</h2>
+              </div>
+              <p className="text-gray-700 mb-4">
+                Record yourself showcasing the product features discussed in this module.
+              </p>
+              <p className="text-gray-600 text-sm italic">
+                Your video will be used for training and quality assurance purposes.
+              </p>
+            </DialogContent>
+          </Dialog>
           {renderContent()}
         </div>
       </div>
