@@ -21,11 +21,7 @@ export const RoleDialog: React.FC<RoleDialogProps> = ({ role, onOpenChange }) =>
             <h4 className="font-medium">Responsibilities:</h4>
             <ul className="list-disc pl-5 space-y-2">
               {role.responsibilities.map((resp, index) => (
-                <li key={index} className="text-sm">
-                  <span className="font-medium">{resp}</span>
-                  <br />
-                  <span className="text-gray-600">{getResponsibilityExplanation(resp)}</span>
-                </li>
+                <li key={index} className="text-sm">{resp}</li>
               ))}
             </ul>
           </div>
