@@ -1,4 +1,3 @@
-
 import { Department } from '../types/org-chart';
 
 export const departments: Department[] = [
@@ -25,11 +24,11 @@ export const departments: Department[] = [
   {
     name: "Marketing",
     responsibilities: [
-      "LMA",
-      "Marketing Strategy",
-      "Lead Generation",
-      "Analytics & Reporting",
-      "Market Research"
+      "Lead, Manage and hold people Accountable: Champions agile management practices within the marketing team, ensuring streamlined operations, accountability, and alignment with overall business objectives.",
+      "Marketing Strategy: Crafts comprehensive marketing blueprints that integrate current market trends and brand goals to drive long-term growth and competitive positioning.",
+      "Lead Generation: Utilizes multi-channel initiatives and innovative digital tactics to attract and nurture prospects, fueling a steady pipeline of qualified leads.",
+      "Analytics & Reporting: Monitors and interprets key performance metrics to assess campaign effectiveness, optimize strategies, and provide actionable insights for continuous improvement.",
+      "Market Research: Conducts in-depth research on market dynamics, consumer behaviors, and competitor activities to inform strategy and support data-driven decision-making."
     ],
     roles: [
       {
@@ -91,12 +90,12 @@ export const departments: Department[] = [
   {
     name: "Operations",
     responsibilities: [
-      "### LMA\nChampions lean management practices and oversees daily administrative operations, ensuring teams remain accountable while continuously driving process improvements.",
-      "### Manufacturing Process\nDesigns and manages production workflows to optimize efficiency and consistency, ensuring manufacturing operations meet quality and throughput targets.",
-      "### QC\nImplements systematic quality checks and inspection protocols throughout production, ensuring every product meets rigorous internal and industry standards.",
-      "### Logistics\nCoordinates the seamless flow of goods and materials—from inbound supplies to final delivery—reducing delays and minimizing operational costs.",
-      "### Tech Support\nProvides prompt technical assistance to maintain critical systems and troubleshoot issues, ensuring continuous operation and minimal downtime.",
-      "### Asset Management\nOversees the lifecycle of physical and digital assets, ensuring they are optimally maintained, effectively allocated, and leveraged for operational success."
+      "Lead, Manage and hold people Accountable: Champions lean management practices and oversees daily administrative operations, ensuring teams remain accountable while continuously driving process improvements.",
+      "Manufacturing Process: Designs and manages production workflows to optimize efficiency and consistency, ensuring manufacturing operations meet quality and throughput targets.",
+      "QC: Implements systematic quality checks and inspection protocols throughout production, ensuring every product meets rigorous internal and industry standards.",
+      "Logistics: Coordinates the seamless flow of goods and materials—from inbound supplies to final delivery—reducing delays and minimizing operational costs.",
+      "Tech Support: Provides prompt technical assistance to maintain critical systems and troubleshoot issues, ensuring continuous operation and minimal downtime.",
+      "Asset Management: Oversees the lifecycle of physical and digital assets, ensuring they are optimally maintained, effectively allocated, and leveraged for operational success."
     ],
     roles: [
       {
