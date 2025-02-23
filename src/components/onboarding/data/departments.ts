@@ -1,3 +1,4 @@
+
 import { Department } from '../types/org-chart';
 
 export const departments: Department[] = [
@@ -90,12 +91,12 @@ export const departments: Department[] = [
   {
     name: "Operations",
     responsibilities: [
-      "LMA",
-      "Manufacturing Process",
-      "QC",
-      "Logistics",
-      "Tech Support",
-      "Asset Management"
+      "### LMA\nChampions lean management practices and oversees daily administrative operations, ensuring teams remain accountable while continuously driving process improvements.",
+      "### Manufacturing Process\nDesigns and manages production workflows to optimize efficiency and consistency, ensuring manufacturing operations meet quality and throughput targets.",
+      "### QC\nImplements systematic quality checks and inspection protocols throughout production, ensuring every product meets rigorous internal and industry standards.",
+      "### Logistics\nCoordinates the seamless flow of goods and materials—from inbound supplies to final delivery—reducing delays and minimizing operational costs.",
+      "### Tech Support\nProvides prompt technical assistance to maintain critical systems and troubleshoot issues, ensuring continuous operation and minimal downtime.",
+      "### Asset Management\nOversees the lifecycle of physical and digital assets, ensuring they are optimally maintained, effectively allocated, and leveraged for operational success."
     ],
     roles: [
       {
