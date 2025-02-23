@@ -4,20 +4,20 @@ export const departments: Department[] = [
   {
     name: "Visionary",
     responsibilities: [
-      "Big Ideas",
-      "Big Relationships",
-      "R&D",
-      "Culture"
+      "Big Ideas: Generates breakthrough concepts and innovative strategies that chart the long-term direction of the company and fuel market differentiation.",
+      "Big Relationships: Cultivates strategic alliances with key stakeholders, industry leaders, and partners, leveraging high-level networks to create new opportunities and drive growth.",
+      "R&D: Inspires forward-thinking research and development initiatives by fostering a creative environment where experimentation and disruptive innovation are encouraged.",
+      "Culture: Shapes the organizational culture by articulating core values, setting a visionary tone, and nurturing an environment that promotes creativity, resilience, and continuous improvement."
     ],
     roles: []
   },
   {
     name: "Integrator",
     responsibilities: [
-      "LMA",
-      "P&L",
-      "Remove Obstacles",
-      "Special Projects"
+      "Lead, Manage and hold people Accountable: Embraces leadership, management, and accountability principles to align teams, streamline operations, and drive consistent performance across the organization.",
+      "P&L: Oversees the Profit & Loss, ensuring financial health by monitoring revenue, controlling costs, and making data-driven decisions to support sustainable growth.",
+      "Remove Obstacles: Identifies and eliminates barriers that impede progress, fostering a smooth workflow and enabling teams to execute strategies efficiently.",
+      "Special Projects: Leads cross-functional initiatives that address strategic priorities, driving innovation and transformational change throughout the organization."
     ],
     roles: []
   },
