@@ -1,4 +1,3 @@
-
 import { Department } from '../types/org-chart';
 
 export const departments: Department[] = [
@@ -65,26 +64,25 @@ export const departments: Department[] = [
   {
     name: "Sales",
     responsibilities: [
-      "LMA",
-      "Revenue Growth",
-      "Market Expansion",
-      "Client Relations"
+      "Leadership, Management, and Accountability: Providing strategic direction, setting clear goals, and ensuring alignment with company objectives",
+      "Developing and executing a structured approach to identifying, engaging, and converting prospects",
+      "Meeting and exceeding revenue, conversion, and performance goals through effective execution"
     ],
     roles: [
       {
         title: "Account Acquisition",
         responsibilities: [
-          "Identifying: Conducts research and data analysis to pinpoint potential clients within target markets",
-          "Acquiring: Engages with targeted prospects through personalized outreach and value-based communication to generate interest",
-          "Closing: Negotiates and finalizes agreements, transforming prospects into active accounts"
+          "Identifying Opportunities – Researching market trends and targeting potential clients that align with Symterra's value proposition",
+          "Acquiring Accounts – Implementing effective outreach strategies to convert leads into customers",
+          "Closing Deals – Negotiating contracts and finalizing agreements to secure long-term client relationships"
         ]
       },
       {
         title: "Account Management",
         responsibilities: [
-          "Grow Revenue: Implements upselling and cross-selling strategies to expand revenue streams within existing accounts",
-          "Client Adoption: Facilitates effective onboarding and usage of products or services to ensure customer success",
-          "Relationship Management: Maintains ongoing communication and support, fostering long-term, trusted client relationships"
+          "Grow Revenue – Expanding business with existing clients through upselling and cross-selling opportunities",
+          "Client Adoption – Ensuring customers integrate and utilize Symterra's solutions effectively",
+          "Relationship Management – Building and maintaining strong partnerships with PCOs, commercial enterprises, and municipalities to ensure long-term adoption and success"
         ]
       }
     ]
