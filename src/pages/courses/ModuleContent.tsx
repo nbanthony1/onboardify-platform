@@ -1,3 +1,4 @@
+
 import { useParams, Link } from "react-router-dom";
 import { courses } from "@/data/courses";
 import PDFViewer from "@/components/onboarding/PDFViewer";
@@ -66,8 +67,8 @@ const ModuleContent = () => {
       console.log("Using Product Overview with upload option");
       return (
         <div className="space-y-4">
-          <div className="w-full border p-4 rounded-lg shadow-lg">
-            {productOverviewPdfUrl ? (
+          {productOverviewPdfUrl ? (
+            <div className="w-full border p-4 rounded-lg shadow-lg">
               <div className="h-[80vh]">
                 <iframe
                   src={`https://docs.google.com/viewer?url=${encodeURIComponent(productOverviewPdfUrl)}&embedded=true`}
@@ -75,31 +76,39 @@ const ModuleContent = () => {
                   title="PDF Viewer"
                 />
               </div>
-            ) : (
-              <PDFViewer pdfUrl={moduleContent.content as string} />
-            )}
-          </div>
-          
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="outline" className="mt-4">
-                Upload New Product Overview PDF
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-4xl">
-              <DialogHeader>
-                <DialogTitle>Upload Product Overview PDF</DialogTitle>
-              </DialogHeader>
-              <PDFUploader 
-                targetPath={moduleContent.content.substring(1)} 
-                storageKey="product-overview-pdf"
-                onUploadComplete={(url: string) => {
-                  console.log("Setting new product overview PDF URL:", url);
-                  setProductOverviewPdfUrl(url);
-                }}
-              />
-            </DialogContent>
-          </Dialog>
+              <div className="mt-4 flex justify-end">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="outline">
+                      Upload New PDF
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-4xl">
+                    <DialogHeader>
+                      <DialogTitle>Upload Product Overview PDF</DialogTitle>
+                    </DialogHeader>
+                    <PDFUploader 
+                      targetPath={moduleContent.content.substring(1)} 
+                      storageKey="product-overview-pdf"
+                      onUploadComplete={(url: string) => {
+                        console.log("Setting new product overview PDF URL:", url);
+                        setProductOverviewPdfUrl(url);
+                      }}
+                    />
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </div>
+          ) : (
+            <PDFUploader 
+              targetPath={moduleContent.content.substring(1)} 
+              storageKey="product-overview-pdf"
+              onUploadComplete={(url: string) => {
+                console.log("Setting new product overview PDF URL:", url);
+                setProductOverviewPdfUrl(url);
+              }}
+            />
+          )}
         </div>
       );
     }
