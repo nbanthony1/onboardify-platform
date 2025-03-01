@@ -9,6 +9,9 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import VideoPlayer from "@/components/onboarding/VideoPlayer";
 import VideoUploader from "@/components/onboarding/VideoUploader";
+import { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent } from "@/components/ui/card";
 
 const ModuleContent = () => {
   const { id, moduleId } = useParams();
@@ -40,9 +43,37 @@ const ModuleContent = () => {
     if (moduleContent.content === '[CUSTOMER_RESEARCH]') {
       return <CustomerResearch />;
     }
+    
+    // Handle multiple PDFs separated by commas
     if (moduleContent.content?.startsWith('/pdfs/')) {
-      return <PDFViewer pdfUrl={moduleContent.content} />;
+      const pdfUrls = moduleContent.content.split(',');
+      
+      if (pdfUrls.length > 1) {
+        return (
+          <Tabs defaultValue={pdfUrls[0]} className="w-full">
+            <TabsList className="mb-4">
+              {pdfUrls.map((url, index) => (
+                <TabsTrigger key={url} value={url}>
+                  Document {index + 1}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+            {pdfUrls.map((url) => (
+              <TabsContent key={url} value={url}>
+                <Card>
+                  <CardContent className="p-0">
+                    <PDFViewer pdfUrl={url} />
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            ))}
+          </Tabs>
+        );
+      }
+      
+      return <PDFViewer pdfUrl={pdfUrls[0]} />;
     }
+    
     if (courseId === 1 && moduleId === "1") {
       return (
         <div className="space-y-6">
