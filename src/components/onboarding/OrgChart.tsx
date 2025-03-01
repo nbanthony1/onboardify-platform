@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { toast } from "@/hooks/use-toast";
 import { Department, Role } from './types/org-chart';
@@ -23,9 +24,9 @@ const OrgChart = () => {
     <div className="bg-gray-50 w-full p-6">
       <h3 className="text-xl font-semibold mb-6">Organization Structure</h3>
       
-      <div className="flex flex-col items-center space-y-4 transform scale-[0.715] origin-top">
+      <div className="flex flex-col items-center space-y-6">
         {/* Visionary - Top Level */}
-        <div className="w-36">
+        <div className="w-54">
           <DepartmentButton
             deptName="Visionary"
             onClick={() => setSelectedDept(departments[0])}
@@ -33,10 +34,10 @@ const OrgChart = () => {
           />
         </div>
 
-        <div className="h-4 w-px bg-gray-300"></div>
+        <div className="h-6 w-px bg-gray-300"></div>
 
         {/* Integrator - Second Level */}
-        <div className="w-36">
+        <div className="w-54">
           <DepartmentButton
             deptName="Integrator"
             onClick={() => setSelectedDept(departments[1])}
@@ -44,10 +45,10 @@ const OrgChart = () => {
           />
         </div>
 
-        <div className="h-4 w-px bg-gray-300"></div>
+        <div className="h-6 w-px bg-gray-300"></div>
 
         {/* Main Departments Row */}
-        <div className="flex justify-center gap-3">
+        <div className="flex justify-center gap-5">
           {["Marketing", "Sales", "Operations", "R&D", "Finance"].map((deptName) => (
             <div key={deptName} className="flex flex-col items-center">
               <DepartmentButton
@@ -59,8 +60,8 @@ const OrgChart = () => {
               {/* Sub-roles for specific departments */}
               {(deptName === "Marketing" || deptName === "Sales" || deptName === "Operations") && (
                 <>
-                  <div className="h-4 w-px bg-gray-300"></div>
-                  <div className="flex gap-3">
+                  <div className="h-6 w-px bg-gray-300"></div>
+                  <div className="flex gap-5">
                     {deptName === "Marketing" && departments[2].roles.map((role, index) => (
                       <RoleButton
                         key={role.title}
