@@ -1,4 +1,3 @@
-
 import { useParams, Link } from "react-router-dom";
 import { courses } from "@/data/courses";
 import PDFViewer from "@/components/onboarding/PDFViewer";
@@ -13,6 +12,7 @@ import VideoUploader from "@/components/onboarding/VideoUploader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { useEffect, useState } from "react";
 
 const ModuleContent = () => {
   const { id, moduleId } = useParams();
@@ -22,13 +22,23 @@ const ModuleContent = () => {
   const course = courses.find(c => c.id === courseId);
   const module = course?.modules?.[moduleIndex];
   
+  const [productOverviewPdfUrl, setProductOverviewPdfUrl] = useState<string | null>(null);
+  
+  useEffect(() => {
+    if (courseId === 2 && moduleId === "1") {
+      const savedPdf = localStorage.getItem("product-overview-pdf");
+      if (savedPdf) {
+        setProductOverviewPdfUrl(savedPdf);
+      }
+    }
+  }, [courseId, moduleId]);
+  
   if (!course || !module) {
     return <div className="container mx-auto py-8">Module not found</div>;
   }
 
   const moduleContent = typeof module === 'string' ? { title: module, content: '' } : module;
 
-  // Debug module information
   console.log('Course and module:', courseId, moduleId, moduleContent);
 
   const generateVideoPath = () => {
@@ -41,7 +51,6 @@ const ModuleContent = () => {
   };
 
   const renderContent = () => {
-    // Special case for the PATH process module
     if (courseId === 4 && moduleId === "1") {
       return <PathProcess />;
     }
@@ -53,13 +62,22 @@ const ModuleContent = () => {
       return <CustomerResearch />;
     }
     
-    // Special case for Product Overview module to allow PDF upload
     if (courseId === 2 && moduleId === "1") {
       console.log("Using Product Overview with upload option");
       return (
         <div className="space-y-4">
           <div className="w-full border p-4 rounded-lg shadow-lg">
-            <PDFViewer pdfUrl={moduleContent.content as string} />
+            {productOverviewPdfUrl ? (
+              <div className="h-[80vh]">
+                <iframe
+                  src={`https://docs.google.com/viewer?url=${encodeURIComponent(productOverviewPdfUrl)}&embedded=true`}
+                  className="w-full h-full border-0"
+                  title="PDF Viewer"
+                />
+              </div>
+            ) : (
+              <PDFViewer pdfUrl={moduleContent.content as string} />
+            )}
           </div>
           
           <Dialog>
@@ -75,20 +93,22 @@ const ModuleContent = () => {
               <PDFUploader 
                 targetPath={moduleContent.content.substring(1)} 
                 storageKey="product-overview-pdf"
+                onUploadComplete={(url: string) => {
+                  console.log("Setting new product overview PDF URL:", url);
+                  setProductOverviewPdfUrl(url);
+                }}
               />
             </DialogContent>
           </Dialog>
         </div>
       );
     }
-
-    // Special case for Installation module to use the PDFUploader
+    
     if (courseId === 2 && moduleId === "5") {
       console.log("Using PDFUploader for module:", moduleId);
       return <PDFUploader storageKey="installation-pdf" />;
     }
     
-    // Special case for University of Arizona Studies module to use multiple PDFUploaders
     if (courseId === 2 && moduleId === "4") {
       console.log("Using multiple PDFUploaders for University of Arizona Studies module");
       return (
@@ -123,7 +143,6 @@ const ModuleContent = () => {
       );
     }
     
-    // Handle multiple PDFs separated by commas
     if (moduleContent.content?.startsWith('/pdfs/')) {
       const pdfUrls = moduleContent.content.split(',');
       

@@ -13,9 +13,10 @@ pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pd
 interface PDFUploaderProps {
   targetPath?: string;
   storageKey?: string;
+  onUploadComplete?: (url: string) => void;
 }
 
-const PDFUploader = ({ targetPath, storageKey = 'uploadedPdf' }: PDFUploaderProps) => {
+const PDFUploader = ({ targetPath, storageKey = 'uploadedPdf', onUploadComplete }: PDFUploaderProps) => {
   const [file, setFile] = useState<File | null>(null);
   const [fileUrl, setFileUrl] = useState<string | null>(null);
   const [numPages, setNumPages] = useState<number | null>(null);
@@ -41,15 +42,25 @@ const PDFUploader = ({ targetPath, storageKey = 'uploadedPdf' }: PDFUploaderProp
       
       // Save to local storage for persistence using the unique storageKey
       localStorage.setItem(storageKey, objectUrl);
+      
+      // Notify parent component if callback provided
+      if (onUploadComplete) {
+        onUploadComplete(objectUrl);
+      }
     }
   };
 
-  const onUploadComplete = (url: string) => {
+  const handleFileUploadComplete = (url: string) => {
     console.log(`Upload complete for ${storageKey}, URL:`, url);
     setFileUrl(url);
     
     // Save to local storage for persistence using the unique storageKey
     localStorage.setItem(storageKey, url);
+    
+    // Notify parent component if callback provided
+    if (onUploadComplete) {
+      onUploadComplete(url);
+    }
   };
 
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
@@ -106,7 +117,7 @@ const PDFUploader = ({ targetPath, storageKey = 'uploadedPdf' }: PDFUploaderProp
             <div className="mt-4">
               <FileUploader 
                 targetPath={targetPath}
-                onUploadComplete={onUploadComplete}
+                onUploadComplete={handleFileUploadComplete}
                 onFileSelected={onFileSelected}
               />
             </div>
@@ -148,6 +159,11 @@ const PDFUploader = ({ targetPath, storageKey = 'uploadedPdf' }: PDFUploaderProp
                 setFileUrl(null);
                 setNumPages(null);
                 localStorage.removeItem(storageKey);
+                
+                // Notify parent component if callback provided
+                if (onUploadComplete) {
+                  onUploadComplete("");
+                }
               }}
             >
               Upload Another PDF
