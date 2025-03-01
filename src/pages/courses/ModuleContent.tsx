@@ -1,3 +1,4 @@
+
 import { useParams, Link } from "react-router-dom";
 import { courses } from "@/data/courses";
 import PDFViewer from "@/components/onboarding/PDFViewer";
@@ -51,9 +52,15 @@ const ModuleContent = () => {
       return <CustomerResearch />;
     }
     
-    // Special case for Installation and University of Arizona modules to use the PDFUploader
-    if (courseId === 2 && (moduleId === "5" || moduleId === "4")) {
+    // Special case for Installation module to use the PDFUploader
+    if (courseId === 2 && moduleId === "5") {
       console.log("Using PDFUploader for module:", moduleId);
+      return <PDFUploader />;
+    }
+    
+    // Special case for University of Arizona Studies module to use the PDFUploader 
+    if (courseId === 2 && moduleId === "4") {
+      console.log("Using PDFUploader for University of Arizona Studies module");
       return <PDFUploader />;
     }
     
