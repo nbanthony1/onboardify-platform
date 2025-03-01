@@ -63,35 +63,12 @@ const ModuleContent = () => {
     }
     
     if (courseId === 2 && moduleId === "1") {
-      console.log("Using Product Overview with upload option");
-      const pdfUrl = productOverviewPdfUrl || moduleContent.content;
-      
       return (
         <div className="space-y-4">
-          <div className="w-full border p-4 rounded-lg shadow-lg">
-            <PDFViewer pdfUrl={pdfUrl} />
-          </div>
-          
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="outline" className="mt-4">
-                Upload New Product Overview PDF
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-4xl">
-              <DialogHeader>
-                <DialogTitle>Upload Product Overview PDF</DialogTitle>
-              </DialogHeader>
-              <PDFUploader 
-                targetPath={moduleContent.content.substring(1)} 
-                storageKey="product-overview-pdf"
-                onUploadComplete={(url: string) => {
-                  console.log("Setting new product overview PDF URL:", url);
-                  setProductOverviewPdfUrl(url);
-                }}
-              />
-            </DialogContent>
-          </Dialog>
+          <PDFUploader 
+            targetPath={generatePdfPath('product-overview')} 
+            storageKey="product-overview-pdf"
+          />
         </div>
       );
     }
