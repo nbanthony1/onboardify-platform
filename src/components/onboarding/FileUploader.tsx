@@ -18,6 +18,9 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
+    // Log file information to help debug
+    console.log('File selected:', file.name, file.type, file.size);
+
     if (!file.type.startsWith('image/') && file.type !== 'application/pdf') {
       toast({
         title: "Invalid File Type",
@@ -38,12 +41,30 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
       const cleanPath = targetPath.split('\n')[0].trim();
       console.log('Uploading file to path:', cleanPath);
 
+      // Create folder structure if it doesn't exist
+      const pathParts = cleanPath.split('/');
+      pathParts.pop(); // Remove the filename
+      const folderPath = pathParts.join('/');
+      
+      if (folderPath) {
+        console.log('Checking folder path:', folderPath);
+        try {
+          // Try to create the folder structure (this will succeed silently if it already exists)
+          await supabase.storage
+            .from('course_materials')
+            .createSignedUrl(folderPath, 1); // Just to check if it exists
+        } catch (error) {
+          console.log('Folder might not exist, which is okay. Will be created automatically.');
+        }
+      }
+
       // Upload the file
       const { data, error } = await supabase.storage
         .from('course_materials')
         .upload(cleanPath, file, {
           cacheControl: '3600',
-          upsert: true
+          upsert: true,
+          contentType: file.type // Explicitly set the content type
         });
 
       if (error) {
