@@ -25,8 +25,6 @@ const ContentRenderer = ({ courseId, moduleId, moduleContent }: ContentRendererP
   const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
-    // Check if any of the special PDF storage keys have been saved but are using blob URLs
-    // If so, prompt the user to re-upload
     const checkStorageKeys = async () => {
       setIsLoading(true);
       
@@ -43,7 +41,6 @@ const ContentRenderer = ({ courseId, moduleId, moduleContent }: ContentRendererP
       for (const key of keysToCheck) {
         const savedUrl = PDFStorageService.getFromLocalStorage(key);
         if (savedUrl && savedUrl.startsWith('blob:')) {
-          // If it's a blob URL, it won't be available in another session
           PDFStorageService.removeFromLocalStorage(key);
           needsReupload = true;
         }
@@ -67,7 +64,6 @@ const ContentRenderer = ({ courseId, moduleId, moduleContent }: ContentRendererP
     return <div className="p-8 text-center">Checking module content...</div>;
   }
   
-  // Interactive content for specific modules
   if (courseId === 4 && moduleId === "1") {
     return <InteractiveContent contentType="[PATH_PROCESS]" />;
   }
@@ -80,7 +76,6 @@ const ContentRenderer = ({ courseId, moduleId, moduleContent }: ContentRendererP
     return <InteractiveContent contentType="[CUSTOMER_RESEARCH]" />;
   }
 
-  // Product course special handlers - directly use the content from moduleContent
   if (courseId === 2 && moduleId === "1") {
     console.log("Rendering Product Overview PDF:", moduleContent.content);
     return <PDFContent pdfUrl={moduleContent.content} />;
@@ -95,15 +90,14 @@ const ContentRenderer = ({ courseId, moduleId, moduleContent }: ContentRendererP
       <MultipleDocumentContent 
         type="viewer"
         items={[
-          { id: "pdf1", label: "Document 1", content: "https://drive.google.com/file/d/1lY3YjqMxC5Y7-5-eDNYDFDUkT3GQ5j9L/preview" },
-          { id: "pdf2", label: "Document 2", content: "https://drive.google.com/file/d/1f98dxCZ2cQh4dNjwqLzrLPPV5jgDx7mU/preview" },
-          { id: "pdf3", label: "Document 3", content: "https://drive.google.com/file/d/1pZrRGJQ_FHBYe3pEOUSLjWXYt4vUbYs1/preview" }
+          { id: "pdf1", label: "Document 1", content: "https://drive.google.com/file/d/1RephYSwwExm-LIwMd77SNUKNxe0TCavB/preview" },
+          { id: "pdf2", label: "Document 2", content: "https://drive.google.com/file/d/1LCrGcM9e5kdIYCDmcyRa7748yJ_BiXLe/preview" },
+          { id: "pdf3", label: "Document 3", content: "https://drive.google.com/file/d/1Oe6NcGMi7vD2aRUZySWWgnijrRi0d4RX/preview" }
         ]}
       />
     );
   }
   
-  // PDF Upload for Course 2, Module 1 (legacy code, keeping for compatibility)
   if (courseId === 2 && moduleId === "5") {
     return <PDFContent pdfUrl="https://drive.google.com/file/d/1aNvSgJYvfRVk4DZI3sLTNrhpZNh4Wsh8/preview" />;
   }
@@ -113,15 +107,14 @@ const ContentRenderer = ({ courseId, moduleId, moduleContent }: ContentRendererP
       <MultipleDocumentContent 
         type="viewer"
         items={[
-          { id: "pdf1", label: "Document 1", content: "https://drive.google.com/file/d/1lY3YjqMxC5Y7-5-eDNYDFDUkT3GQ5j9L/preview" },
-          { id: "pdf2", label: "Document 2", content: "https://drive.google.com/file/d/1f98dxCZ2cQh4dNjwqLzrLPPV5jgDx7mU/preview" },
-          { id: "pdf3", label: "Document 3", content: "https://drive.google.com/file/d/1pZrRGJQ_FHBYe3pEOUSLjWXYt4vUbYs1/preview" }
+          { id: "pdf1", label: "Document 1", content: "https://drive.google.com/file/d/1RephYSwwExm-LIwMd77SNUKNxe0TCavB/preview" },
+          { id: "pdf2", label: "Document 2", content: "https://drive.google.com/file/d/1LCrGcM9e5kdIYCDmcyRa7748yJ_BiXLe/preview" },
+          { id: "pdf3", label: "Document 3", content: "https://drive.google.com/file/d/1Oe6NcGMi7vD2aRUZySWWgnijrRi0d4RX/preview" }
         ]}
       />
     );
   }
   
-  // Multiple PDFs View
   if (moduleContent.content?.startsWith('/pdfs/')) {
     const pdfUrls = moduleContent.content.split(',');
     
@@ -141,7 +134,6 @@ const ContentRenderer = ({ courseId, moduleId, moduleContent }: ContentRendererP
     return <PDFContent pdfUrl={pdfUrls[0]} />;
   }
   
-  // Video Content for Course 1
   if (courseId === 1 && moduleId === "1") {
     return (
       <VideoContent videoUrls={[
@@ -159,7 +151,6 @@ const ContentRenderer = ({ courseId, moduleId, moduleContent }: ContentRendererP
     );
   }
   
-  // Video Upload placeholder
   if (moduleContent.content?.startsWith('[Video Placeholder')) {
     return (
       <div className="space-y-4">
@@ -174,7 +165,6 @@ const ContentRenderer = ({ courseId, moduleId, moduleContent }: ContentRendererP
     );
   }
   
-  // Default - Text Content
   return <TextContent content={moduleContent.content} />;
 };
 
