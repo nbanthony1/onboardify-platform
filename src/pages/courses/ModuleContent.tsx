@@ -1,19 +1,19 @@
 
 import { useParams, Link } from "react-router-dom";
 import { courses } from "@/data/courses";
-import PDFViewer from "@/components/onboarding/PDFViewer";
-import PDFUploader from "@/components/onboarding/PDFUploader";
-import OrgChart from "@/components/onboarding/OrgChart";
-import CustomerResearch from "@/components/onboarding/CustomerResearch";
-import PathProcess from "@/components/onboarding/PathProcess";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
-import VideoPlayer from "@/components/onboarding/VideoPlayer";
-import VideoUploader from "@/components/onboarding/VideoUploader";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useEffect, useState } from "react";
+import VideoUploader from "@/components/onboarding/VideoUploader";
+import { 
+  PDFContent, 
+  VideoContent, 
+  InteractiveContent, 
+  TextContent,
+  PDFUploadContent,
+  MultipleDocumentContent
+} from "@/components/modules";
+import { generateVideoPath, generatePdfPath } from "@/utils/filePathUtils";
 
 const ModuleContent = () => {
   const { id, moduleId } = useParams();
@@ -40,147 +40,107 @@ const ModuleContent = () => {
 
   const moduleContent = typeof module === 'string' ? { title: module, content: '' } : module;
 
-  console.log('Course and module:', courseId, moduleId, moduleContent);
-
-  const generateVideoPath = () => {
-    return `course_${courseId}_module_${moduleId}_${Date.now()}.mp4`;
-  };
-
-  const generatePdfPath = (suffix = '') => {
-    const timestamp = Date.now();
-    return `pdfs/${course?.title.replace(/^\d+\.\s/, '').toLowerCase().replace(/\s+/g, '-')}/module-${moduleId}${suffix ? `-${suffix}` : ''}-${timestamp}.pdf`;
-  };
-
   const renderContent = () => {
+    // Interactive content for specific modules
     if (courseId === 4 && moduleId === "1") {
-      return <PathProcess />;
+      return <InteractiveContent contentType="[PATH_PROCESS]" />;
     }
     
     if (moduleContent.content === '[INTERACTIVE_ORG_CHART]') {
-      return <OrgChart />;
-    }
-    if (moduleContent.content === '[CUSTOMER_RESEARCH]') {
-      return <CustomerResearch />;
+      return <InteractiveContent contentType="[INTERACTIVE_ORG_CHART]" />;
     }
     
+    if (moduleContent.content === '[CUSTOMER_RESEARCH]') {
+      return <InteractiveContent contentType="[CUSTOMER_RESEARCH]" />;
+    }
+    
+    // PDF Upload for Course 2, Module 1
     if (courseId === 2 && moduleId === "1") {
       return (
-        <div className="space-y-4">
-          <PDFUploader 
-            targetPath={generatePdfPath('product-overview')} 
-            storageKey="product-overview-pdf"
-          />
-        </div>
+        <PDFUploadContent 
+          targetPath={generatePdfPath(course.title, moduleId, 'product-overview')} 
+          storageKey="product-overview-pdf"
+        />
       );
     }
     
+    // PDF Upload for Course 2, Module 5
     if (courseId === 2 && moduleId === "5") {
-      console.log("Using PDFUploader for module:", moduleId);
-      return <PDFUploader storageKey="installation-pdf" />;
+      return <PDFUploadContent 
+        targetPath={generatePdfPath(course.title, moduleId, 'installation')}
+        storageKey="installation-pdf" 
+      />;
     }
     
+    // Multiple PDFs Upload for Course 2, Module 4
     if (courseId === 2 && moduleId === "4") {
-      console.log("Using multiple PDFUploaders for University of Arizona Studies module");
       return (
-        <Tabs defaultValue="pdf1" className="w-full">
-          <TabsList className="mb-4">
-            <TabsTrigger value="pdf1">Document 1</TabsTrigger>
-            <TabsTrigger value="pdf2">Document 2</TabsTrigger>
-            <TabsTrigger value="pdf3">Document 3</TabsTrigger>
-          </TabsList>
-          <TabsContent value="pdf1">
-            <Card>
-              <CardContent className="p-0">
-                <PDFUploader storageKey="arizona-study-doc1" />
-              </CardContent>
-            </Card>
-          </TabsContent>
-          <TabsContent value="pdf2">
-            <Card>
-              <CardContent className="p-0">
-                <PDFUploader storageKey="arizona-study-doc2" />
-              </CardContent>
-            </Card>
-          </TabsContent>
-          <TabsContent value="pdf3">
-            <Card>
-              <CardContent className="p-0">
-                <PDFUploader storageKey="arizona-study-doc3" />
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+        <MultipleDocumentContent 
+          type="uploader"
+          items={[
+            { id: "pdf1", label: "Document 1", content: "arizona-study-doc1" },
+            { id: "pdf2", label: "Document 2", content: "arizona-study-doc2" },
+            { id: "pdf3", label: "Document 3", content: "arizona-study-doc3" }
+          ]}
+        />
       );
     }
     
+    // Multiple PDFs View
     if (moduleContent.content?.startsWith('/pdfs/')) {
       const pdfUrls = moduleContent.content.split(',');
       
       if (pdfUrls.length > 1) {
         return (
-          <Tabs defaultValue={pdfUrls[0]} className="w-full">
-            <TabsList className="mb-4">
-              {pdfUrls.map((url, index) => (
-                <TabsTrigger key={url} value={url}>
-                  Document {index + 1}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-            {pdfUrls.map((url) => (
-              <TabsContent key={url} value={url}>
-                <Card>
-                  <CardContent className="p-0">
-                    <PDFViewer pdfUrl={url} />
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            ))}
-          </Tabs>
+          <MultipleDocumentContent 
+            type="viewer"
+            items={pdfUrls.map((url, index) => ({
+              id: url,
+              label: `Document ${index + 1}`,
+              content: url
+            }))}
+          />
         );
       }
       
-      return <PDFViewer pdfUrl={pdfUrls[0]} />;
+      return <PDFContent pdfUrl={pdfUrls[0]} />;
     }
     
+    // Video Content for Course 1
     if (courseId === 1 && moduleId === "1") {
       return (
-        <div className="space-y-6">
-          <VideoPlayer videoUrl="https://drive.google.com/file/d/1Rwj6GVu7niykCCpRGp2QIw_d3ODbmJgF/view?usp=sharing" />
-          <VideoPlayer videoUrl="https://drive.google.com/file/d/1Lqh7OPpZZ18hXv44ENB-vs_x6Xi820Uk/view?usp=sharing" />
-        </div>
+        <VideoContent videoUrls={[
+          "https://drive.google.com/file/d/1Rwj6GVu7niykCCpRGp2QIw_d3ODbmJgF/view?usp=sharing",
+          "https://drive.google.com/file/d/1Lqh7OPpZZ18hXv44ENB-vs_x6Xi820Uk/view?usp=sharing"
+        ]} />
       );
     }
+    
     if (courseId === 1 && moduleId === "2") {
       return (
-        <div className="space-y-6">
-          <VideoPlayer videoUrl="https://drive.google.com/file/d/1WKVu84EXGcD6Fpb04eH6LOH1kFcQuX8M/view?usp=sharing" />
-        </div>
+        <VideoContent videoUrls={[
+          "https://drive.google.com/file/d/1WKVu84EXGcD6Fpb04eH6LOH1kFcQuX8M/view?usp=sharing"
+        ]} />
       );
     }
+    
+    // Video Upload placeholder
     if (moduleContent.content?.startsWith('[Video Placeholder')) {
       return (
         <div className="space-y-4">
           <VideoUploader 
-            targetPath={generateVideoPath()}
+            targetPath={generateVideoPath(courseId, moduleId)}
             onUploadComplete={(url: string) => {
               console.log("Video URL:", url);
             }}
           />
-          <div className="prose max-w-none">
-            {moduleContent.content.split('\n').map((paragraph, i) => (
-              <p key={i} className="text-muted-foreground mb-4">{paragraph}</p>
-            ))}
-          </div>
+          <TextContent content={moduleContent.content} />
         </div>
       );
     }
-    return (
-      <div className="prose max-w-none">
-        {moduleContent.content.split('\n').map((paragraph, i) => (
-          <p key={i} className="text-muted-foreground mb-4">{paragraph}</p>
-        ))}
-      </div>
-    );
+    
+    // Default - Text Content
+    return <TextContent content={moduleContent.content} />;
   };
 
   return (
