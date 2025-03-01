@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
@@ -37,7 +38,7 @@ const PathProcess = () => {
         "Front of the house",
         "Sales, Operations, Leadership",
         "",
-        "• Using **proprietary pulse-based technology**, we create a **customized deterrence solution** tailored to your needs",
+        "• Our internal engineering team will **create a customized deterrence solution** tailored to your needs using our proprietary pulse-based technology",
         "",
         "• Our solutions are designed to be **effective, non-invasive, and long-lasting**",
         "",
