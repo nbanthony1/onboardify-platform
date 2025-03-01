@@ -84,7 +84,7 @@ const PDFUploader = ({ targetPath, storageKey = 'uploadedPdf', onUploadComplete 
         toast({
           title: "Local Upload Only",
           description: "PDF saved locally only. It may not persist across sessions.",
-          variant: "warning"
+          variant: "destructive" // Changed from "warning" to "destructive" to fix the type error
         });
         
         // Notify parent component if callback provided

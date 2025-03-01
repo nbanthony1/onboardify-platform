@@ -1,4 +1,3 @@
-
 import { useParams, Link } from "react-router-dom";
 import { courses } from "@/data/courses";
 import { Button } from "@/components/ui/button";
@@ -57,8 +56,7 @@ const ModuleContent = () => {
         toast({
           title: "PDF Files Need Re-upload",
           description: "Some PDF files were stored temporarily and need to be re-uploaded for permanent storage.",
-          variant: "warning",
-          duration: 6000
+          variant: "destructive"
         });
       }
       
@@ -94,29 +92,21 @@ const ModuleContent = () => {
 
     // Product course special handlers
     if (moduleContent.content === '[PRODUCT_OVERVIEW_PDF]') {
-      return (
-        <PDFUploadContent 
-          targetPath={generatePdfPath(course.title, moduleId, 'product-overview')} 
-          storageKey="product-overview-pdf"
-        />
-      );
+      return <PDFContent pdfUrl="https://drive.google.com/file/d/1iZkpNEpFCaeBUfYNNLrNB4k4WSTC_7xE/preview" />;
     }
     
     if (moduleContent.content === '[INSTALLATION_PDF]') {
-      return <PDFUploadContent 
-        targetPath={generatePdfPath(course.title, moduleId, 'installation')}
-        storageKey="installation-pdf" 
-      />;
+      return <PDFContent pdfUrl="https://drive.google.com/file/d/1aNvSgJYvfRVk4DZI3sLTNrhpZNh4Wsh8/preview" />;
     }
     
     if (moduleContent.content === '[ARIZONA_STUDY_PDFS]') {
       return (
         <MultipleDocumentContent 
-          type="uploader"
+          type="viewer"
           items={[
-            { id: "pdf1", label: "Document 1", content: "arizona-study-doc1" },
-            { id: "pdf2", label: "Document 2", content: "arizona-study-doc2" },
-            { id: "pdf3", label: "Document 3", content: "arizona-study-doc3" }
+            { id: "pdf1", label: "Document 1", content: "https://drive.google.com/file/d/1lY3YjqMxC5Y7-5-eDNYDFDUkT3GQ5j9L/preview" },
+            { id: "pdf2", label: "Document 2", content: "https://drive.google.com/file/d/1f98dxCZ2cQh4dNjwqLzrLPPV5jgDx7mU/preview" },
+            { id: "pdf3", label: "Document 3", content: "https://drive.google.com/file/d/1pZrRGJQ_FHBYe3pEOUSLjWXYt4vUbYs1/preview" }
           ]}
         />
       );
@@ -124,29 +114,21 @@ const ModuleContent = () => {
     
     // PDF Upload for Course 2, Module 1 (legacy code, keeping for compatibility)
     if (courseId === 2 && moduleId === "1") {
-      return (
-        <PDFUploadContent 
-          targetPath={generatePdfPath(course.title, moduleId, 'product-overview')} 
-          storageKey="product-overview-pdf"
-        />
-      );
+      return <PDFContent pdfUrl="https://drive.google.com/file/d/1iZkpNEpFCaeBUfYNNLrNB4k4WSTC_7xE/preview" />;
     }
     
     if (courseId === 2 && moduleId === "5") {
-      return <PDFUploadContent 
-        targetPath={generatePdfPath(course.title, moduleId, 'installation')}
-        storageKey="installation-pdf" 
-      />;
+      return <PDFContent pdfUrl="https://drive.google.com/file/d/1aNvSgJYvfRVk4DZI3sLTNrhpZNh4Wsh8/preview" />;
     }
     
     if (courseId === 2 && moduleId === "4") {
       return (
         <MultipleDocumentContent 
-          type="uploader"
+          type="viewer"
           items={[
-            { id: "pdf1", label: "Document 1", content: "arizona-study-doc1" },
-            { id: "pdf2", label: "Document 2", content: "arizona-study-doc2" },
-            { id: "pdf3", label: "Document 3", content: "arizona-study-doc3" }
+            { id: "pdf1", label: "Document 1", content: "https://drive.google.com/file/d/1lY3YjqMxC5Y7-5-eDNYDFDUkT3GQ5j9L/preview" },
+            { id: "pdf2", label: "Document 2", content: "https://drive.google.com/file/d/1f98dxCZ2cQh4dNjwqLzrLPPV5jgDx7mU/preview" },
+            { id: "pdf3", label: "Document 3", content: "https://drive.google.com/file/d/1pZrRGJQ_FHBYe3pEOUSLjWXYt4vUbYs1/preview" }
           ]}
         />
       );
