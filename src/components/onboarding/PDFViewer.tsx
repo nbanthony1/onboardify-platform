@@ -20,6 +20,7 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
         // Handle Google Drive URL directly
         if (PDFStorageService.isGoogleDriveUrl(pdfUrl)) {
           const formattedUrl = PDFStorageService.formatGoogleDriveUrl(pdfUrl);
+          console.log('Using Google Drive URL:', formattedUrl);
           setFileUrl(formattedUrl);
           setNeedsUpload(false);
           setIsChecking(false);

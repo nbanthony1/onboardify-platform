@@ -1,3 +1,4 @@
+
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 
@@ -20,13 +21,21 @@ export class PDFStorageService {
    */
   static formatGoogleDriveUrl(url: string): string {
     if (this.isGoogleDriveUrl(url)) {
-      // If it's not already in the embed format
-      if (!url.includes('/preview')) {
-        // Extract file ID and create preview URL
-        const match = url.match(/\/d\/([^\/]+)/);
-        if (match && match[1]) {
-          return `https://drive.google.com/file/d/${match[1]}/preview`;
-        }
+      // Check if it's already in the preview format
+      if (url.includes('/preview')) {
+        return url;
+      }
+      
+      // Extract file ID and create preview URL
+      const match = url.match(/\/d\/([^\/]+)/);
+      if (match && match[1]) {
+        return `https://drive.google.com/file/d/${match[1]}/preview`;
+      }
+      
+      // Try another pattern for view links
+      const viewMatch = url.match(/\/file\/d\/([^\/]+)\/view/);
+      if (viewMatch && viewMatch[1]) {
+        return `https://drive.google.com/file/d/${viewMatch[1]}/preview`;
       }
     }
     return url;
