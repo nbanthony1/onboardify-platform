@@ -1,4 +1,3 @@
-
 import { useParams, Link } from "react-router-dom";
 import { courses } from "@/data/courses";
 import PDFViewer from "@/components/onboarding/PDFViewer";
@@ -58,10 +57,39 @@ const ModuleContent = () => {
       return <PDFUploader />;
     }
     
-    // Special case for University of Arizona Studies module to use the PDFUploader 
+    // Special case for University of Arizona Studies module to use multiple PDFUploaders
     if (courseId === 2 && moduleId === "4") {
-      console.log("Using PDFUploader for University of Arizona Studies module");
-      return <PDFUploader />;
+      console.log("Using multiple PDFUploaders for University of Arizona Studies module");
+      return (
+        <Tabs defaultValue="pdf1" className="w-full">
+          <TabsList className="mb-4">
+            <TabsTrigger value="pdf1">Document 1</TabsTrigger>
+            <TabsTrigger value="pdf2">Document 2</TabsTrigger>
+            <TabsTrigger value="pdf3">Document 3</TabsTrigger>
+          </TabsList>
+          <TabsContent value="pdf1">
+            <Card>
+              <CardContent className="p-0">
+                <PDFUploader />
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="pdf2">
+            <Card>
+              <CardContent className="p-0">
+                <PDFUploader />
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="pdf3">
+            <Card>
+              <CardContent className="p-0">
+                <PDFUploader />
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      );
     }
     
     // Handle multiple PDFs separated by commas
