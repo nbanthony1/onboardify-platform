@@ -1,9 +1,10 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { Button } from "@/components/ui/button";
 import FileUploader from "./FileUploader";
 import { ChevronLeft, ChevronRight, Upload } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 // Set the worker source
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
@@ -16,21 +17,37 @@ const PDFUploader = ({ targetPath }: PDFUploaderProps) => {
   const [file, setFile] = useState<File | null>(null);
   const [fileUrl, setFileUrl] = useState<string | null>(null);
   const [numPages, setNumPages] = useState<number | null>(null);
-  const [pageNumber, setPageNumber] = useState(1);
+  
+  // Check local storage for previously uploaded PDF
+  useEffect(() => {
+    const savedPdf = localStorage.getItem('uploadedPdf');
+    if (savedPdf) {
+      try {
+        setFileUrl(savedPdf);
+      } catch (error) {
+        console.error("Error loading saved PDF:", error);
+      }
+    }
+  }, []);
 
   const onFileSelected = (selectedFile: File) => {
     console.log("File selected in PDFUploader:", selectedFile.name);
     if (selectedFile && selectedFile.type === "application/pdf") {
       setFile(selectedFile);
-      setFileUrl(URL.createObjectURL(selectedFile));
-      setPageNumber(1);
+      const objectUrl = URL.createObjectURL(selectedFile);
+      setFileUrl(objectUrl);
+      
+      // Save to local storage for persistence
+      localStorage.setItem('uploadedPdf', objectUrl);
     }
   };
 
   const onUploadComplete = (url: string) => {
     console.log("Upload complete, URL:", url);
     setFileUrl(url);
-    setPageNumber(1);
+    
+    // Save to local storage for persistence
+    localStorage.setItem('uploadedPdf', url);
   };
 
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
@@ -97,48 +114,38 @@ const PDFUploader = ({ targetPath }: PDFUploaderProps) => {
 
       {fileUrl && (
         <div className="w-full border p-4 rounded-lg shadow-lg">
-          <Document 
-            file={fileUrl} 
-            onLoadSuccess={onDocumentLoadSuccess}
-            loading={<div className="text-center p-4">Loading PDF...</div>}
-            error={<div className="text-center p-4 text-red-500">Failed to load PDF. Please try again.</div>}
-          >
-            <Page 
-              pageNumber={pageNumber} 
-              width={window.innerWidth > 768 ? 600 : window.innerWidth - 80}
-              renderTextLayer={false}
-              renderAnnotationLayer={false}
-            />
-          </Document>
-
-          <div className="flex items-center justify-between mt-4">
-            <Button
-              variant="outline"
-              disabled={pageNumber <= 1}
-              onClick={() => setPageNumber(pageNumber - 1)}
+          <ScrollArea className="h-[70vh] w-full">
+            <Document 
+              file={fileUrl} 
+              onLoadSuccess={onDocumentLoadSuccess}
+              loading={<div className="text-center p-4">Loading PDF...</div>}
+              error={<div className="text-center p-4 text-red-500">Failed to load PDF. Please try again.</div>}
             >
-              <ChevronLeft className="mr-1 h-4 w-4" /> Previous
-            </Button>
-            <p className="text-sm text-muted-foreground">
-              Page {pageNumber} of {numPages || '?'}
-            </p>
-            <Button
-              variant="outline"
-              disabled={!numPages || pageNumber >= numPages}
-              onClick={() => setPageNumber(pageNumber + 1)}
-            >
-              Next <ChevronRight className="ml-1 h-4 w-4" />
-            </Button>
-          </div>
+              {Array.from(new Array(numPages), (_, index) => (
+                <Page 
+                  key={`page_${index + 1}`}
+                  pageNumber={index + 1} 
+                  width={window.innerWidth > 768 ? 600 : window.innerWidth - 80}
+                  renderTextLayer={false}
+                  renderAnnotationLayer={false}
+                  className="mb-4"
+                />
+              ))}
+            </Document>
+          </ScrollArea>
           
-          <div className="mt-4 flex justify-center">
+          <div className="mt-4 flex justify-between">
+            <p className="text-sm text-muted-foreground">
+              {numPages} page{numPages !== 1 ? 's' : ''}
+            </p>
+            
             <Button 
               variant="outline" 
               onClick={() => {
                 setFile(null);
                 setFileUrl(null);
                 setNumPages(null);
-                setPageNumber(1);
+                localStorage.removeItem('uploadedPdf');
               }}
             >
               Upload Another PDF
