@@ -10,7 +10,7 @@ export const productCourse: Course = {
   modules: [
     {
       title: "Product Overview",
-      content: "/pdfs/product/product-overview.pdf"
+      content: "[PRODUCT_OVERVIEW_PDF]" // Special identifier for uploaded PDFs
     },
     {
       title: "Technology Overview",
@@ -22,11 +22,11 @@ export const productCourse: Course = {
     },
     {
       title: "University of Arizona Study",
-      content: "/pdfs/product/university-arizona-study-1.pdf,/pdfs/product/university-arizona-study-2.pdf,/pdfs/product/university-arizona-study-3.pdf"
+      content: "[ARIZONA_STUDY_PDFS]" // Special identifier for multiple PDFs
     },
     {
       title: "Installation",
-      content: "/pdfs/product/installation.pdf"
+      content: "[INSTALLATION_PDF]" // Special identifier for uploaded PDF
     }
   ]
 };

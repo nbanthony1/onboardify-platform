@@ -1,4 +1,3 @@
-
 import { useParams, Link } from "react-router-dom";
 import { courses } from "@/data/courses";
 import { Button } from "@/components/ui/button";
@@ -53,8 +52,38 @@ const ModuleContent = () => {
     if (moduleContent.content === '[CUSTOMER_RESEARCH]') {
       return <InteractiveContent contentType="[CUSTOMER_RESEARCH]" />;
     }
+
+    // Product course special handlers
+    if (moduleContent.content === '[PRODUCT_OVERVIEW_PDF]') {
+      return (
+        <PDFUploadContent 
+          targetPath={generatePdfPath(course.title, moduleId, 'product-overview')} 
+          storageKey="product-overview-pdf"
+        />
+      );
+    }
     
-    // PDF Upload for Course 2, Module 1
+    if (moduleContent.content === '[INSTALLATION_PDF]') {
+      return <PDFUploadContent 
+        targetPath={generatePdfPath(course.title, moduleId, 'installation')}
+        storageKey="installation-pdf" 
+      />;
+    }
+    
+    if (moduleContent.content === '[ARIZONA_STUDY_PDFS]') {
+      return (
+        <MultipleDocumentContent 
+          type="uploader"
+          items={[
+            { id: "pdf1", label: "Document 1", content: "arizona-study-doc1" },
+            { id: "pdf2", label: "Document 2", content: "arizona-study-doc2" },
+            { id: "pdf3", label: "Document 3", content: "arizona-study-doc3" }
+          ]}
+        />
+      );
+    }
+    
+    // PDF Upload for Course 2, Module 1 (legacy code, keeping for compatibility)
     if (courseId === 2 && moduleId === "1") {
       return (
         <PDFUploadContent 
@@ -64,7 +93,7 @@ const ModuleContent = () => {
       );
     }
     
-    // PDF Upload for Course 2, Module 5
+    // PDF Upload for Course 2, Module 5 (legacy code, keeping for compatibility)
     if (courseId === 2 && moduleId === "5") {
       return <PDFUploadContent 
         targetPath={generatePdfPath(course.title, moduleId, 'installation')}
@@ -72,7 +101,7 @@ const ModuleContent = () => {
       />;
     }
     
-    // Multiple PDFs Upload for Course 2, Module 4
+    // Multiple PDFs Upload for Course 2, Module 4 (legacy code, keeping for compatibility)
     if (courseId === 2 && moduleId === "4") {
       return (
         <MultipleDocumentContent 
