@@ -7,9 +7,10 @@ import { toast } from "@/hooks/use-toast";
 interface FileUploaderProps {
   targetPath: string;
   onUploadComplete?: (url: string) => void;
+  onFileSelected?: (file: File) => void;
 }
 
-const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
+const FileUploader = ({ targetPath, onUploadComplete, onFileSelected }: FileUploaderProps) => {
   const handleFileChange = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
     // Prevent any form submission
     event.preventDefault();
@@ -30,7 +31,13 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
       return;
     }
 
-    // Show loading toast
+    // If onFileSelected is provided, use local file handling instead of uploading to Supabase
+    if (onFileSelected) {
+      onFileSelected(file);
+      return;
+    }
+
+    // Show loading toast for Supabase upload
     toast({
       title: "Uploading...",
       description: "Please wait while we upload your file.",
@@ -121,7 +128,7 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
 
     // Clear the input
     event.target.value = '';
-  }, [targetPath, onUploadComplete]);
+  }, [targetPath, onUploadComplete, onFileSelected]);
 
   return (
     <div className="flex flex-col items-center gap-4 p-6 border-2 border-dashed rounded-lg" onClick={e => e.preventDefault()}>

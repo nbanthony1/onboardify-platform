@@ -2,6 +2,7 @@
 import { useParams, Link } from "react-router-dom";
 import { courses } from "@/data/courses";
 import PDFViewer from "@/components/onboarding/PDFViewer";
+import PDFUploader from "@/components/onboarding/PDFUploader";
 import OrgChart from "@/components/onboarding/OrgChart";
 import CustomerResearch from "@/components/onboarding/CustomerResearch";
 import PathProcess from "@/components/onboarding/PathProcess";
@@ -50,6 +51,12 @@ const ModuleContent = () => {
     }
     if (moduleContent.content === '[CUSTOMER_RESEARCH]') {
       return <CustomerResearch />;
+    }
+    
+    // Special case for Installation and University of Arizona modules to use the new PDFUploader
+    if (courseId === 2 && (moduleId === "5" || moduleId === "4")) {
+      console.log("Using PDFUploader for module:", moduleId);
+      return <PDFUploader />;
     }
     
     // Handle multiple PDFs separated by commas
