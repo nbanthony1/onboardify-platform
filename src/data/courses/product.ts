@@ -10,7 +10,7 @@ export const productCourse: Course = {
   modules: [
     {
       title: "Product Overview",
-      content: "https://drive.google.com/file/d/1mqpdyVD1eCFc35Lj7M8qXHew89lWDkY0/preview" // Fixed Google Drive link to use preview directly
+      content: "https://drive.google.com/file/d/1mqpdyVD1eCFc35Lj7M8qXHew89lWDkY0/preview" // Updated link to use /preview format
     },
     {
       title: "Technology Overview",

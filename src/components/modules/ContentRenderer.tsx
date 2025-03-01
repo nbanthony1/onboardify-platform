@@ -80,9 +80,10 @@ const ContentRenderer = ({ courseId, moduleId, moduleContent }: ContentRendererP
     return <InteractiveContent contentType="[CUSTOMER_RESEARCH]" />;
   }
 
-  // Product course special handlers
-  if (moduleContent.content === '[PRODUCT_OVERVIEW_PDF]') {
-    return <PDFContent pdfUrl="https://drive.google.com/file/d/1iZkpNEpFCaeBUfYNNLrNB4k4WSTC_7xE/preview" />;
+  // Product course special handlers - directly use the content from moduleContent
+  if (courseId === 2 && moduleId === "1") {
+    console.log("Rendering Product Overview PDF:", moduleContent.content);
+    return <PDFContent pdfUrl={moduleContent.content} />;
   }
   
   if (moduleContent.content === '[INSTALLATION_PDF]') {
@@ -103,10 +104,6 @@ const ContentRenderer = ({ courseId, moduleId, moduleContent }: ContentRendererP
   }
   
   // PDF Upload for Course 2, Module 1 (legacy code, keeping for compatibility)
-  if (courseId === 2 && moduleId === "1") {
-    return <PDFContent pdfUrl="https://drive.google.com/file/d/1iZkpNEpFCaeBUfYNNLrNB4k4WSTC_7xE/preview" />;
-  }
-  
   if (courseId === 2 && moduleId === "5") {
     return <PDFContent pdfUrl="https://drive.google.com/file/d/1aNvSgJYvfRVk4DZI3sLTNrhpZNh4Wsh8/preview" />;
   }
