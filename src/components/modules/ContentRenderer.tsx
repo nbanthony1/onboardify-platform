@@ -82,7 +82,7 @@ const ContentRenderer = ({ courseId, moduleId, moduleContent }: ContentRendererP
   }
   
   if (moduleContent.content === '[INSTALLATION_PDF]') {
-    return <PDFContent pdfUrl="https://drive.google.com/file/d/1aNvSgJYvfRVk4DZI3sLTNrhpZNh4Wsh8/preview" />;
+    return <PDFContent pdfUrl="https://drive.google.com/file/d/18DU656HZwvOFC-X-7YhJRLsinAmIGDWo/preview" />;
   }
   
   if (moduleContent.content === '[ARIZONA_STUDY_PDFS]') {
@@ -99,7 +99,7 @@ const ContentRenderer = ({ courseId, moduleId, moduleContent }: ContentRendererP
   }
   
   if (courseId === 2 && moduleId === "5") {
-    return <PDFContent pdfUrl="https://drive.google.com/file/d/1aNvSgJYvfRVk4DZI3sLTNrhpZNh4Wsh8/preview" />;
+    return <PDFContent pdfUrl="https://drive.google.com/file/d/18DU656HZwvOFC-X-7YhJRLsinAmIGDWo/preview" />;
   }
   
   if (courseId === 2 && moduleId === "4") {
