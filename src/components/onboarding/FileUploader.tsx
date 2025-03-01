@@ -3,6 +3,7 @@ import React, { useCallback } from 'react';
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
+import { Upload } from "lucide-react";
 
 interface FileUploaderProps {
   targetPath: string;
@@ -20,7 +21,7 @@ const FileUploader = ({ targetPath, onUploadComplete, onFileSelected }: FileUplo
     if (!file) return;
 
     // Log file information to help debug
-    console.log('File selected:', file.name, file.type, file.size);
+    console.log('File selected in FileUploader:', file.name, file.type, file.size);
 
     if (!file.type.startsWith('image/') && file.type !== 'application/pdf') {
       toast({
@@ -33,6 +34,7 @@ const FileUploader = ({ targetPath, onUploadComplete, onFileSelected }: FileUplo
 
     // If onFileSelected is provided, use local file handling instead of uploading to Supabase
     if (onFileSelected) {
+      console.log('Using local file handling with onFileSelected');
       onFileSelected(file);
       return;
     }
@@ -132,7 +134,7 @@ const FileUploader = ({ targetPath, onUploadComplete, onFileSelected }: FileUplo
 
   return (
     <div className="flex flex-col items-center gap-4 p-6 border-2 border-dashed rounded-lg" onClick={e => e.preventDefault()}>
-      <p className="text-sm text-muted-foreground">Upload a PDF file to continue</p>
+      <p className="text-sm text-muted-foreground">Upload to Storage</p>
       <Button
         variant="outline"
         className="relative"
@@ -143,11 +145,12 @@ const FileUploader = ({ targetPath, onUploadComplete, onFileSelected }: FileUplo
           input?.click();
         }}
       >
+        <Upload className="mr-2 h-4 w-4" />
         Choose File
         <input
           id="file-upload"
           type="file"
-          accept="application/pdf"
+          accept="application/pdf,.pdf"
           className="hidden"
           onChange={handleFileChange}
         />

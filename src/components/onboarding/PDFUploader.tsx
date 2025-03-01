@@ -37,17 +37,18 @@ const PDFUploader = ({ targetPath }: PDFUploaderProps) => {
     setNumPages(numPages);
   };
 
-  // Direct file input handler
+  // Simplified direct file input handler
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("File input change detected");
     const selectedFile = event.target.files?.[0];
-    if (selectedFile && selectedFile.type === "application/pdf") {
-      console.log("Direct file input, file selected:", selectedFile.name);
-      setFile(selectedFile);
-      setFileUrl(URL.createObjectURL(selectedFile));
-      setPageNumber(1);
-    } else if (selectedFile) {
-      console.log("Invalid file type:", selectedFile.type);
-      alert("Please upload a valid PDF file.");
+    if (selectedFile) {
+      console.log("File selected:", selectedFile.name, selectedFile.type);
+      if (selectedFile.type === "application/pdf") {
+        onFileSelected(selectedFile);
+      } else {
+        console.log("Invalid file type:", selectedFile.type);
+        alert("Please upload a valid PDF file.");
+      }
     }
   };
 
@@ -55,21 +56,31 @@ const PDFUploader = ({ targetPath }: PDFUploaderProps) => {
     <div className="flex flex-col items-center justify-center p-4">
       {!fileUrl && (
         <div className="w-full flex flex-col items-center gap-4 p-6 border-2 border-dashed rounded-lg">
-          <p className="text-sm text-muted-foreground">Upload a PDF file to continue</p>
+          <p className="text-sm text-muted-foreground mb-4">Upload a PDF file to continue</p>
           
-          {/* Direct file input option */}
-          <input
-            type="file"
-            accept="application/pdf"
-            onChange={handleFileChange}
-            className="hidden"
-            id="direct-pdf-upload"
-          />
-          <label htmlFor="direct-pdf-upload">
-            <Button variant="outline" className="cursor-pointer">
-              <Upload className="mr-2 h-4 w-4" /> Choose PDF
+          {/* Simple, direct file input button */}
+          <div className="flex flex-col items-center gap-4">
+            <input
+              type="file"
+              id="pdf-file-input"
+              accept=".pdf,application/pdf"
+              onChange={handleFileChange}
+              className="block w-full text-sm text-slate-500
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-full file:border-0
+                file:text-sm file:font-semibold
+                file:bg-primary file:text-white
+                hover:file:bg-primary/90 cursor-pointer"
+            />
+            
+            <Button 
+              variant="outline"
+              onClick={() => document.getElementById('pdf-file-input')?.click()}
+              className="mt-2"
+            >
+              <Upload className="mr-2 h-4 w-4" /> Choose PDF File
             </Button>
-          </label>
+          </div>
           
           {/* Optional FileUploader for Supabase integration */}
           {targetPath && (
