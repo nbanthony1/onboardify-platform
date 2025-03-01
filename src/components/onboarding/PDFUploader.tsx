@@ -11,16 +11,17 @@ pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pd
 
 interface PDFUploaderProps {
   targetPath?: string;
+  storageKey?: string;
 }
 
-const PDFUploader = ({ targetPath }: PDFUploaderProps) => {
+const PDFUploader = ({ targetPath, storageKey = 'uploadedPdf' }: PDFUploaderProps) => {
   const [file, setFile] = useState<File | null>(null);
   const [fileUrl, setFileUrl] = useState<string | null>(null);
   const [numPages, setNumPages] = useState<number | null>(null);
   
-  // Check local storage for previously uploaded PDF
+  // Check local storage for previously uploaded PDF using the unique storageKey
   useEffect(() => {
-    const savedPdf = localStorage.getItem('uploadedPdf');
+    const savedPdf = localStorage.getItem(storageKey);
     if (savedPdf) {
       try {
         setFileUrl(savedPdf);
@@ -28,26 +29,26 @@ const PDFUploader = ({ targetPath }: PDFUploaderProps) => {
         console.error("Error loading saved PDF:", error);
       }
     }
-  }, []);
+  }, [storageKey]);
 
   const onFileSelected = (selectedFile: File) => {
-    console.log("File selected in PDFUploader:", selectedFile.name);
+    console.log(`File selected in PDFUploader (${storageKey}):`, selectedFile.name);
     if (selectedFile && selectedFile.type === "application/pdf") {
       setFile(selectedFile);
       const objectUrl = URL.createObjectURL(selectedFile);
       setFileUrl(objectUrl);
       
-      // Save to local storage for persistence
-      localStorage.setItem('uploadedPdf', objectUrl);
+      // Save to local storage for persistence using the unique storageKey
+      localStorage.setItem(storageKey, objectUrl);
     }
   };
 
   const onUploadComplete = (url: string) => {
-    console.log("Upload complete, URL:", url);
+    console.log(`Upload complete for ${storageKey}, URL:`, url);
     setFileUrl(url);
     
-    // Save to local storage for persistence
-    localStorage.setItem('uploadedPdf', url);
+    // Save to local storage for persistence using the unique storageKey
+    localStorage.setItem(storageKey, url);
   };
 
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
@@ -56,10 +57,10 @@ const PDFUploader = ({ targetPath }: PDFUploaderProps) => {
 
   // Simplified direct file input handler
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("File input change detected");
+    console.log(`File input change detected for ${storageKey}`);
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
-      console.log("File selected:", selectedFile.name, selectedFile.type);
+      console.log(`File selected for ${storageKey}:`, selectedFile.name, selectedFile.type);
       if (selectedFile.type === "application/pdf") {
         onFileSelected(selectedFile);
       } else {
@@ -79,7 +80,7 @@ const PDFUploader = ({ targetPath }: PDFUploaderProps) => {
           <div className="flex flex-col items-center gap-4">
             <input
               type="file"
-              id="pdf-file-input"
+              id={`pdf-file-input-${storageKey}`}
               accept=".pdf,application/pdf"
               onChange={handleFileChange}
               className="block w-full text-sm text-slate-500
@@ -92,7 +93,7 @@ const PDFUploader = ({ targetPath }: PDFUploaderProps) => {
             
             <Button 
               variant="outline"
-              onClick={() => document.getElementById('pdf-file-input')?.click()}
+              onClick={() => document.getElementById(`pdf-file-input-${storageKey}`)?.click()}
               className="mt-2"
             >
               <Upload className="mr-2 h-4 w-4" /> Choose PDF File
@@ -145,7 +146,7 @@ const PDFUploader = ({ targetPath }: PDFUploaderProps) => {
                 setFile(null);
                 setFileUrl(null);
                 setNumPages(null);
-                localStorage.removeItem('uploadedPdf');
+                localStorage.removeItem(storageKey);
               }}
             >
               Upload Another PDF

@@ -70,21 +70,21 @@ const ModuleContent = () => {
           <TabsContent value="pdf1">
             <Card>
               <CardContent className="p-0">
-                <PDFUploader />
+                <PDFUploader storageKey="arizona-study-doc1" />
               </CardContent>
             </Card>
           </TabsContent>
           <TabsContent value="pdf2">
             <Card>
               <CardContent className="p-0">
-                <PDFUploader />
+                <PDFUploader storageKey="arizona-study-doc2" />
               </CardContent>
             </Card>
           </TabsContent>
           <TabsContent value="pdf3">
             <Card>
               <CardContent className="p-0">
-                <PDFUploader />
+                <PDFUploader storageKey="arizona-study-doc3" />
               </CardContent>
             </Card>
           </TabsContent>
