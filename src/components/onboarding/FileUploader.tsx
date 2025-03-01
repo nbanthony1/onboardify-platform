@@ -18,10 +18,10 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    if (!file.type.startsWith('image/')) {
+    if (!file.type.startsWith('image/') && file.type !== 'application/pdf') {
       toast({
         title: "Invalid File Type",
-        description: "Please upload an image file.",
+        description: "Please upload an image or PDF file.",
         variant: "destructive"
       });
       return;
@@ -30,7 +30,7 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
     // Show loading toast
     toast({
       title: "Uploading...",
-      description: "Please wait while we upload your image.",
+      description: "Please wait while we upload your file.",
     });
 
     try {
@@ -65,7 +65,7 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
 
       toast({
         title: "Upload Successful",
-        description: "Your image has been uploaded successfully.",
+        description: "Your file has been uploaded successfully.",
       });
 
     } catch (error) {
@@ -83,7 +83,7 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
 
   return (
     <div className="flex flex-col items-center gap-4 p-6 border-2 border-dashed rounded-lg" onClick={e => e.preventDefault()}>
-      <p className="text-sm text-muted-foreground">Upload an image to continue</p>
+      <p className="text-sm text-muted-foreground">Upload a PDF file to continue</p>
       <Button
         variant="outline"
         className="relative"
@@ -98,7 +98,7 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
         <input
           id="file-upload"
           type="file"
-          accept="image/*"
+          accept="application/pdf"
           className="hidden"
           onChange={handleFileChange}
         />
