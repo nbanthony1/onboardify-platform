@@ -10,7 +10,7 @@ export const productCourse: Course = {
   modules: [
     {
       title: "Product Overview",
-      content: "[PRODUCT_OVERVIEW_PDF]" // Special identifier for uploaded PDFs
+      content: "https://drive.google.com/file/d/1mqpdyVD1eCFc35Lj7M8qXHew89lWDkY0/view?usp=drive_link" // Updated Google Drive link
     },
     {
       title: "Technology Overview",

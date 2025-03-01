@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from "@/integrations/supabase/client";
 import FileUploader from './FileUploader';
 import { toast } from "@/hooks/use-toast";
+import { PDFStorageService } from '@/services/PDFStorageService';
 
 interface PDFViewerProps {
   pdfUrl: string;
@@ -16,6 +17,15 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
   useEffect(() => {
     const checkFileExists = async () => {
       try {
+        // Handle Google Drive URL directly
+        if (PDFStorageService.isGoogleDriveUrl(pdfUrl)) {
+          const formattedUrl = PDFStorageService.formatGoogleDriveUrl(pdfUrl);
+          setFileUrl(formattedUrl);
+          setNeedsUpload(false);
+          setIsChecking(false);
+          return;
+        }
+        
         if (pdfUrl.startsWith('/pdfs/')) {
           const filePath = pdfUrl.substring(1); // Remove leading slash
           
@@ -107,11 +117,22 @@ const PDFViewer = ({ pdfUrl }: PDFViewerProps) => {
   return (
     <div className="w-full h-[80vh]">
       {fileUrl ? (
-        <iframe
-          src={`https://docs.google.com/viewer?url=${encodeURIComponent(fileUrl)}&embedded=true`}
-          className="w-full h-full border-0"
-          title="PDF Viewer"
-        />
+        PDFStorageService.isGoogleDriveUrl(fileUrl) ? (
+          // Direct iframe for Google Drive
+          <iframe
+            src={fileUrl}
+            className="w-full h-full border-0"
+            title="PDF Viewer"
+            allowFullScreen
+          />
+        ) : (
+          // Use Google Docs viewer for other URLs
+          <iframe
+            src={`https://docs.google.com/viewer?url=${encodeURIComponent(fileUrl)}&embedded=true`}
+            className="w-full h-full border-0"
+            title="PDF Viewer"
+          />
+        )
       ) : (
         <div className="flex items-center justify-center h-full bg-gray-50 rounded-lg">
           <p className="text-center text-gray-600">
