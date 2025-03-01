@@ -1,4 +1,3 @@
-
 import { useParams, Link } from "react-router-dom";
 import { courses } from "@/data/courses";
 import PDFViewer from "@/components/onboarding/PDFViewer";
@@ -10,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import VideoPlayer from "@/components/onboarding/VideoPlayer";
 import VideoUploader from "@/components/onboarding/VideoUploader";
-import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -28,7 +26,7 @@ const ModuleContent = () => {
 
   const moduleContent = typeof module === 'string' ? { title: module, content: '' } : module;
 
-  // Debug module information to see if there are any differences
+  // Debug module information
   console.log('Course and module:', courseId, moduleId, moduleContent);
 
   const generateVideoPath = () => {
@@ -53,7 +51,7 @@ const ModuleContent = () => {
       return <CustomerResearch />;
     }
     
-    // Special case for Installation and University of Arizona modules to use the new PDFUploader
+    // Special case for Installation and University of Arizona modules to use the PDFUploader
     if (courseId === 2 && (moduleId === "5" || moduleId === "4")) {
       console.log("Using PDFUploader for module:", moduleId);
       return <PDFUploader />;

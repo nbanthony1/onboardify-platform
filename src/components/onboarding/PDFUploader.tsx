@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { Button } from "@/components/ui/button";
 import FileUploader from "./FileUploader";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Upload } from "lucide-react";
 
 // Set the worker source
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
@@ -19,6 +19,7 @@ const PDFUploader = ({ targetPath }: PDFUploaderProps) => {
   const [pageNumber, setPageNumber] = useState(1);
 
   const onFileSelected = (selectedFile: File) => {
+    console.log("File selected in PDFUploader:", selectedFile.name);
     if (selectedFile && selectedFile.type === "application/pdf") {
       setFile(selectedFile);
       setFileUrl(URL.createObjectURL(selectedFile));
@@ -27,6 +28,7 @@ const PDFUploader = ({ targetPath }: PDFUploaderProps) => {
   };
 
   const onUploadComplete = (url: string) => {
+    console.log("Upload complete, URL:", url);
     setFileUrl(url);
     setPageNumber(1);
   };
@@ -35,14 +37,51 @@ const PDFUploader = ({ targetPath }: PDFUploaderProps) => {
     setNumPages(numPages);
   };
 
+  // Direct file input handler
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0];
+    if (selectedFile && selectedFile.type === "application/pdf") {
+      console.log("Direct file input, file selected:", selectedFile.name);
+      setFile(selectedFile);
+      setFileUrl(URL.createObjectURL(selectedFile));
+      setPageNumber(1);
+    } else if (selectedFile) {
+      console.log("Invalid file type:", selectedFile.type);
+      alert("Please upload a valid PDF file.");
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center p-4">
       {!fileUrl && (
-        <FileUploader 
-          targetPath={targetPath || ""}
-          onUploadComplete={targetPath ? onUploadComplete : undefined}
-          onFileSelected={!targetPath ? onFileSelected : undefined}
-        />
+        <div className="w-full flex flex-col items-center gap-4 p-6 border-2 border-dashed rounded-lg">
+          <p className="text-sm text-muted-foreground">Upload a PDF file to continue</p>
+          
+          {/* Direct file input option */}
+          <input
+            type="file"
+            accept="application/pdf"
+            onChange={handleFileChange}
+            className="hidden"
+            id="direct-pdf-upload"
+          />
+          <label htmlFor="direct-pdf-upload">
+            <Button variant="outline" className="cursor-pointer">
+              <Upload className="mr-2 h-4 w-4" /> Choose PDF
+            </Button>
+          </label>
+          
+          {/* Optional FileUploader for Supabase integration */}
+          {targetPath && (
+            <div className="mt-4">
+              <FileUploader 
+                targetPath={targetPath}
+                onUploadComplete={onUploadComplete}
+                onFileSelected={onFileSelected}
+              />
+            </div>
+          )}
+        </div>
       )}
 
       {fileUrl && (
@@ -81,21 +120,19 @@ const PDFUploader = ({ targetPath }: PDFUploaderProps) => {
             </Button>
           </div>
           
-          {file && (
-            <div className="mt-4 flex justify-center">
-              <Button 
-                variant="outline" 
-                onClick={() => {
-                  setFile(null);
-                  setFileUrl(null);
-                  setNumPages(null);
-                  setPageNumber(1);
-                }}
-              >
-                Upload Another PDF
-              </Button>
-            </div>
-          )}
+          <div className="mt-4 flex justify-center">
+            <Button 
+              variant="outline" 
+              onClick={() => {
+                setFile(null);
+                setFileUrl(null);
+                setNumPages(null);
+                setPageNumber(1);
+              }}
+            >
+              Upload Another PDF
+            </Button>
+          </div>
         </div>
       )}
     </div>
