@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import FileUploader from "./FileUploader";
 import { ChevronLeft, ChevronRight, Upload } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 // Set the worker source
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;

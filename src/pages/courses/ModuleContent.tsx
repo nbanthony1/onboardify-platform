@@ -1,3 +1,4 @@
+
 import { useParams, Link } from "react-router-dom";
 import { courses } from "@/data/courses";
 import PDFViewer from "@/components/onboarding/PDFViewer";
@@ -11,6 +12,7 @@ import VideoPlayer from "@/components/onboarding/VideoPlayer";
 import VideoUploader from "@/components/onboarding/VideoUploader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 const ModuleContent = () => {
   const { id, moduleId } = useParams();
@@ -54,7 +56,7 @@ const ModuleContent = () => {
     // Special case for Installation module to use the PDFUploader
     if (courseId === 2 && moduleId === "5") {
       console.log("Using PDFUploader for module:", moduleId);
-      return <PDFUploader />;
+      return <PDFUploader storageKey="installation-pdf" />;
     }
     
     // Special case for University of Arizona Studies module to use multiple PDFUploaders
