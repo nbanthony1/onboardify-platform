@@ -84,4 +84,26 @@ export class PDFStorageService {
       return { success: false, error };
     }
   }
+
+  /**
+   * Check if a file exists in Supabase storage
+   */
+  static async checkFileExists(path: string): Promise<boolean> {
+    try {
+      const { data, error } = await supabase.storage
+        .from('course_materials')
+        .list(path.split('/').slice(0, -1).join('/'));
+      
+      if (error) {
+        console.error("Error checking file existence:", error);
+        return false;
+      }
+      
+      const filename = path.split('/').pop();
+      return data.some(file => file.name.includes(filename || ''));
+    } catch (error) {
+      console.error("Error checking file:", error);
+      return false;
+    }
+  }
 }

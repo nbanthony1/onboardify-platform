@@ -1,3 +1,4 @@
+
 import { useParams, Link } from "react-router-dom";
 import { courses } from "@/data/courses";
 import { Button } from "@/components/ui/button";
@@ -13,6 +14,8 @@ import {
   MultipleDocumentContent
 } from "@/components/modules";
 import { generateVideoPath, generatePdfPath } from "@/utils/filePathUtils";
+import { toast } from "@/hooks/use-toast";
+import { PDFStorageService } from "@/services/PDFStorageService";
 
 const ModuleContent = () => {
   const { id, moduleId } = useParams();
@@ -22,15 +25,47 @@ const ModuleContent = () => {
   const course = courses.find(c => c.id === courseId);
   const module = course?.modules?.[moduleIndex];
   
-  const [productOverviewPdfUrl, setProductOverviewPdfUrl] = useState<string | null>(null);
+  // For checking persistence of uploads
+  const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
-    if (courseId === 2 && moduleId === "1") {
-      const savedPdf = localStorage.getItem("product-overview-pdf");
-      if (savedPdf) {
-        setProductOverviewPdfUrl(savedPdf);
+    // Check if any of the special PDF storage keys have been saved but are using blob URLs
+    // If so, prompt the user to re-upload
+    const checkStorageKeys = async () => {
+      setIsLoading(true);
+      
+      const keysToCheck = [
+        "product-overview-pdf", 
+        "installation-pdf", 
+        "arizona-study-doc1", 
+        "arizona-study-doc2",
+        "arizona-study-doc3"
+      ];
+      
+      let needsReupload = false;
+      
+      for (const key of keysToCheck) {
+        const savedUrl = PDFStorageService.getFromLocalStorage(key);
+        if (savedUrl && savedUrl.startsWith('blob:')) {
+          // If it's a blob URL, it won't be available in another session
+          PDFStorageService.removeFromLocalStorage(key);
+          needsReupload = true;
+        }
       }
-    }
+      
+      if (needsReupload) {
+        toast({
+          title: "PDF Files Need Re-upload",
+          description: "Some PDF files were stored temporarily and need to be re-uploaded for permanent storage.",
+          variant: "warning",
+          duration: 6000
+        });
+      }
+      
+      setIsLoading(false);
+    };
+    
+    checkStorageKeys();
   }, [courseId, moduleId]);
   
   if (!course || !module) {
@@ -40,6 +75,10 @@ const ModuleContent = () => {
   const moduleContent = typeof module === 'string' ? { title: module, content: '' } : module;
 
   const renderContent = () => {
+    if (isLoading) {
+      return <div className="p-8 text-center">Checking module content...</div>;
+    }
+    
     // Interactive content for specific modules
     if (courseId === 4 && moduleId === "1") {
       return <InteractiveContent contentType="[PATH_PROCESS]" />;
@@ -93,7 +132,6 @@ const ModuleContent = () => {
       );
     }
     
-    // PDF Upload for Course 2, Module 5 (legacy code, keeping for compatibility)
     if (courseId === 2 && moduleId === "5") {
       return <PDFUploadContent 
         targetPath={generatePdfPath(course.title, moduleId, 'installation')}
@@ -101,7 +139,6 @@ const ModuleContent = () => {
       />;
     }
     
-    // Multiple PDFs Upload for Course 2, Module 4 (legacy code, keeping for compatibility)
     if (courseId === 2 && moduleId === "4") {
       return (
         <MultipleDocumentContent 

@@ -18,14 +18,27 @@ const PDFUploader = ({ targetPath, storageKey = 'uploadedPdf', onUploadComplete 
   
   // Check local storage for previously uploaded PDF using the unique storageKey
   useEffect(() => {
-    const savedPdf = PDFStorageService.getFromLocalStorage(storageKey);
-    if (savedPdf) {
-      try {
-        setFileUrl(savedPdf);
-      } catch (error) {
-        console.error("Error loading saved PDF:", error);
+    const loadSavedPdf = async () => {
+      const savedPdf = PDFStorageService.getFromLocalStorage(storageKey);
+      if (savedPdf) {
+        try {
+          // Check if the URL is a Supabase URL
+          if (savedPdf.includes('supabase') && savedPdf.includes('course_materials')) {
+            setFileUrl(savedPdf);
+          } else {
+            // For blob URLs or other temporary URLs, don't use them as they expire
+            // Instead, prompt the user to re-upload
+            console.log("Temporary URL found, requiring re-upload");
+            PDFStorageService.removeFromLocalStorage(storageKey);
+          }
+        } catch (error) {
+          console.error("Error loading saved PDF:", error);
+          PDFStorageService.removeFromLocalStorage(storageKey);
+        }
       }
-    }
+    };
+    
+    loadSavedPdf();
   }, [storageKey]);
 
   const onFileSelected = async (selectedFile: File) => {
@@ -35,11 +48,7 @@ const PDFUploader = ({ targetPath, storageKey = 'uploadedPdf', onUploadComplete 
       setIsUploading(true);
       
       try {
-        // First create a local object URL for immediate preview
-        const objectUrl = URL.createObjectURL(selectedFile);
-        setFileUrl(objectUrl);
-        
-        // If we have a targetPath, we should upload to Supabase for permanent storage
+        // Always prioritize uploading to Supabase for permanent storage
         if (targetPath) {
           const result: UploadResult = await PDFStorageService.uploadToSupabase(selectedFile, targetPath);
           
@@ -47,7 +56,7 @@ const PDFUploader = ({ targetPath, storageKey = 'uploadedPdf', onUploadComplete 
             // Update fileUrl to the permanent URL
             setFileUrl(result.url);
             
-            // Save to local storage as a backup
+            // Save to local storage as a reference
             PDFStorageService.saveToLocalStorage(storageKey, result.url);
             
             // Notify parent component
@@ -65,8 +74,18 @@ const PDFUploader = ({ targetPath, storageKey = 'uploadedPdf', onUploadComplete 
           }
         }
         
-        // Fallback to local storage if Supabase upload fails or isn't available
+        // Fallback to blob URL if Supabase upload fails
+        const objectUrl = URL.createObjectURL(selectedFile);
+        setFileUrl(objectUrl);
+        
+        // Save to local storage with a warning that it's temporary
         PDFStorageService.saveToLocalStorage(storageKey, objectUrl);
+        
+        toast({
+          title: "Local Upload Only",
+          description: "PDF saved locally only. It may not persist across sessions.",
+          variant: "warning"
+        });
         
         // Notify parent component if callback provided
         if (onUploadComplete) {
@@ -108,7 +127,11 @@ const PDFUploader = ({ targetPath, storageKey = 'uploadedPdf', onUploadComplete 
         onFileSelected(selectedFile);
       } else {
         console.log("Invalid file type:", selectedFile.type);
-        alert("Please upload a valid PDF file.");
+        toast({
+          title: "Invalid File Type",
+          description: "Please upload a valid PDF file.",
+          variant: "destructive"
+        });
       }
     }
   };
