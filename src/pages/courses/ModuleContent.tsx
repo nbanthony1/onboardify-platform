@@ -53,6 +53,35 @@ const ModuleContent = () => {
       return <CustomerResearch />;
     }
     
+    // Special case for Product Overview module to allow PDF upload
+    if (courseId === 2 && moduleId === "1") {
+      console.log("Using Product Overview with upload option");
+      return (
+        <div className="space-y-4">
+          <div className="w-full border p-4 rounded-lg shadow-lg">
+            <PDFViewer pdfUrl={moduleContent.content as string} />
+          </div>
+          
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" className="mt-4">
+                Upload New Product Overview PDF
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl">
+              <DialogHeader>
+                <DialogTitle>Upload Product Overview PDF</DialogTitle>
+              </DialogHeader>
+              <PDFUploader 
+                targetPath={moduleContent.content.substring(1)} 
+                storageKey="product-overview-pdf"
+              />
+            </DialogContent>
+          </Dialog>
+        </div>
+      );
+    }
+
     // Special case for Installation module to use the PDFUploader
     if (courseId === 2 && moduleId === "5") {
       console.log("Using PDFUploader for module:", moduleId);
