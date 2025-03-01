@@ -12,7 +12,7 @@ export const RoleButton: React.FC<RoleButtonProps> = ({ title, onClick }) => {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger 
-          className="w-48 p-3 rounded-lg bg-gray-50 border text-base hover:bg-gray-100"
+          className="w-40 p-2 rounded-lg bg-gray-50 border text-sm hover:bg-gray-100"
           onClick={onClick}
         >
           {title}

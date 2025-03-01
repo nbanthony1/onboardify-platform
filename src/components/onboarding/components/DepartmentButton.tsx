@@ -16,7 +16,7 @@ export const DepartmentButton: React.FC<DepartmentButtonProps> = ({ deptName, on
         <TooltipTrigger asChild>
           <button
             onClick={onClick}
-            className={`w-60 p-4 rounded-lg text-lg transition-colors ${
+            className={`w-48 p-3 rounded-lg text-base transition-colors ${
               isSelected
                 ? "bg-primary text-white"
                 : deptName === "Sales"
