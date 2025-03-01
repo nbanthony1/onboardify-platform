@@ -46,19 +46,40 @@ const FileUploader = ({ targetPath, onUploadComplete }: FileUploaderProps) => {
       pathParts.pop(); // Remove the filename
       const folderPath = pathParts.join('/');
       
+      // Explicitly check if the bucket exists first
+      const { data: bucketData, error: bucketError } = await supabase
+        .storage
+        .listBuckets();
+      
+      console.log('Available buckets:', bucketData);
+      
+      if (bucketError) {
+        console.error('Error checking buckets:', bucketError);
+        throw bucketError;
+      }
+      
+      // First, make sure the folder exists
       if (folderPath) {
-        console.log('Checking folder path:', folderPath);
+        console.log('Ensuring folder path exists:', folderPath);
         try {
-          // Try to create the folder structure (this will succeed silently if it already exists)
-          await supabase.storage
+          // List files in the path to ensure it exists
+          const { data: folderData, error: folderError } = await supabase.storage
             .from('course_materials')
-            .createSignedUrl(folderPath, 1); // Just to check if it exists
+            .list(folderPath);
+            
+          console.log('Folder check result:', folderData, folderError);
+          
+          if (folderError && folderError.message !== 'The resource was not found') {
+            console.error('Error checking folder:', folderError);
+          }
         } catch (error) {
-          console.log('Folder might not exist, which is okay. Will be created automatically.');
+          console.log('Folder might not exist, creating it automatically:', error);
         }
       }
 
-      // Upload the file
+      console.log('Proceeding with upload to path:', cleanPath);
+      
+      // Upload the file with explicit content type
       const { data, error } = await supabase.storage
         .from('course_materials')
         .upload(cleanPath, file, {

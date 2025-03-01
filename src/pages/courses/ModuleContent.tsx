@@ -27,8 +27,16 @@ const ModuleContent = () => {
 
   const moduleContent = typeof module === 'string' ? { title: module, content: '' } : module;
 
+  // Debug module information to see if there are any differences
+  console.log('Course and module:', courseId, moduleId, moduleContent);
+
   const generateVideoPath = () => {
     return `course_${courseId}_module_${moduleId}_${Date.now()}.mp4`;
+  };
+
+  const generatePdfPath = (suffix = '') => {
+    const timestamp = Date.now();
+    return `pdfs/${course?.title.replace(/^\d+\.\s/, '').toLowerCase().replace(/\s+/g, '-')}/module-${moduleId}${suffix ? `-${suffix}` : ''}-${timestamp}.pdf`;
   };
 
   const renderContent = () => {
