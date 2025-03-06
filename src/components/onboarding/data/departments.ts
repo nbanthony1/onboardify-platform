@@ -1,3 +1,4 @@
+
 import { Department } from '../types/org-chart';
 
 export const departments: Department[] = [
@@ -133,7 +134,26 @@ export const departments: Department[] = [
       "Regulatory: Ensures all R&D initiatives adhere to relevant industry regulations and standards, facilitating smooth market entry",
       "Compliance: Maintains strict adherence to internal policies and external guidelines, fostering a culture of ethical research and development"
     ],
-    roles: []
+    roles: [
+      {
+        title: "Continuous Product Improvement",
+        responsibilities: [
+          "Continuously refines and enhances existing products through iterative development, customer feedback, and performance analysis to maintain market leadership and drive innovation."
+        ]
+      },
+      {
+        title: "Scientific Research and Data Analysis",
+        responsibilities: [
+          "Conducts rigorous scientific research and analyzes data to inform product development, validate performance, and ensure solutions meet the highest industry standards."
+        ]
+      },
+      {
+        title: "Competitive Analysis and Scientific Research",
+        responsibilities: [
+          "Evaluates market competitors and emerging scientific advancements to identify opportunities for differentiation, innovation, and maintaining a strategic edge in the industry."
+        ]
+      }
+    ]
   },
   {
     name: "Finance",
