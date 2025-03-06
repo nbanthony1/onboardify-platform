@@ -58,7 +58,7 @@ const OrgChart = () => {
               />
 
               {/* Sub-roles for specific departments */}
-              {(deptName === "Marketing" || deptName === "Sales" || deptName === "Operations" || deptName === "R&D") && (
+              {(deptName === "Marketing" || deptName === "Sales" || deptName === "Operations") && (
                 <>
                   <div className="h-4 w-px bg-gray-300"></div>
                   <div className="flex gap-4">
@@ -81,13 +81,6 @@ const OrgChart = () => {
                         key={role.title}
                         title={role.title}
                         onClick={() => setSelectedRole(departments[4].roles[index])}
-                      />
-                    ))}
-                    {deptName === "R&D" && departments[5].roles.map((role, index) => (
-                      <RoleButton
-                        key={role.title}
-                        title={role.title}
-                        onClick={() => setSelectedRole(departments[5].roles[index])}
                       />
                     ))}
                   </div>
