@@ -28,6 +28,10 @@ export const salesProcessCourse: Course = {
         "• Train client teams and partners on system use and maintenance.\n" +
         "• Provide ongoing customer support to address operational concerns.\n" +
         "• Offer troubleshooting and best practices for long-term success."
+    },
+    {
+      title: "Sales Process Video",
+      content: "https://drive.google.com/file/d/1_GMy2qf9XCu4TDfJ1LIRXmSigiNwKSFL/view?ts=67c9e9b1"
     }
   ]
 };

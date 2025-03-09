@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { PDFStorageService } from "@/services/PDFStorageService";
@@ -66,6 +67,10 @@ const ContentRenderer = ({ courseId, moduleId, moduleContent }: ContentRendererP
   
   if (courseId === 4 && moduleId === "1") {
     return <InteractiveContent contentType="[PATH_PROCESS]" />;
+  }
+
+  if (courseId === 4 && moduleId === "2") {
+    return <VideoContent videoUrls={[moduleContent.content]} />;
   }
   
   if (moduleContent.content === '[INTERACTIVE_ORG_CHART]') {
